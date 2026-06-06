@@ -13,8 +13,22 @@ Examples:
   ADDON_ID=Zee/ModerationApi ./scripts/xf-up 2.3.10 8.3
   ADDON_ID=Zee-BotGuard-1.0.0.zip ./scripts/xf-up 2.3.10 8.3
 
+Install every add-on in addons/ (dependency-ordered, e.g. SV/StandardLib first):
+  ADDONS_ALL=1 ./scripts/xf-up 2.3.10 8.3
+
+Add optional service containers (XFES needs Elasticsearch; SV/RedisCache needs Redis):
+  ELASTICSEARCH=1 REDIS=1 ADDONS_ALL=1 ./scripts/xf-up 2.3.10 8.3
+
 Public ngrok example:
   PUBLIC=ngrok NGROK_AUTHTOKEN=YOUR_TOKEN ADDON_ID=Zee/ModerationApi ./scripts/xf-up 2.1.15 7.2
+
+Optional service env vars:
+  ADDONS_ALL=1             Import and install every .zip in addons/, ordered by addon.json "require".
+  ELASTICSEARCH=1          Add an Elasticsearch container for XFES. ES=1 also works.
+  ES_IMAGE=...             Elasticsearch image. Default: docker.elastic.co/elasticsearch/elasticsearch:8.15.3
+  ES_JAVA_OPTS=...         Elasticsearch heap. Default: -Xms512m -Xmx512m
+  REDIS=1                  Add a Redis container (for SV/RedisCache). phpredis is always built into the PHP image.
+  REDIS_IMAGE=...          Redis image. Default: redis:7-alpine
 
 Optional ngrok env vars:
   PUBLIC=ngrok              Enable public ngrok tunnel. NGROK=1 also works.
@@ -42,7 +56,7 @@ INSTANCE_NAME="$(normalise_instance_name "$XF_VERSION" "$PHP_VERSION")"
 PROJECT_NAME="$(normalise_project_name "$XF_VERSION" "$PHP_VERSION")"
 INSTANCE_DIR="$ROOT_DIR/instances/$INSTANCE_NAME"
 WEBROOT="$INSTANCE_DIR/webroot"
-ARCHIVE="$ROOT_DIR/archives/xenforo-$XF_VERSION.zip"
+ARCHIVE="$(resolve_xenforo_archive "$XF_VERSION" || true)"
 PORT="${PORT:-$(calculate_port "$XF_VERSION" "$PHP_VERSION")}" 
 PUBLIC_MODE="${PUBLIC:-${NGROK:-}}"
 NGROK_ENABLED=0
@@ -52,6 +66,14 @@ fi
 NGROK_API_PORT="${NGROK_API_PORT:-$(calculate_ngrok_api_port "$XF_VERSION" "$PHP_VERSION")}" 
 ADDON_ID="${ADDON_ID:-}"
 ADDON_ARCHIVE="${ADDON_ARCHIVE:-}"
+ADDONS_ALL="${ADDONS_ALL:-${ADDON_ALL:-}}"
+ES_ENABLED=0
+case "${ELASTICSEARCH:-${ES:-}}" in 1|true|yes|on) ES_ENABLED=1;; esac
+ES_IMAGE="${ES_IMAGE:-docker.elastic.co/elasticsearch/elasticsearch:8.15.3}"
+ES_JAVA_OPTS="${ES_JAVA_OPTS:--Xms512m -Xmx512m}"
+REDIS_ENABLED=0
+case "${REDIS:-}" in 1|true|yes|on) REDIS_ENABLED=1;; esac
+REDIS_IMAGE="${REDIS_IMAGE:-redis:7-alpine}"
 ADDON_SOURCE_RESOLVED=""
 ADDON_ARCHIVE_RESOLVED=""
 ADDON_IDS_TO_INSTALL=()
@@ -63,7 +85,7 @@ if [[ -z "$ADDON_ID" && -n "$ADDON_ARCHIVE" ]]; then
   ADDON_ID="$ADDON_ARCHIVE"
 fi
 
-[[ -f "$ARCHIVE" ]] || fatal "Missing XenForo archive: $ARCHIVE"
+[[ -n "$ARCHIVE" && -f "$ARCHIVE" ]] || fatal "Missing XenForo archive for version $XF_VERSION. Looked for archives/xenforo-$XF_VERSION.zip and archives/xenforo_$XF_VERSION.zip"
 
 mkdir -p "$INSTANCE_DIR"
 
@@ -136,7 +158,33 @@ fi
 COMPOSE_FILE="$INSTANCE_DIR/compose.yml"
 
 ADDON_VOLUME_BLOCK=""
-if [[ -n "$ADDON_ID" ]]; then
+if [[ -n "$ADDONS_ALL" ]]; then
+  [[ -n "$ADDON_ID" ]] && echo "Note: ADDONS_ALL is set, so ADDON_ID='$ADDON_ID' is ignored."
+  shopt -s nullglob
+  ALL_ADDON_ZIPS=("$ROOT_DIR"/addons/*.zip "$ROOT_DIR"/addons/*.ZIP)
+  shopt -u nullglob
+  [[ "${#ALL_ADDON_ZIPS[@]}" -gt 0 ]] || fatal "ADDONS_ALL is set but no .zip files were found in addons/"
+  COLLECTED_ADDON_IDS=()
+  for addon_zip in "${ALL_ADDON_ZIPS[@]}"; do
+    echo "Importing add-on archive: $(basename "$addon_zip")"
+    # Capture (not process-substitute) so a failed import aborts loudly under set -e.
+    IMPORTED_IDS="$(install_addon_archive_to_webroot "$addon_zip" "$WEBROOT" "$INSTANCE_DIR")" \
+      || fatal "Failed to import add-on archive: $addon_zip"
+    while IFS= read -r addon_id; do
+      [[ -n "$addon_id" ]] && COLLECTED_ADDON_IDS+=("$addon_id")
+    done <<< "$IMPORTED_IDS"
+  done
+  # order_addon_ids_by_dependencies de-dups internally, so pass the raw list.
+  # Capture so a dependency cycle / unreadable addon.json (exit 1) fails loudly
+  # instead of being swallowed by process substitution.
+  ORDERED_ADDON_IDS="$(order_addon_ids_by_dependencies "$WEBROOT" "${COLLECTED_ADDON_IDS[@]}")" \
+    || fatal "Add-on dependency ordering failed (cycle or unreadable addon.json) — see message above."
+  ADDON_IDS_TO_INSTALL=()
+  while IFS= read -r addon_id; do
+    [[ -n "$addon_id" ]] && ADDON_IDS_TO_INSTALL+=("$addon_id")
+  done <<< "$ORDERED_ADDON_IDS"
+  echo "Add-on install order (dependencies first): ${ADDON_IDS_TO_INSTALL[*]}"
+elif [[ -n "$ADDON_ID" ]]; then
   if looks_like_zip_archive "$ADDON_ID"; then
     ADDON_ARCHIVE_RESOLVED="$(resolve_addon_archive "$ADDON_ID")"
     ADDON_IDS_TO_INSTALL=()
@@ -160,6 +208,23 @@ elif [[ "$DB_IMAGE" == mysql:* || "$DB_IMAGE" == */mysql:* || "$DB_IMAGE" == *"/
   DB_PING_BIN="mysqladmin"
 else
   DB_PING_BIN="mariadb-admin"
+fi
+
+ES_BLOCK=""
+if [[ "$ES_ENABLED" -eq 1 ]]; then
+  ES_BLOCK="  elasticsearch:
+    image: $ES_IMAGE
+    environment:
+      discovery.type: single-node
+      xpack.security.enabled: \"false\"
+      ES_JAVA_OPTS: \"$ES_JAVA_OPTS\""
+fi
+
+REDIS_BLOCK=""
+if [[ "$REDIS_ENABLED" -eq 1 ]]; then
+  REDIS_BLOCK="  redis:
+    image: $REDIS_IMAGE
+    command: [\"redis-server\", \"--save\", \"\", \"--appendonly\", \"no\"]"
 fi
 
 cat > "$COMPOSE_FILE" <<YAML
@@ -200,6 +265,8 @@ $ADDON_VOLUME_BLOCK
       interval: 5s
       timeout: 5s
       retries: 30
+$ES_BLOCK
+$REDIS_BLOCK
 YAML
 
 compose_cmd -f "$COMPOSE_FILE" -p "$PROJECT_NAME" up -d --build
@@ -344,16 +411,82 @@ else
   fi
 fi
 
+# Append the SV/RedisCache cache config to config.php exactly once. Pointing the
+# cache at a missing provider class or an unreachable server would fatal XenForo,
+# so this is only ever called after SV/RedisCache is installed and with REDIS=1.
+REDIS_CACHE_AUTOCONFIGURED=0
+enable_redis_cache_config() {
+  if grep -qF 'SV\RedisCache\Redis' "$WEBROOT/src/config.php" 2>/dev/null; then
+    REDIS_CACHE_AUTOCONFIGURED=1
+    return 0
+  fi
+  cat >> "$WEBROOT/src/config.php" <<'PHP'
+
+// Redis caching via SV/RedisCache (added automatically by xf-lab because REDIS=1)
+$config['cache']['sessions'] = true;
+$config['cache']['enabled'] = true;
+$config['cache']['provider'] = \SV\RedisCache\Redis::class;
+$config['cache']['config'] = [
+    'server' => 'redis',
+    'port' => 6379,
+];
+PHP
+  REDIS_CACHE_AUTOCONFIGURED=1
+  echo "Enabled Redis caching in webroot/src/config.php (SV/RedisCache detected, REDIS=1)."
+}
+
 if [[ "${#ADDON_IDS_TO_INSTALL[@]}" -gt 0 ]]; then
   for ADDON_TO_INSTALL in "${ADDON_IDS_TO_INSTALL[@]}"; do
     ADDON_TO_INSTALL_QUOTED="$(shell_quote "$ADDON_TO_INSTALL")"
     echo "Installing/rebuilding add-on: $ADDON_TO_INSTALL"
     compose_cmd -f "$COMPOSE_FILE" -p "$PROJECT_NAME" exec -T php bash -lc "cd /var/www/html && (yes y | php cmd.php xf:addon-install $ADDON_TO_INSTALL_QUOTED || yes y | php cmd.php xf:addon-rebuild $ADDON_TO_INSTALL_QUOTED)"
+    # Configure Redis caching immediately after SV/RedisCache installs, so the
+    # add-ons that depend on it (RedisFloodCheck, RedisViewCounter, ...) install
+    # against a live, configured cache instead of tripping XenForo's
+    # "Redis Cache not configured" warning.
+    if [[ "$REDIS_ENABLED" -eq 1 && "$ADDON_TO_INSTALL" == "SV/RedisCache" ]]; then
+      enable_redis_cache_config
+    fi
   done
 fi
 
 DISPLAY_URL="$BOARD_URL"
 [[ -z "$DISPLAY_URL" ]] && DISPLAY_URL="http://localhost:$PORT"
+
+if [[ "$ES_ENABLED" -eq 1 ]]; then
+  cat <<ESNOTE
+
+Elasticsearch container is running ($ES_IMAGE).
+  In Admin CP -> Setup -> Enhanced Search, set:
+    Elasticsearch host: elasticsearch
+    Port: 9200
+    UNCHECK "Use HTTPS connection"  (the container runs plain HTTP, security disabled)
+    Leave username/password blank
+  Click "Test settings", confirm to enable, then rebuild the search index.
+ESNOTE
+fi
+
+if [[ "$REDIS_ENABLED" -eq 1 ]]; then
+  if [[ "${REDIS_CACHE_AUTOCONFIGURED:-0}" -eq 1 ]]; then
+    cat <<REDISNOTE
+
+Redis container is running ($REDIS_IMAGE), reachable from PHP at host 'redis' port 6379.
+  Redis caching is ENABLED in webroot/src/config.php (SV/RedisCache + phpredis).
+REDISNOTE
+  else
+    cat <<REDISNOTE
+
+Redis container is running ($REDIS_IMAGE), reachable from PHP at host 'redis' port 6379.
+  phpredis is built into the PHP image. To enable Redis caching, install SV/RedisCache
+  (ADDONS_ALL=1 imports it; with REDIS=1 the config below is added automatically) and
+  add to webroot/src/config.php:
+    \$config['cache']['sessions'] = true;
+    \$config['cache']['enabled'] = true;
+    \$config['cache']['provider'] = \\SV\\RedisCache\\Redis::class;
+    \$config['cache']['config'] = ['server' => 'redis', 'port' => 6379];
+REDISNOTE
+  fi
+fi
 
 cat <<DONE
 

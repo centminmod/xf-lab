@@ -90,27 +90,23 @@ Put your licensed XenForo downloads in:
 archives/
 ```
 
-Name each file exactly like:
+Name each file with the version, using **either** a hyphen or an underscore separator
+(both are accepted — XenForo's own downloads use the underscore form):
 
 ```text
-xenforo-2.1.15.zip
-xenforo-2.2.19.zip
-xenforo-2.3.10.zip
+xenforo-2.3.10.zip   or   xenforo_2.3.10.zip
+xenforo-2.2.19.zip   or   xenforo_2.2.19.zip
+xenforo-1.5.24.zip   or   xenforo_1.5.24.zip
 ```
 
-The version in the filename is what you pass to `xf-up`.
-
-For example:
+You can keep **multiple** release ZIPs in `archives/` at once — the version you pass to
+`xf-up` selects exactly one. For example:
 
 ```bash
 ./scripts/xf-up 2.3.10 8.3
 ```
 
-expects:
-
-```text
-archives/xenforo-2.3.10.zip
-```
+uses `archives/xenforo-2.3.10.zip` or `archives/xenforo_2.3.10.zip` (whichever exists).
 
 The ZIP can contain the usual XenForo `upload/` directory. The script will locate and copy that into the generated instance.
 
@@ -235,6 +231,81 @@ or:
 ```text
 addons/Vendor/AddOn/addon.json
 ```
+
+---
+
+## Install every add-on in `addons/` (bulk, dependency-ordered)
+
+Drop any number of add-on release ZIPs into `addons/` and install them all in one run:
+
+```bash
+ADDONS_ALL=1 ./scripts/xf-up 2.3.10 8.3
+```
+
+For each ZIP the lab copies its `upload/` files into the webroot, discovers the add-on
+ID(s) from `upload/src/addons/.../addon.json`, then **installs them in dependency order**.
+The order is computed from each add-on's `addon.json` `require` block (a topological
+sort), so a base library is always installed before the add-ons that depend on it. ZIP
+**filenames are irrelevant** to ordering — only the add-on IDs and their declared
+requirements matter. If two add-ons form a dependency cycle, the run fails loudly rather
+than guessing.
+
+`SV/StandardLib` is treated as a shared base library and is forced ahead of **every**
+other `SV/*` add-on, even ones that do not list it in `require` (for example
+`SV/RedisCache`, which only requires XF/PHP). To extend or override this for other vendor
+libraries, set `ADDON_BASE_LIBS` to a space- or comma-separated list of add-on IDs, e.g.
+`ADDON_BASE_LIBS="SV/StandardLib Other/CoreLib"`.
+
+`ADDONS_ALL=1` ignores `ADDON_ID`. Add-ons whose requirements are not met by the chosen
+XenForo/PHP version (for example an add-on needing XF 2.3 on a 2.1 instance) will report
+an install error — which is the point of a compatibility lab.
+
+## Optional Elasticsearch and Redis services
+
+Some add-ons need a backing service. These are **opt-in** containers on the same Compose
+network; they publish **no host ports** (PHP reaches them by service name, exactly like
+`db`), so multiple instances never collide.
+
+```bash
+# XenForo Enhanced Search (XFES) needs Elasticsearch; SV/RedisCache needs Redis.
+ELASTICSEARCH=1 REDIS=1 ADDONS_ALL=1 ./scripts/xf-up 2.3.10 8.3
+```
+
+**Elasticsearch (XFES).** After the instance is up, configure it in the Admin CP under
+**Setup → Enhanced Search**: host `elasticsearch`, port `9200`, **uncheck "Use HTTPS
+connection"** (the container runs plain HTTP — security is disabled), leave username/password
+blank. Click **Test settings**, confirm to enable, then rebuild the search index — either via
+the Admin CP, or from the CLI:
+
+```bash
+./scripts/xf-run 2.3.7 8.3 php cmd.php xf-rebuild:search
+```
+
+The container runs single-node with security disabled and a 512 MB heap (override with
+`ES_IMAGE` / `ES_JAVA_OPTS`). Verified working end-to-end: new threads live-index to
+Elasticsearch and front-end search returns them relevance-ordered through `elasticsearch:9200`.
+
+**Redis.** The `phpredis` PECL extension is **always** built into the PHP image (pinned to
+`redis-5.3.7` on PHP < 7.4, latest otherwise), so it is present even without `REDIS=1`.
+`REDIS=1` adds a `redis` container reachable from PHP at host `redis`, port `6379`.
+
+When `REDIS=1` **and** `SV/RedisCache` is among the installed add-ons (e.g. via
+`ADDONS_ALL=1`), the lab **automatically appends** this config to
+`instances/<name>/webroot/src/config.php` (taken from the add-on's own
+`config-examples/config.redis-example-minimal.php`, with `server` pointed at the `redis`
+container):
+
+```php
+$config['cache']['sessions'] = true;
+$config['cache']['enabled']  = true;
+$config['cache']['provider'] = \SV\RedisCache\Redis::class;
+$config['cache']['config']   = ['server' => 'redis', 'port' => 6379];
+```
+
+It is appended only once (idempotent), and **only** when both conditions hold — pointing
+`provider` at a class from an add-on that is not installed, or at a Redis server that is
+not running, would fatal XenForo. Without `REDIS=1`, or without `SV/RedisCache`, nothing is
+written and you can add the block above yourself.
 
 ---
 
@@ -433,6 +504,12 @@ including the database, extracted XenForo files, ngrok token copy, logs, and gen
 | `SERVICE` | Compose service that `xf-shell`/`xf-run` target. Default: `php`. Use `db` for the database container. |
 | `ADDON_ID` | XenForo add-on ID, for example `Vendor/AddOn`. |
 | `ADDON_SOURCE` | Optional external path to the add-on source. |
+| `ADDONS_ALL=1` | Import and install **every** `.zip` in `addons/`, ordered by each add-on's `addon.json` `require` (e.g. `SV/StandardLib` installs before SV add-ons that depend on it). Overrides `ADDON_ID`. |
+| `ELASTICSEARCH=1` | Add an Elasticsearch container for XenForo Enhanced Search (XFES). `ES=1` also works. |
+| `ES_IMAGE` | Elasticsearch image. Default: `docker.elastic.co/elasticsearch/elasticsearch:8.15.3`. |
+| `ES_JAVA_OPTS` | Elasticsearch JVM heap. Default: `-Xms512m -Xmx512m`. |
+| `REDIS=1` | Add a Redis container (for the `SV/RedisCache` add-on). The `phpredis` extension is always built into the PHP image. |
+| `REDIS_IMAGE` | Redis image. Default: `redis:7-alpine`. |
 | `PUBLIC=ngrok` | Enable public ngrok tunnel mode. |
 | `NGROK=1` | Alternative way to enable ngrok mode. |
 | `NGROK_AUTHTOKEN` | ngrok authtoken. Required on first public run for an instance. |

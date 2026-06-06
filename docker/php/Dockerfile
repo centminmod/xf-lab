@@ -52,6 +52,17 @@ RUN set -eux; \
     a2enmod rewrite headers; \
     rm -rf /var/lib/apt/lists/*
 
+# phpredis (PECL) for XenForo Redis caching. phpredis 6.x needs PHP 7.4+, so pin
+# 5.3.7 for older PHP (e.g. 7.2). docker-php-ext-enable loads it for CLI + Apache.
+RUN set -eux; \
+    if php -r 'exit(PHP_VERSION_ID < 70400 ? 0 : 1);'; then \
+        pecl install redis-5.3.7; \
+    else \
+        pecl install redis; \
+    fi; \
+    docker-php-ext-enable redis; \
+    php -m | grep -qi '^redis$'
+
 COPY docker/php/xenforo.ini /usr/local/etc/php/conf.d/zz-xenforo.ini
 COPY tools/xf-auto-install.expect /usr/local/bin/xf-auto-install
 RUN chmod +x /usr/local/bin/xf-auto-install

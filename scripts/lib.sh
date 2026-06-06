@@ -81,6 +81,25 @@ looks_like_zip_archive() {
   [[ "$value" == *.zip || "$value" == *.ZIP ]]
 }
 
+# resolve_xenforo_archive <version>
+# Finds the XenForo release ZIP for a specific version in archives/, tolerating
+# both the hyphen and underscore naming conventions. Multiple release ZIPs can
+# coexist (e.g. xenforo_1.5.24.zip, xenforo_2.3.7.zip, xenforo_2.3.10.zip) — the
+# version argument selects exactly one. Prints the absolute path, or returns 1.
+resolve_xenforo_archive() {
+  local version="$1" candidate
+  [[ -n "$version" ]] || return 1
+  for candidate in \
+    "$ROOT_DIR/archives/xenforo-$version.zip" \
+    "$ROOT_DIR/archives/xenforo_$version.zip"; do
+    if [[ -f "$candidate" ]]; then
+      abs_path "$candidate"
+      return 0
+    fi
+  done
+  return 1
+}
+
 resolve_addon_archive() {
   local archive_spec="$1"
   local candidate
@@ -280,4 +299,80 @@ calculate_ngrok_api_port() {
 
 shell_quote() {
   python3 -c 'import shlex, sys; print(shlex.quote(sys.argv[1]))' "$1"
+}
+
+# order_addon_ids_by_dependencies <webroot> <addon_id> [addon_id...]
+# Reads each add-on's webroot/src/addons/<id>/addon.json "require" block and emits
+# the IDs in install order (dependencies first) via a Kahn topological sort.
+# An edge is created only when a require key matches another ID in the supplied set
+# (so XF/php/etc are ignored automatically). Ties break alphabetically for
+# determinism. Fails loudly on a dependency cycle so breakage stays visible.
+order_addon_ids_by_dependencies() {
+  local webroot="$1"
+  shift
+  [[ "$#" -gt 0 ]] || return 0
+
+  python3 - "$webroot" "$@" <<'PY'
+import json
+import os
+import sys
+
+webroot = sys.argv[1]
+ids = list(dict.fromkeys(sys.argv[2:]))  # de-dup, preserve first-seen order
+idset = set(ids)
+
+# edges[i] = set of IDs that must be installed before i
+edges = {i: set() for i in ids}
+for i in ids:
+    path = os.path.join(webroot, 'src', 'addons', i, 'addon.json')
+    require = {}
+    try:
+        with open(path, encoding='utf-8') as fh:
+            require = (json.load(fh) or {}).get('require', {}) or {}
+    except (FileNotFoundError, ValueError):
+        require = {}
+    for key in require:
+        if key in idset and key != i:
+            edges[i].add(key)
+
+# Implicit "base library first" edges: some shared libraries must be installed
+# before same-vendor add-ons even when those add-ons do not declare the
+# dependency in addon.json (e.g. SV/StandardLib before every other SV/* add-on,
+# including SV/RedisCache which only requires XF/php). Extend/override via the
+# ADDON_BASE_LIBS env var (space- or comma-separated list of add-on IDs).
+base_libs_env = os.environ.get('ADDON_BASE_LIBS', 'SV/StandardLib')
+base_libs = {b for b in base_libs_env.replace(',', ' ').split() if b}
+for base in base_libs:
+    if base in idset:
+        base_vendor = base.split('/', 1)[0]
+        for i in ids:
+            if i != base and i.split('/', 1)[0] == base_vendor:
+                edges[i].add(base)
+
+dependents = {i: set() for i in ids}
+for i in ids:
+    for dep in edges[i]:
+        dependents[dep].add(i)
+
+indeg = {i: len(edges[i]) for i in ids}
+ready = sorted(i for i in ids if indeg[i] == 0)
+order = []
+while ready:
+    node = ready.pop(0)
+    order.append(node)
+    for child in sorted(dependents[node]):
+        indeg[child] -= 1
+        if indeg[child] == 0:
+            ready.append(child)
+    ready.sort()
+
+if len(order) != len(ids):
+    stuck = sorted(set(ids) - set(order))
+    sys.stderr.write(
+        "Dependency cycle or unresolvable order among add-ons: %s\n" % ", ".join(stuck)
+    )
+    sys.exit(1)
+
+print("\n".join(order))
+PY
 }
