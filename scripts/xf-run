@@ -10,6 +10,9 @@ Usage:
 Example:
   ./scripts/xf-run 2.3.10 8.3 -- php -v
   ./scripts/xf-run 2.3.10 8.3 -- php cmd.php list
+
+Optional:
+  SERVICE=db ./scripts/xf-run 2.3.10 8.3 -- mariadb -uroot -proot   Run in another service (default: php)
 USAGE
 }
 
@@ -24,5 +27,11 @@ PROJECT_NAME="$(normalise_project_name "$XF_VERSION" "$PHP_VERSION")"
 INSTANCE_DIR="$ROOT_DIR/instances/$INSTANCE_NAME"
 COMPOSE_FILE="$INSTANCE_DIR/compose.yml"
 
+SERVICE="${SERVICE:-php}"
+
 [[ -f "$COMPOSE_FILE" ]] || fatal "No instance found. Run: ./scripts/xf-up $XF_VERSION $PHP_VERSION"
-compose_cmd -f "$COMPOSE_FILE" -p "$PROJECT_NAME" exec -T php bash -lc "cd /var/www/html && $*"
+if [[ "$SERVICE" == "php" ]]; then
+  compose_cmd -f "$COMPOSE_FILE" -p "$PROJECT_NAME" exec -T php bash -lc "cd /var/www/html && $*"
+else
+  compose_cmd -f "$COMPOSE_FILE" -p "$PROJECT_NAME" exec -T "$SERVICE" bash -lc "$*"
+fi

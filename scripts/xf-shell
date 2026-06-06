@@ -9,6 +9,9 @@ Usage:
 
 Example:
   ./scripts/xf-shell 2.3.10 8.3
+
+Optional:
+  SERVICE=db ./scripts/xf-shell 2.3.10 8.3   Shell into another compose service (default: php)
 USAGE
 }
 
@@ -22,5 +25,7 @@ PROJECT_NAME="$(normalise_project_name "$XF_VERSION" "$PHP_VERSION")"
 INSTANCE_DIR="$ROOT_DIR/instances/$INSTANCE_NAME"
 COMPOSE_FILE="$INSTANCE_DIR/compose.yml"
 
+SERVICE="${SERVICE:-php}"
+
 [[ -f "$COMPOSE_FILE" ]] || fatal "No instance found. Run: ./scripts/xf-up $XF_VERSION $PHP_VERSION"
-compose_cmd -f "$COMPOSE_FILE" -p "$PROJECT_NAME" exec php bash
+compose_cmd -f "$COMPOSE_FILE" -p "$PROJECT_NAME" exec "$SERVICE" bash

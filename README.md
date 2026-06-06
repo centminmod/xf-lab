@@ -135,8 +135,8 @@ You should get output similar to:
 ```text
 Instance ready.
 
-  Forum:  http://localhost:8233/
-  Admin:  http://localhost:8233/admin.php
+  Forum:  http://localhost:8383/
+  Admin:  http://localhost:8383/admin.php
   User:   admin
   Pass:   Admin123Pass
 ```
@@ -428,6 +428,9 @@ including the database, extracted XenForo files, ngrok token copy, logs, and gen
 | Variable | Purpose |
 |---|---|
 | `PORT` | Override the local HTTP port. |
+| `DB_IMAGE` | Database container image. Default: `mariadb:10.6`. For example `mariadb:10.11` or `mysql:8.0`. |
+| `DB_PING_BIN` | Override the healthcheck/readiness ping binary. Auto-selected from `DB_IMAGE` (`mariadb-admin` for MariaDB, `mysqladmin` for MySQL). |
+| `SERVICE` | Compose service that `xf-shell`/`xf-run` target. Default: `php`. Use `db` for the database container. |
 | `ADDON_ID` | XenForo add-on ID, for example `Vendor/AddOn`. |
 | `ADDON_SOURCE` | Optional external path to the add-on source. |
 | `PUBLIC=ngrok` | Enable public ngrok tunnel mode. |

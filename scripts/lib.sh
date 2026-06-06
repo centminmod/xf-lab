@@ -255,10 +255,11 @@ install_addon_archive_to_webroot() {
 wait_for_db() {
   local compose_file="$1"
   local project_name="$2"
+  local ping_bin="${3:-mariadb-admin}"
   local max=90
   local i
   for ((i=1; i<=max; i++)); do
-    if compose_cmd -f "$compose_file" -p "$project_name" exec -T db mariadb-admin ping -uroot -proot --silent >/dev/null 2>&1; then
+    if compose_cmd -f "$compose_file" -p "$project_name" exec -T db "$ping_bin" ping -uroot -proot --silent >/dev/null 2>&1; then
       return 0
     fi
     sleep 2

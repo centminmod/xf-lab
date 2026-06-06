@@ -124,6 +124,7 @@ PY
 \$config['db']['dbname'] = 'xenforo';
 \$config['fullUnicode'] = true;
 \$config['enableMail'] = false;
+\$config['enableAddOnArchiveInstaller'] = true;
 \$config['development']['enabled'] = true;
 \$config['chmodWritableValue'] = 0666;
 PHP
@@ -152,6 +153,15 @@ if [[ -n "$ADDON_ID" ]]; then
   fi
 fi
 
+DB_IMAGE="${DB_IMAGE:-mariadb:10.6}"
+if [[ -n "${DB_PING_BIN:-}" ]]; then
+  :
+elif [[ "$DB_IMAGE" == mysql:* || "$DB_IMAGE" == */mysql:* || "$DB_IMAGE" == *"/mysql-server"* ]]; then
+  DB_PING_BIN="mysqladmin"
+else
+  DB_PING_BIN="mariadb-admin"
+fi
+
 cat > "$COMPOSE_FILE" <<YAML
 services:
   php:
@@ -176,7 +186,7 @@ $ADDON_VOLUME_BLOCK
       XF_BOARD_URL: "$BOARD_URL"
 
   db:
-    image: mariadb:10.6
+    image: $DB_IMAGE
     command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     environment:
       MYSQL_DATABASE: xenforo
@@ -186,14 +196,14 @@ $ADDON_VOLUME_BLOCK
     volumes:
       - "$INSTANCE_DIR/mysql:/var/lib/mysql:rw"
     healthcheck:
-      test: ["CMD", "mariadb-admin", "ping", "-uroot", "-proot", "--silent"]
+      test: ["CMD", "$DB_PING_BIN", "ping", "-uroot", "-proot", "--silent"]
       interval: 5s
       timeout: 5s
       retries: 30
 YAML
 
 compose_cmd -f "$COMPOSE_FILE" -p "$PROJECT_NAME" up -d --build
-wait_for_db "$COMPOSE_FILE" "$PROJECT_NAME"
+wait_for_db "$COMPOSE_FILE" "$PROJECT_NAME" "$DB_PING_BIN"
 
 compose_cmd -f "$COMPOSE_FILE" -p "$PROJECT_NAME" exec -T php bash -lc 'mkdir -p /var/www/html/data /var/www/html/internal_data && chown -R www-data:www-data /var/www/html/data /var/www/html/internal_data /var/www/html/src/config.php || true'
 
