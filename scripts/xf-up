@@ -214,6 +214,7 @@ ES_BLOCK=""
 if [[ "$ES_ENABLED" -eq 1 ]]; then
   ES_BLOCK="  elasticsearch:
     image: $ES_IMAGE
+    restart: unless-stopped
     environment:
       discovery.type: single-node
       xpack.security.enabled: \"false\"
@@ -224,6 +225,7 @@ REDIS_BLOCK=""
 if [[ "$REDIS_ENABLED" -eq 1 ]]; then
   REDIS_BLOCK="  redis:
     image: $REDIS_IMAGE
+    restart: unless-stopped
     command: [\"redis-server\", \"--save\", \"\", \"--appendonly\", \"no\"]"
 fi
 
@@ -237,6 +239,7 @@ services:
         PHP_VERSION: "$PHP_VERSION"
     ports:
       - "$PORT:80"
+    restart: unless-stopped
     volumes:
       - "$WEBROOT:/var/www/html:rw"
 $ADDON_VOLUME_BLOCK
@@ -252,6 +255,7 @@ $ADDON_VOLUME_BLOCK
 
   db:
     image: $DB_IMAGE
+    restart: unless-stopped
     command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     environment:
       MYSQL_DATABASE: xenforo
