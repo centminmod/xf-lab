@@ -28,7 +28,7 @@ Optional service env vars:
   ES_IMAGE=...             Elasticsearch image. Default: docker.elastic.co/elasticsearch/elasticsearch:8.15.3
   ES_JAVA_OPTS=...         Elasticsearch heap. Default: -Xms512m -Xmx512m
   REDIS=1                  Add a Redis container (for SV/RedisCache). phpredis is always built into the PHP image.
-  REDIS_IMAGE=...          Redis image. Default: redis:7-alpine
+  REDIS_IMAGE=...          Redis image. Default: redis:8-alpine
 
 Optional ngrok env vars:
   PUBLIC=ngrok              Enable public ngrok tunnel. NGROK=1 also works.
@@ -73,7 +73,7 @@ ES_IMAGE="${ES_IMAGE:-docker.elastic.co/elasticsearch/elasticsearch:8.15.3}"
 ES_JAVA_OPTS="${ES_JAVA_OPTS:--Xms512m -Xmx512m}"
 REDIS_ENABLED=0
 case "${REDIS:-}" in 1|true|yes|on) REDIS_ENABLED=1;; esac
-REDIS_IMAGE="${REDIS_IMAGE:-redis:7-alpine}"
+REDIS_IMAGE="${REDIS_IMAGE:-redis:8-alpine}"
 ADDON_SOURCE_RESOLVED=""
 ADDON_ARCHIVE_RESOLVED=""
 ADDON_IDS_TO_INSTALL=()

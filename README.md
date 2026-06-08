@@ -509,7 +509,7 @@ including the database, extracted XenForo files, ngrok token copy, logs, and gen
 | `ES_IMAGE` | Elasticsearch image. Default: `docker.elastic.co/elasticsearch/elasticsearch:8.15.3`. |
 | `ES_JAVA_OPTS` | Elasticsearch JVM heap. Default: `-Xms512m -Xmx512m`. |
 | `REDIS=1` | Add a Redis container (for the `SV/RedisCache` add-on). The `phpredis` extension is always built into the PHP image. |
-| `REDIS_IMAGE` | Redis image. Default: `redis:7-alpine`. |
+| `REDIS_IMAGE` | Redis image. Default: `redis:8-alpine`. |
 | `PUBLIC=ngrok` | Enable public ngrok tunnel mode. |
 | `NGROK=1` | Alternative way to enable ngrok mode. |
 | `NGROK_AUTHTOKEN` | ngrok authtoken. Required on first public run for an instance. |
