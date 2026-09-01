@@ -13,7 +13,7 @@ This project is intended for development and compatibility testing only.
 `xf-lab` lets you run commands like:
 
 ```bash
-./scripts/xf-up 2.3.10 8.3
+./scripts/xf-up 2.3.12 8.3
 ```
 
 or:
@@ -94,7 +94,7 @@ Name each file with the version, using **either** a hyphen or an underscore sepa
 (both are accepted — XenForo's own downloads use the underscore form):
 
 ```text
-xenforo-2.3.10.zip   or   xenforo_2.3.10.zip
+xenforo-2.3.12.zip   or   xenforo_2.3.12.zip
 xenforo-2.2.19.zip   or   xenforo_2.2.19.zip
 xenforo-1.5.24.zip   or   xenforo_1.5.24.zip
 ```
@@ -103,10 +103,10 @@ You can keep **multiple** release ZIPs in `archives/` at once — the version yo
 `xf-up` selects exactly one. For example:
 
 ```bash
-./scripts/xf-up 2.3.10 8.3
+./scripts/xf-up 2.3.12 8.3
 ```
 
-uses `archives/xenforo-2.3.10.zip` or `archives/xenforo_2.3.10.zip` (whichever exists).
+uses `archives/xenforo-2.3.12.zip` or `archives/xenforo_2.3.12.zip` (whichever exists).
 
 The ZIP can contain the usual XenForo `upload/` directory. The script will locate and copy that into the generated instance.
 
@@ -123,7 +123,7 @@ chmod +x scripts/* tools/*
 Start a local-only XenForo instance:
 
 ```bash
-./scripts/xf-up 2.3.10 8.3
+./scripts/xf-up 2.3.12 8.3
 ```
 
 You should get output similar to:
@@ -144,7 +144,7 @@ The port is calculated from the XenForo/PHP versions so multiple instances can r
 ## Start with a custom port
 
 ```bash
-PORT=9090 ./scripts/xf-up 2.3.10 8.3
+PORT=9090 ./scripts/xf-up 2.3.12 8.3
 ```
 
 ---
@@ -166,7 +166,7 @@ addons/Vendor/AddOn/addon.json
 Then run:
 
 ```bash
-ADDON_ID=Vendor/AddOn ./scripts/xf-up 2.3.10 8.3
+ADDON_ID=Vendor/AddOn ./scripts/xf-up 2.3.12 8.3
 ```
 
 The add-on is mounted into:
@@ -192,22 +192,22 @@ That `upload/` directory is relative to the XenForo root, not relative to `src/a
 You can put add-on ZIP files in `addons/`, `archives/`, or pass an absolute/relative path:
 
 ```bash
-ADDON_ID=Zee-BotGuard-1.0.0.zip ./scripts/xf-up 2.3.10 8.3
-ADDON_ID=addons/Zee-BotGuard-1.0.0.zip ./scripts/xf-up 2.3.10 8.3
-ADDON_ID=/Users/you/Downloads/Zee-BotGuard-1.0.0.zip ./scripts/xf-up 2.3.10 8.3
+ADDON_ID=Zee-BotGuard-1.0.0.zip ./scripts/xf-up 2.3.12 8.3
+ADDON_ID=addons/Zee-BotGuard-1.0.0.zip ./scripts/xf-up 2.3.12 8.3
+ADDON_ID=/Users/you/Downloads/Zee-BotGuard-1.0.0.zip ./scripts/xf-up 2.3.12 8.3
 ```
 
 `ADDON_ARCHIVE` is also accepted as a clearer alias:
 
 ```bash
-ADDON_ARCHIVE=Zee-BotGuard-1.0.0.zip ./scripts/xf-up 2.3.10 8.3
+ADDON_ARCHIVE=Zee-BotGuard-1.0.0.zip ./scripts/xf-up 2.3.12 8.3
 ```
 
 For an already-running instance, use the same ZIP input with `xf-addon` to copy the archive files into the existing webroot and run the XenForo CLI action:
 
 ```bash
-ADDON_ID=Zee-BotGuard-1.0.1.zip ./scripts/xf-addon 2.3.10 8.3 upgrade
-ADDON_ID=Zee-BotGuard-1.0.1.zip ./scripts/xf-addon 2.3.10 8.3 rebuild
+ADDON_ID=Zee-BotGuard-1.0.1.zip ./scripts/xf-addon 2.3.12 8.3 upgrade
+ADDON_ID=Zee-BotGuard-1.0.1.zip ./scripts/xf-addon 2.3.12 8.3 rebuild
 ```
 
 ### Use an external add-on path
@@ -217,7 +217,7 @@ You can keep your add-on in another repo:
 ```bash
 ADDON_ID=Vendor/AddOn \
 ADDON_SOURCE=/Users/you/code/my-addon/src/addons/Vendor/AddOn \
-./scripts/xf-up 2.3.10 8.3
+./scripts/xf-up 2.3.12 8.3
 ```
 
 You can also point `ADDON_SOURCE` at a project root that contains:
@@ -239,7 +239,7 @@ addons/Vendor/AddOn/addon.json
 Drop any number of add-on release ZIPs into `addons/` and install them all in one run:
 
 ```bash
-ADDONS_ALL=1 ./scripts/xf-up 2.3.10 8.3
+ADDONS_ALL=1 ./scripts/xf-up 2.3.12 8.3
 ```
 
 For each ZIP the lab copies its `upload/` files into the webroot, discovers the add-on
@@ -268,7 +268,7 @@ network; they publish **no host ports** (PHP reaches them by service name, exact
 
 ```bash
 # XenForo Enhanced Search (XFES) needs Elasticsearch; SV/RedisCache needs Redis.
-ELASTICSEARCH=1 REDIS=1 ADDONS_ALL=1 ./scripts/xf-up 2.3.10 8.3
+ELASTICSEARCH=1 REDIS=1 ADDONS_ALL=1 ./scripts/xf-up 2.3.12 8.3
 ```
 
 **Elasticsearch (XFES).** After the instance is up, configure it in the Admin CP under
@@ -278,7 +278,7 @@ blank. Click **Test settings**, confirm to enable, then rebuild the search index
 the Admin CP, or from the CLI:
 
 ```bash
-./scripts/xf-run 2.3.7 8.3 php cmd.php xf-rebuild:search
+./scripts/xf-run 2.3.12 8.3 php cmd.php xf-rebuild:search
 ```
 
 The container runs single-node with security disabled and a 512 MB heap (override with
@@ -319,7 +319,7 @@ Use public mode:
 PUBLIC=ngrok \
 NGROK_AUTHTOKEN='YOUR_NGROK_TOKEN' \
 ADDON_ID=Vendor/AddOn \
-./scripts/xf-up 2.3.10 8.3
+./scripts/xf-up 2.3.12 8.3
 ```
 
 The script will:
@@ -377,7 +377,7 @@ PUBLIC=ngrok \
 NGROK_AUTH_USER=dev \
 NGROK_AUTH_PASS='SomeLongPassword123' \
 ADDON_ID=Vendor/AddOn \
-./scripts/xf-up 2.3.10 8.3
+./scripts/xf-up 2.3.12 8.3
 ```
 
 ### Disable Basic Auth
@@ -388,7 +388,7 @@ If your external backend must call XenForo and cannot send Basic Auth credential
 PUBLIC=ngrok \
 NGROK_AUTH=0 \
 ADDON_ID=Vendor/AddOn \
-./scripts/xf-up 2.3.10 8.3
+./scripts/xf-up 2.3.12 8.3
 ```
 
 Only do this while actively testing. Stop or destroy the instance afterwards.
@@ -403,7 +403,7 @@ If your ngrok account has a reserved/static domain, pass it with `NGROK_URL`:
 PUBLIC=ngrok \
 NGROK_URL=https://your-static-domain.ngrok-free.app \
 ADDON_ID=Vendor/AddOn \
-./scripts/xf-up 2.3.10 8.3
+./scripts/xf-up 2.3.12 8.3
 ```
 
 This is useful when your backend stores or validates the board URL.
@@ -425,10 +425,10 @@ Common examples:
 ./scripts/xf-up 2.2.19 8.1
 ./scripts/xf-up 2.2.19 8.2
 
-./scripts/xf-up 2.3.10 8.1
-./scripts/xf-up 2.3.10 8.2
-./scripts/xf-up 2.3.10 8.3
-./scripts/xf-up 2.3.10 8.4
+./scripts/xf-up 2.3.12 8.1
+./scripts/xf-up 2.3.12 8.2
+./scripts/xf-up 2.3.12 8.3
+./scripts/xf-up 2.3.12 8.4
 ```
 
 Older PHP images may require archived Debian package repositories. The included Dockerfile handles the common PHP 7.2 / Debian Buster case.
@@ -446,48 +446,48 @@ Older PHP images may require archived Debian package repositories. The included 
 ### Open a shell inside the PHP container
 
 ```bash
-./scripts/xf-shell 2.3.10 8.3
+./scripts/xf-shell 2.3.12 8.3
 ```
 
 ### Run a command inside the PHP container
 
 ```bash
-./scripts/xf-run 2.3.10 8.3 -- php -v
+./scripts/xf-run 2.3.12 8.3 -- php -v
 ```
 
 ```bash
-./scripts/xf-run 2.3.10 8.3 -- php cmd.php list
+./scripts/xf-run 2.3.12 8.3 -- php cmd.php list
 ```
 
 ### Run add-on commands
 
 ```bash
-ADDON_ID=Vendor/AddOn ./scripts/xf-addon 2.3.10 8.3 install
-ADDON_ID=Vendor/AddOn ./scripts/xf-addon 2.3.10 8.3 upgrade
-ADDON_ID=Vendor/AddOn ./scripts/xf-addon 2.3.10 8.3 rebuild
-ADDON_ID=Vendor/AddOn ./scripts/xf-addon 2.3.10 8.3 uninstall
-ADDON_ID=Vendor/AddOn ./scripts/xf-addon 2.3.10 8.3 enable
-ADDON_ID=Vendor/AddOn ./scripts/xf-addon 2.3.10 8.3 disable
-ADDON_ID=Vendor/AddOn ./scripts/xf-addon 2.3.10 8.3 validate-json
-ADDON_ID=Vendor/AddOn ./scripts/xf-addon 2.3.10 8.3 sync-json
+ADDON_ID=Vendor/AddOn ./scripts/xf-addon 2.3.12 8.3 install
+ADDON_ID=Vendor/AddOn ./scripts/xf-addon 2.3.12 8.3 upgrade
+ADDON_ID=Vendor/AddOn ./scripts/xf-addon 2.3.12 8.3 rebuild
+ADDON_ID=Vendor/AddOn ./scripts/xf-addon 2.3.12 8.3 uninstall
+ADDON_ID=Vendor/AddOn ./scripts/xf-addon 2.3.12 8.3 enable
+ADDON_ID=Vendor/AddOn ./scripts/xf-addon 2.3.12 8.3 disable
+ADDON_ID=Vendor/AddOn ./scripts/xf-addon 2.3.12 8.3 validate-json
+ADDON_ID=Vendor/AddOn ./scripts/xf-addon 2.3.12 8.3 sync-json
 ```
 
 ### Stop an instance but keep files/database
 
 ```bash
-./scripts/xf-down 2.3.10 8.3
+./scripts/xf-down 2.3.12 8.3
 ```
 
 ### Destroy an instance completely
 
 ```bash
-./scripts/xf-down 2.3.10 8.3 --destroy
+./scripts/xf-down 2.3.12 8.3 --destroy
 ```
 
 This deletes:
 
 ```text
-instances/xf-2.3.10-php-8.3/
+instances/xf-2.3.12-php-8.3/
 ```
 
 including the database, extracted XenForo files, ngrok token copy, logs, and generated config.
@@ -531,13 +531,13 @@ The script could not find the expected ZIP.
 Example:
 
 ```bash
-./scripts/xf-up 2.3.10 8.3
+./scripts/xf-up 2.3.12 8.3
 ```
 
 requires:
 
 ```text
-archives/xenforo-2.3.10.zip
+archives/xenforo-2.3.12.zip
 ```
 
 ### `Missing command: docker`
@@ -565,8 +565,8 @@ Table 'xenforo.xf_data_registry' doesn't exist
 the XenForo install did not complete correctly. Destroy the half-created instance and rerun:
 
 ```bash
-./scripts/xf-down 2.3.10 8.3 --destroy
-./scripts/xf-up 2.3.10 8.3
+./scripts/xf-down 2.3.12 8.3 --destroy
+./scripts/xf-up 2.3.12 8.3
 ```
 
 ### ngrok URL changed but XenForo still uses the old board URL
@@ -576,11 +576,11 @@ If an instance was already installed, XenForo may still store the old board URL.
 For a clean public test:
 
 ```bash
-./scripts/xf-down 2.3.10 8.3 --destroy
+./scripts/xf-down 2.3.12 8.3 --destroy
 
 PUBLIC=ngrok \
 ADDON_ID=Vendor/AddOn \
-./scripts/xf-up 2.3.10 8.3
+./scripts/xf-up 2.3.12 8.3
 ```
 
 ### PHP 7.2 build issues
