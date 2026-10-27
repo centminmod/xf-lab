@@ -1,0 +1,14 @@
+{
+  "legacyUserId": 2,
+  "threadId": 3,
+  "postId": 3,
+  "attachmentId": 1,
+  "attachmentDataId": 1,
+  "attachmentSha256": "0b62ac71b94f6474796ee682094e895e9b0b209324aa228c1fd40fa0c6e306da",
+  "users": 2,
+  "threads": 3,
+  "posts": 3,
+  "attachmentCount": 1,
+  "pendingBridgeJobs": 1,
+  "sourceVersion": 1055070
+}

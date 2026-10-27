@@ -1,0 +1,35 @@
+{
+  "targetVersion": 2031370,
+  "users": 2,
+  "threads": 3,
+  "posts": 3,
+  "attachmentCount": 1,
+  "adminCore12PasswordValid": true,
+  "legacyCorePasswordValid": true,
+  "wrongPasswordRejected": true,
+  "adminAuthScheme": "XF:Core12",
+  "legacyAuthScheme": "XF:Core",
+  "occupationPreserved": true,
+  "genderPreserved": true,
+  "threadTitlePreserved": true,
+  "attachmentSha256": "0b62ac71b94f6474796ee682094e895e9b0b209324aa228c1fd40fa0c6e306da",
+  "attachmentPreserved": true,
+  "legacyAddon": {
+    "active": 0,
+    "is_legacy": 1
+  },
+  "pendingBridgeJobs": 0,
+  "oldDeferredTableExists": false,
+  "providerConfiguration": {
+    "facebook": {
+      "idPresent": false,
+      "secretPresent": false
+    },
+    "google": {
+      "idPresent": false,
+      "secretPresent": false
+    }
+  },
+  "fullUnicode": false,
+  "errorLogRows": 0
+}

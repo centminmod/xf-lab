@@ -1,0 +1,56 @@
+[
+  {
+    "path": "index.php?login/",
+    "status": 200,
+    "title": [
+      "Log in | wmtech patch evaluation"
+    ]
+  },
+  {
+    "path": "index.php?login/login",
+    "status": 200,
+    "title": [
+      "wmtech patch evaluation"
+    ]
+  },
+  {
+    "path": "index.php?account/",
+    "status": 200,
+    "title": [
+      "Account details | wmtech patch evaluation"
+    ]
+  },
+  {
+    "path": "index.php?threads/3/",
+    "status": 200,
+    "title": [
+      "Migration fixture &amp; UTF-8 caf\u00e9 | wmtech patch evaluation"
+    ]
+  },
+  {
+    "path": "index.php?attachments/1/",
+    "status": 200,
+    "title": []
+  },
+  {
+    "path": "index.php?login/",
+    "status": 200,
+    "title": [
+      "Log in | wmtech patch evaluation"
+    ]
+  },
+  {
+    "path": "index.php?login/login",
+    "status": 200,
+    "title": [
+      "wmtech patch evaluation"
+    ]
+  },
+  {
+    "path": "index.php?account/",
+    "status": 200,
+    "title": [
+      "Account details | wmtech patch evaluation"
+    ]
+  }
+]

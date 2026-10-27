@@ -1,0 +1,33 @@
+{
+  "xf2313ArchiveSha256": "90d8c7f21962de8b2017c145beb127611106ed04e4c73524e791a6300e4a33be",
+  "xf2313VersionId": 2031370,
+  "xf1550VersionId": 1055070,
+  "rehearsal": "native CLI direct upgrade on synthetic data",
+  "sourceFiles": [
+    "instances/wmtech-review/upgrade/upload/library/XenForo/Application.php",
+    "instances/wmtech-review/upgrade/upload/library/XenForo/Helper/Http.php",
+    "instances/wmtech-review/upgrade/upload/library/XenForo/Model/Deferred.php",
+    "instances/wmtech-review/upgrade/upload/library/XenForo/Helper/Php.php",
+    "instances/wmtech-review/upgrade/upload/library/XenForo/Install/Upgrade/1055070-1550.php",
+    "instances/wmtech-review/upgrade/upload/library/XenForo/Model/UserConfirmation.php",
+    "instances/wmtech-review/upgrade/upload/library/XenForo/Authentication/Core12.php",
+    "instances/wmtech-review/xf2313/upload/src/XF/Install/Upgrader.php",
+    "instances/wmtech-review/xf2313/upload/src/XF/Install/Upgrade/2000010-200a.php",
+    "instances/wmtech-review/xf2313/upload/src/XF/Install/Upgrade/2001070-2010.php",
+    "instances/wmtech-review/xf2313/upload/src/XF/App.php",
+    "instances/wmtech-review/xf2313/upload/src/XF/Http/Response.php",
+    "instances/wmtech-review/xf2313/upload/src/XF/Http/Request.php",
+    "instances/wmtech-review/xf2313/upload/src/XF/Http/Reader.php",
+    "instances/wmtech-review/xf2313/upload/src/XF/Job/Manager.php",
+    "instances/wmtech-review/xf2313/upload/src/XF/Authentication/Core12.php",
+    "instances/wmtech-review/xf2313/upload/src/XF/Entity/UserAuth.php",
+    "instances/wmtech-review/xf2313/upload/src/XF/Entity/UserProfile.php",
+    "instances/wmtech-review/xf2313/upload/src/XF/Repository/TagRepository.php",
+    "instances/wmtech-review/xf2313/upload/src/XF/Service/User/PasswordResetService.php",
+    "instances/wmtech-review/xf2313/upload/src/XF/Cli/Command/Upgrade.php",
+    "instances/wmtech-review/xf2313/upload/src/XF/Install/_upgrader/requirements.json",
+    "instances/wmtech-review/base/upload/library/XenForo/Application.php"
+  ],
+  "sourceExcerptSha256": "a70257c4dea449ff80f54494c18123dbc18a66b1ff1668c591d236aba125ec32",
+  "supplementalChairCheck": "Baseline default salt compared after panel completion; panel-reviewed source files unchanged."
+}

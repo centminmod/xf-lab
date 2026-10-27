@@ -1,0 +1,1725 @@
+SOURCE instances/wmtech-review/upgrade/upload/library/XenForo/Application.php
+698: 				'default_addon' => ''
+699: 			),
+700: 			'superAdmins' => '1',
+701: 			'globalSalt' => '43314b267b1dae1164f4c038a1d7cbcb',
+702: 			'jsVersion' => '',
+703: 			'cookie' => array(
+704: 				'prefix' => 'xf_',
+705: 				'path' => '/',
+706: 				'domain' => '',
+707: 				// SameSite protects session and remember-me cookies against cross-site request
+708: 				// forgery at the browser level. 'Lax' still allows top-level GET navigation, so
+709: 				// inbound links and OAuth-style redirect-backs keep working; 'None' requires
+710: 				// Secure and is only useful if the board is framed cross-origin. Set '' to omit
+711: 				// the attribute entirely and restore pre-1.5.50 behaviour.
+712: 				'sameSite' => 'Lax',
+713: 				// Whether to set the Secure flag. null = auto-detect from $_SERVER['HTTPS'],
+714: 				// which is what XenForo has always done - but that is false behind a
+715: 				// TLS-terminating reverse proxy, so an HTTPS board can end up shipping its
+716: 				// session cookie without Secure. Set true to force it on.
+717: 				'secure' => null
+718: 			),
+719: 			'enableMail' => true,
+720: 			'enableMailQueue' => true,
+721: 			'internalDataPath' => 'internal_data',
+722: 			'externalDataPath' => 'data',
+723: 			'externalDataUrl' => 'data',
+724: 			'javaScriptUrl' => 'js',
+725: 			// Overrides XenForo_Application::$jQueryVersion. 1.5.50 ships 1.11.0 and 1.12.4,
+726: 			// so setting this to '1.11.0' rolls the bump back without touching core files.
+727: 			'jQueryVersion' => '',
+728: 			// Peer verification for the PayPal IPN callback. Leave null (verify) unless the
+729: 			// host genuinely has no usable CA bundle.
+730: 			'paypalSslVerifyPeer' => null,
+731: 			// Overrides XenForo_Application::getCopyrightHtml(). null keeps the stock
+732: 			// branding; '' suppresses it. Licence holders entitled to remove the branding
+733: 			// should set this rather than editing Application.php, which every file-based
+734: 			// upgrade reverts.
+735: 			'copyrightHtml' => null,
+736: 			// Overrides the outbound HTTP User-Agent (XenForo_Helper_Http::getUserAgent()).
+737: 			// Empty keeps the stock "XenForo/1.5 (boardUrl)" string.
+738: 			'httpUserAgent' => '',
+739: 			// Session IP binding. adminIpv4CidrMatch/adminIpv6CidrMatch override the admin
+740: 			// session values; 0 disables binding for that session type. null = stock (24/64).
+741: 			'session' => array(
+742: 				'ipv4CidrMatch' => null,
+743: 				'ipv6CidrMatch' => null,
+744: 				'adminIpv4CidrMatch' => null,
+745: 				'adminIpv6CidrMatch' => null
+746: 			),
+747: 			'checkVersion' => true,
+748: 			'enableGzip' => true,
+749: 			'enableContentLength' => true,
+750: 			'adminLogLength' => 60, // number of days to keep admin log entries
+751: 			'chmodWritableValue' => 0,
+752: 			'rebuildMaxExecution' => 8,
+753: 			'passwordIterations' => 10,
+754: 			'enableTemplateModificationCallbacks' => true,
+755: 			'enableClickjackingProtection' => true,
+756: 			'enableReverseTabnabbingProtection' => true,
+757: 			'enableTfa' => true,
+758: 			'maxImageResizePixelCount' => 20000000,
+759: 			'untrustedHttpClient' => array()
+760: 		));
+
+SOURCE instances/wmtech-review/upgrade/upload/library/XenForo/Helper/Http.php
+39: 	public static function getUntrustedClient($uri, array $options = array())
+40: 	{
+41: 		$uri = self::filterUntrustedUrl($uri);
+42:
+43: 		if (!self::isRequestableUntrustedUrl($uri, $requestError, $validatedIps))
+44: 		{
+45: 			// use this exception type as it is caught in some cases
+46: 			throw new Zend_Uri_Exception("URI '$uri' is not requestable ($requestError)");
+47: 		}
+48:
+49: 		$options['maxredirects'] = 0;
+50:
+51: 		if (empty($options['useragent']))
+52: 		{
+53: 			$options['useragent'] = self::getUserAgent();
+54: 		}
+55:
+56: 		$untrustedConfig = XenForo_Application::getConfig()->untrustedHttpClient;
+57: 		$config = $untrustedConfig ? $untrustedConfig->toArray() : array();
+58: 		if (!empty($config['adapter']))
+59: 		{
+60: 			// The admin has configured their own adapter (typically an egress proxy). Respect
+61: 			// it and leave address selection to them.
+62: 			$config += $options;
+63: 			return new Zend_Http_Client($uri, $config);
+64: 		}
+65:
+66: 		$pinned = self::getResolveOptions($uri, $validatedIps);
+67: 		if ($pinned)
+68: 		{
+69: 			return new Zend_Http_Client($uri, $pinned + $options);
+70: 		}
+71:
+72: 		return self::getClient($uri, $options);
+73: 	}
+74:
+75: 	/**
+76: 	 * Builds client options that pin a request to the IPs we just validated.
+77: 	 *
+78: 	 * isRequestableUntrustedUrl() resolves the host and rejects private addresses, but the
+79: 	 * HTTP client then resolves the same host again independently. A DNS record with a short
+80: 	 * TTL that answers publicly on the first lookup and 127.0.0.1 or 169.254.169.254 on the
+81: 	 * second walks straight through the check - the classic DNS rebinding / TOCTOU pattern.
+82: 	 *
+83: 	 * CURLOPT_RESOLVE removes the second lookup entirely: cURL uses the address we already
+84: 	 * approved, while still sending the original Host header and performing normal certificate
+85: 	 * validation against the hostname.
+86: 	 *
+87: 	 * Returns an empty array when pinning is not possible (no cURL), in which case the caller
+88: 	 * falls back to the previous behaviour - validated, but not pinned.
+89: 	 *
+90: 	 * @param string $uri
+91: 	 * @param array $validatedIps
+92: 	 *
+93: 	 * @return array
+94: 	 */
+95: 	protected static function getResolveOptions($uri, array $validatedIps)
+96: 	{
+97: 		if (!$validatedIps || !function_exists('curl_version') || !defined('CURLOPT_RESOLVE'))
+98: 		{
+99: 			return array();
+100: 		}
+101:
+102: 		$parts = @parse_url($uri);
+103: 		if (!$parts || empty($parts['host']))
+104: 		{
+105: 			return array();
+106: 		}
+107:
+108: 		$port = !empty($parts['port'])
+109: 			? $parts['port']
+110: 			: (strtolower($parts['scheme']) === 'https' ? 443 : 80);
+111:
+112: 		$resolve = array();
+113: 		foreach ($validatedIps AS $ip)
+114: 		{
+115: 			// cURL expects IPv6 literals in brackets in a CURLOPT_RESOLVE entry.
+116: 			if (strpos($ip, ':') !== false)
+117: 			{
+118: 				$ip = '[' . $ip . ']';
+119: 			}
+120:
+121: 			$resolve[] = $parts['host'] . ':' . $port . ':' . $ip;
+122: 		}
+123:
+124: 		return array(
+125: 			'adapter' => 'Zend_Http_Client_Adapter_Curl',
+126: 			'curloptions' => array(
+127: 				CURLOPT_RESOLVE => $resolve,
+128: 				CURLOPT_SSL_VERIFYPEER => true,
+129: 				CURLOPT_SSL_VERIFYHOST => 2,
+130: 				// Belt and braces: even pinned, never let cURL follow a redirect itself.
+131: 				CURLOPT_FOLLOWLOCATION => false
+132: 			)
+133: 		);
+
+SOURCE instances/wmtech-review/upgrade/upload/library/XenForo/Helper/Http.php
+143: 	public static function isRequestableUntrustedUrl($url, &$error = null, &$validatedIps = null)
+144: 	{
+145: 		$validatedIps = array();
+146:
+147: 		$parts = @parse_url($url);
+148:
+149: 		if (!$parts || empty($parts['scheme']) || empty($parts['host']))
+150: 		{
+151: 			$error = 'invalid';
+152: 			return false;
+153: 		}
+154:
+155: 		if (!in_array(strtolower($parts['scheme']), array('http', 'https')))
+156: 		{
+157: 			$error = 'scheme';
+158: 			return false;
+159: 		}
+160:
+161: 		if (!empty($parts['port']) && !in_array($parts['port'], array(80, 443)))
+162: 		{
+163: 			$error = 'port';
+164: 			return false;
+165: 		}
+166:
+167: 		if (!empty($parts['user']) || !empty($parts['pass']))
+168: 		{
+169: 			$error = 'userpass';
+170: 			return false;
+171: 		}
+172:
+173: 		if (strpos($parts['host'], '[') !== false)
+174: 		{
+175: 			$error = 'ipv6';
+176: 			return false;
+177: 		}
+178:
+179: 		$hasValidIp = false;
+180:
+181: 		$ips = @gethostbynamel($parts['host']);
+182: 		if ($ips)
+183: 		{
+184: 			foreach ($ips AS $ip)
+185: 			{
+186: 				if (self::isLocalIpv4($ip))
+187: 				{
+188: 					$error = "local: $ip";
+189: 					return false;
+190: 				}
+191: 				else
+192: 				{
+193: 					$hasValidIp = true;
+194: 					$validatedIps[] = $ip;
+195: 				}
+196: 			}
+197: 		}
+198:
+199: 		if (function_exists('dns_get_record') && defined('DNS_AAAA'))
+200: 		{
+201: 			$hasIpv6 = defined('AF_INET6');
+202: 			if (!$hasIpv6 && function_exists('curl_version') && defined('CURL_VERSION_IPV6'))
+203: 			{
+204: 				$version = curl_version();
+205: 				if ($version['features'] & CURL_VERSION_IPV6)
+206: 				{
+207: 					$hasIpv6 = true;
+208: 				}
+209: 			}
+210:
+211: 			if ($hasIpv6)
+212: 			{
+213: 				$ipv6s = @dns_get_record($parts['host'], DNS_AAAA);
+214: 				if ($ipv6s)
+215: 				{
+216: 					foreach ($ipv6s AS $ipv6)
+217: 					{
+218: 						$ip = $ipv6['ipv6'];
+219: 						if (self::isLocalIpv6($ip))
+220: 						{
+221: 							$error = "local: $ip";
+222: 							return false;
+223: 						}
+224: 						else
+225: 						{
+226: 							$hasValidIp = true;
+227: 							$validatedIps[] = $ip;
+228: 						}
+229: 					}
+230: 				}
+231: 			}
+232: 		}
+233:
+
+SOURCE instances/wmtech-review/upgrade/upload/library/XenForo/Model/Deferred.php
+69: 	public function defer($class, array $data, $uniqueKey = null, $manual = false, $triggerDate = null)
+70: 	{
+71: 		$runner = XenForo_Deferred_Abstract::create($class);
+72: 		if (!$runner)
+73: 		{
+74: 			return false;
+75: 		}
+76:
+77: 		if (!$triggerDate)
+78: 		{
+79: 			$triggerDate = XenForo_Application::$time;
+80: 		}
+81: 		if (!$uniqueKey)
+82: 		{
+83: 			$uniqueKey = null;
+84: 		}
+85:
+86: 		$manual = ($manual ? 1 : 0);
+87:
+88: 		$db = $this->_getDb();
+89:
+90: 		if ($uniqueKey)
+91: 		{
+92: 			$uniqueHash = "$uniqueKey-$triggerDate" . ($data ? '-' . md5(serialize($data)) : '');
+93: 			if (isset(self::$_uniqueDefers[$uniqueHash]))
+94: 			{
+95: 				return self::$_uniqueDefers[$uniqueHash];
+96: 			}
+97:
+98: 			$uniqueKey = $this->_getSafeUniqueKey($uniqueKey);
+99: 		}
+100: 		else
+101: 		{
+102: 			$uniqueHash = false;
+103: 		}
+104:
+105: 		try
+106: 		{
+107: 			$db->query('
+108: 				INSERT INTO xf_deferred
+109: 					(execute_class, execute_data, unique_key, manual_execute, trigger_date)
+110: 				VALUES
+111: 					(?, ?, ?, ?, ?)
+112: 				ON DUPLICATE KEY UPDATE
+113: 					execute_class = VALUES(execute_class),
+114: 					execute_data = VALUES(execute_data),
+115: 					manual_execute = VALUES(manual_execute),
+
+SOURCE instances/wmtech-review/upgrade/upload/library/XenForo/Model/Deferred.php
+239: 	protected static $_shutdownRegistered = false;
+240: 	protected static $_runningDeferred = false;
+241:
+242: 	public static function shutdownHandleFatalDeferred()
+243: 	{
+244: 		if (!self::$_runningDeferred)
+245: 		{
+246: 			return;
+247: 		}
+248:
+249: 		// if we get a fatal error from a manual deferred, reinsert it so a refresh can catch it
+250:
+251: 		$deferred = self::$_runningDeferred;
+252: 		try
+253: 		{
+254: 			XenForo_Db::rollbackAll();
+255:
+256: 			if ($deferred['manual_execute'])
+257: 			{
+258: 				XenForo_Application::defer(
+259: 					$deferred['execute_class'], XenForo_Helper_Php::safeUnserialize($deferred['execute_data']), $deferred['unique_key'], $deferred['manual_execute'], $deferred['trigger_date'], true
+260: 				);
+261: 			}
+262: 		}
+263: 		catch (Exception $e) {}
+264: 	}
+265:
+266: 	public function runDeferred(array $deferred, $targetRunTime, &$status, &$canCancel)
+267: 	{
+268: 		$this->resetUniqueDeferInserts();
+269:
+270: 		$canCancel = false;
+271:
+272: 		if (!$this->deleteDeferredById($deferred['deferred_id']))
+273: 		{
+274: 			// already being run
+275: 			return false;
+276: 		}
+277:
+278: 		$runner = XenForo_Deferred_Abstract::create($deferred['execute_class']);
+279: 		if (!$runner)
+280: 		{
+281: 			return false;
+282: 		}
+283:
+284: 		$data = XenForo_Helper_Php::safeUnserialize($deferred['execute_data']);
+285:
+286: 		if (!self::$_shutdownRegistered)
+287: 		{
+288: 			self::$_shutdownRegistered = true;
+289: 			register_shutdown_function(array(__CLASS__, 'shutdownHandleFatalDeferred'));
+290: 		}
+291:
+292: 		self::$_runningDeferred = $deferred;
+293:
+294: 		try
+295: 		{
+296: 			$output = $runner->execute($deferred, $data, $targetRunTime, $status);
+297: 			self::$_runningDeferred = false;
+298: 		}
+299: 		catch (Exception $e)
+300: 		{
+301: 			self::$_runningDeferred = false;
+302:
+303: 			// transactions are likely from the manual runner, so we need to roll them back
+304: 			// as they probably won't be committed
+305: 			XenForo_Db::rollbackAll();
+306:
+307: 			if ($deferred['manual_execute'])
+308: 			{
+309: 				// reinsert and throw so a refresh will catch it
+310: 				XenForo_Application::defer(
+311: 					$deferred['execute_class'], $data, $deferred['unique_key'], $deferred['manual_execute'], $deferred['trigger_date'], true
+312: 				);
+313:
+314: 				throw $e;
+315: 			}
+316: 			else
+317: 			{
+318: 				// log and ignore
+319: 				XenForo_Error::logException($e, false);
+320: 				$output = false;
+321: 				$status = "$deferred[execute_class] threw exception. See error log."; // TODO: phrase?
+322: 			}
+323: 		}
+324:
+325: 		if ($output === 'exit')
+
+SOURCE instances/wmtech-review/upgrade/upload/library/XenForo/Helper/Php.php
+190: 	 * Unserializes a string, avoiding unserializing potentially dangerous objects.
+191: 	 *
+192: 	 * If an object is present, unserialization will fail and false will be returned.
+193: 	 *
+194: 	 * See serializedContainsObject for comments on false positives.
+195: 	 *
+196: 	 * @param string $serialized
+197: 	 *
+198: 	 * @return bool|mixed
+199: 	 */
+200: 	public static function safeUnserialize($serialized)
+201: 	{
+202: 		if (self::serializedContainsObject($serialized))
+203: 		{
+204: 			return false;
+205: 		}
+206:
+207: 		if (PHP_VERSION_ID >= 70000)
+208: 		{
+209: 			// PHP 7 has an option to disable unserializing objects, so use that if available
+210: 			return @unserialize($serialized, array('allowed_classes' => false));
+211: 		}
+212:
+213: 		return @unserialize($serialized);
+214: 	}
+215:
+216: 	/**
+217: 	 * Serializes a string only if it doesn't contain object constructs. This can be paired with safeUnserialize
+218: 	 * to block the serialization if unserialization will fail anyway. (Serialization itself is safe, but if it's going
+219: 	 * to fail to unserialize, it likely shouldn't be allowed.)
+220: 	 *
+221: 	 * See serializedContainsObject for comments on false positives.
+222: 	 *
+223: 	 * @param string $toSerialize
+224: 	 *
+225: 	 * @return string
+226: 	 */
+227: 	public static function safeSerialize($toSerialize)
+228: 	{
+229: 		$serialized = serialize($toSerialize);
+230:
+231: 		if (self::serializedContainsObject($serialized))
+232: 		{
+233: 			throw new InvalidArgumentException("Serialized value contains an object and this is not allowed");
+234: 		}
+235:
+236: 		return $serialized;
+237: 	}
+238:
+239: 	/**
+240: 	 * This detects if a serialized string may contain an object definition.
+241: 	 * This can trigger a false positive if a string matches the format but it should be unlikely.
+242: 	 *
+243: 	 * This function could be implemented with a single, one-line regex but it has been optimized, particularly
+244: 	 * for the case that no object or object-like construct is present.
+245: 	 *
+246: 	 * @param string $serialized
+247: 	 *
+248: 	 * @return bool
+249: 	 */
+250: 	public static function serializedContainsObject($serialized)
+251: 	{
+252: 		if (strpos($serialized, 'O:') !== false && preg_match('#(?<=^|[;{}])O:[+-]?[0-9]+:"#', $serialized))
+253: 		{
+254: 			return true;
+255: 		}
+256:
+257: 		if (strpos($serialized, 'C:') !== false && preg_match('#(?<=^|[;{}])C:[+-]?[0-9]+:"#', $serialized))
+258: 		{
+259: 			return true;
+260: 		}
+261:
+262: 		if (strpos($serialized, 'o:') !== false && preg_match('#(?<=^|[;{}])o:[+-]?[0-9]+:"#', $serialized))
+263: 		{
+264: 			return true;
+265: 		}
+266:
+267: 		return false;
+268: 	}
+269: }
+
+SOURCE instances/wmtech-review/upgrade/upload/library/XenForo/Install/Upgrade/1055070-1550.php
+1: <?php
+2: /* XF1550-PATCH: new upgrade steps for the 1.5.50 community release. XenForo 1.5.50 community release; see /CHANGELOG-1.5.50.md */
+3:
+4: class XenForo_Install_Upgrade_1055070 extends XenForo_Install_Upgrade_Abstract
+5: {
+6: 	public function getVersionName()
+7: 	{
+8: 		return '1.5.50';
+9: 	}
+10:
+11: 	/**
+12: 	 * Clear the credentials for the social login providers that no longer exist.
+13: 	 *
+14: 	 * Facebook Graph v2.10 was removed by Meta and Google shut down gapi.auth2 in 2023,
+15: 	 * so both login flows fail before they reach the provider. The templates render their
+16: 	 * buttons only when these options are non-empty, so blanking the values retires the
+17: 	 * feature without touching a single template - which is what keeps add-on template
+18: 	 * modifications and custom styles intact.
+19: 	 *
+20: 	 * The option definitions are deliberately left in place so that {$xenOptions.facebookAppId}
+21: 	 * and any add-on reading these options continue to resolve.
+22: 	 *
+23: 	 * Note: the Facebook Like button is unaffected. It force-initialises the SDK through the
+24: 	 * $facebookSdk template container var, independently of the app ID.
+25: 	 */
+26: 	public function step1()
+27: 	{
+28: 		$this->executeUpgradeQuery("
+29: 			UPDATE xf_option
+30: 			SET option_value = ''
+31: 			WHERE option_id IN ('facebookAppId', 'facebookAppSecret', 'googleClientId', 'googleClientSecret')
+32: 		");
+33: 	}
+34:
+35: 	/**
+36: 	 * Move boards off the retired Microsoft Ajax CDN.
+37: 	 *
+38: 	 * ajax.microsoft.com was decommissioned in 2022; a board still pointed at it serves no
+39: 	 * jQuery at all and is effectively dead in the browser. Fall back to the local copy.
+40: 	 */
+41: 	public function step2()
+42: 	{
+43: 		$this->executeUpgradeQuery("
+44: 			UPDATE xf_option
+45: 			SET option_value = 'local'
+46: 			WHERE option_id = 'jQuerySource'
+47: 				AND option_value = 'microsoft'
+48: 		");
+49: 	}
+50:
+51: 	/**
+52: 	 * The 'min' setting for uncompressedJs points at js/xenforo/min/, a directory that has
+53: 	 * never existed in any XenForo distribution, so selecting it 404s every script on the
+54: 	 * board. Send those installs back to the shipped minified files.
+55: 	 */
+56: 	public function step3()
+57: 	{
+58: 		$this->executeUpgradeQuery("
+59: 			UPDATE xf_option
+60: 			SET option_value = '0'
+61: 			WHERE option_id = 'uncompressedJs'
+62: 				AND option_value = '2'
+63: 		");
+64: 	}
+65: }
+
+SOURCE instances/wmtech-review/upgrade/upload/library/XenForo/Model/UserConfirmation.php
+244: 			$confirmation = $this->generateUserConfirmationRecord($user['user_id'], 'password');
+245: 		}
+246:
+247: 		$params = array(
+248: 			'user' => $user,
+249: 			'confirmation' => $confirmation,
+250: 			'boardTitle' => XenForo_Application::get('options')->boardTitle
+251: 		);
+252: 		$mail = XenForo_Mail::create('user_lost_password', $params, $user['language_id']);
+253:
+254: 		return $mail->send($user['email'], $user['username']);
+255: 	}
+256:
+257: 	/**
+258: 	 * Resets the specified user's password and emails the password to them if requested.
+259: 	 *
+260: 	 * @param integer $userId
+261: 	 * @param boolean $sendEmail
+262: 	 *
+263: 	 * @return string New password
+264: 	 */
+265: 	public function resetPassword($userId, $sendEmail = true)
+266: 	{
+267: 		$dw = XenForo_DataWriter::create('XenForo_DataWriter_User');
+268: 		$dw->setExistingData($userId);
+269:
+270: 		$password = XenForo_Application::generateRandomString(16);
+271: 		$password = strtr($password, array(
+272: 			'I' => 'i',
+273: 			'l' => 'L',
+274: 			'0' => 'O',
+275: 			'o' => 'O'
+276: 		));
+277: 		$password = trim($password, '_-');
+278:
+279: 		$auth = XenForo_Authentication_Abstract::createDefault();
+280: 		$dw->set('scheme_class', $auth->getClassName());
+281: 		$dw->set('data', $auth->generate($password));
+282: 		$dw->save();
+283:
+284: 		$user = $dw->getMergedData();
+285:
+286: 		if ($sendEmail)
+287: 		{
+288: 			$params = array(
+289: 				'user' => $user,
+290: 				'password' => $password,
+291: 				'boardTitle' => XenForo_Application::get('options')->boardTitle,
+292: 				'boardUrl' => XenForo_Application::get('options')->boardUrl,
+293: 			);
+294: 			$mail = XenForo_Mail::create('user_lost_password_reset', $params, $user['language_id']);
+295: 			$mail->send($user['email'], $user['username']);
+296: 		}
+297:
+298: 		if ($userId == XenForo_Visitor::getUserId())
+299: 		{
+300: 			$session = XenForo_Application::getSession();
+301: 			if ($session->get('password_date'))
+302: 			{
+303: 				$session->set('password_date', $dw->get('password_date'));
+304: 			}
+305: 		}
+306:
+307: 		return $password;
+308: 	}
+309: }
+
+SOURCE instances/wmtech-review/upgrade/upload/library/XenForo/Authentication/Core12.php
+15: 	protected $_data = array();
+16:
+17: 	/**
+18: 	* Initialize data for the authentication object.
+19: 	*
+20: 	* @param string   Binary data from the database
+21: 	*/
+22: 	public function setData($data)
+23: 	{
+24: 		$this->_data = unserialize($data);
+25: 	}
+26:
+27: 	/**
+28: 	* Generate new authentication data
+29: 	* @see XenForo_Authentication_Abstract::generate()
+30: 	*/
+31: 	public function generate($password)
+32: 	{
+33: 		$passwordHash = new XenForo_PasswordHash(XenForo_Application::getConfig()->passwordIterations, false);
+34: 		$output = array('hash' => $passwordHash->HashPassword($password));
+35: 		return serialize($output);
+36: 	}
+37:
+38: 	/**
+39: 	* Authenticate against the given password
+40: 	* @see XenForo_Authentication_Abstract::authenticate()
+41: 	*/
+42: 	public function authenticate($userId, $password)
+43: 	{
+44: 		if (!is_string($password) || $password === '' || empty($this->_data))
+45: 		{
+46: 			return false;
+47: 		}
+48:
+49: 		$passwordHash = new XenForo_PasswordHash(XenForo_Application::getConfig()->passwordIterations, false);
+50: 		return $passwordHash->CheckPassword($password, $this->_data['hash']);
+51: 	}
+52:
+53: 	public function isUpgradable()
+54: 	{
+55: 		if (!empty($this->_data['hash']))
+56: 		{
+
+SOURCE instances/wmtech-review/xf2313/upload/src/XF/Install/Upgrader.php
+132: 			{
+133: 				case '1010031-100b1.php': // this was badly named - make sure it's always skipped so the right one runs
+134: 					continue 2;
+135: 			}
+136:
+137: 			$versionId = intval($file);
+138: 			if (!$versionId)
+139: 			{
+140: 				continue;
+141: 			}
+142:
+143: 			$upgrades[$versionId] = $searchDir . '/' . $file;
+144: 		}
+145:
+146: 		ksort($upgrades, SORT_NUMERIC);
+147:
+148: 		return $upgrades;
+149: 	}
+150:
+151: 	public function getRemainingUpgradeVersionIds($lastCompletedVersion)
+152: 	{
+153: 		$upgrades = $this->getPossibleUpgradeFileNames();
+154: 		$offset = 0;
+155:
+156: 		foreach ($upgrades AS $upgrade => $file)
+157: 		{
+158: 			if ($upgrade > $lastCompletedVersion)
+159: 			{
+160: 				return array_slice($upgrades, $offset, null, true);
+161: 			}
+162:
+163: 			$offset++;
+164: 		}
+165:
+166: 		return [];
+167: 	}
+168:
+169: 	public function getNextUpgradeVersionId($lastCompletedVersion)
+170: 	{
+171: 		$upgrades = $this->getRemainingUpgradeVersionIds($lastCompletedVersion);
+172: 		reset($upgrades);
+173: 		return key($upgrades);
+174: 	}
+175:
+176: 	public function getNewestUpgradeVersionId()
+177: 	{
+178: 		$upgrades = $this->getRemainingUpgradeVersionIds(0);
+179: 		end($upgrades);
+180: 		return key($upgrades);
+181: 	}
+182:
+183: 	/**
+184: 	 * @param integer $versionId
+185: 	 * @param App $app
+186: 	 *
+187: 	 * @return AbstractUpgrade
+188: 	 *
+
+SOURCE instances/wmtech-review/xf2313/upload/src/XF/Install/Upgrader.php
+453: 	public function translateLegacyConfig(array $config)
+454: 	{
+455: 		$new = Arr::arrayFilterKeys($config, [
+456: 			'db',
+457: 			'debug',
+458: 			'cookie',
+459: 			'enableMail',
+460: 			'enableMailQueue',
+461: 			'enableListeners',
+462: 			'globalSalt',
+463: 			'superAdmins',
+464: 			'internalDataPath',
+465: 			'externalDataPath',
+466: 			'externalDataUrl',
+467: 			'javaScriptUrl',
+468: 			'passwordIterations',
+469: 			'enableTemplateModificationCallbacks',
+470: 			'enableClickjackingProtection',
+471: 			'enableReverseTabnabbingProtection',
+472: 			'enableTfa',
+473: 			'maxImageResizePixelCount',
+474: 			'adminLogLength',
+475: 			'checkVersion',
+476: 			'chmodWritableValue',
+477: 		], true);
+478:
+479: 		unset($new['db']['adapter'], $new['db']['adapterNamespace']);
+480:
+481: 		if (isset($config['rebuildMaxExecution']))
+482: 		{
+483: 			$new['jobMaxRunTime'] = $config['rebuildMaxExecution'];
+484: 		}
+485:
+486: 		if (!isset($config['superAdmins']))
+487: 		{
+488: 			$new['superAdmins'] = '1';
+489: 		}
+490:
+491: 		return $new;
+492: 	}
+493:
+494: 	public function migrateLegacyConfigIfNeeded(&$written = false)
+495: 	{
+496: 		// load only the actual config values and filter down to the ones we want to keep
+497: 		$config = [];
+498: 		$container = $this->app->container();
+499: 		include $container['config.legacyFile'];
+500:
+501: 		$config = $this->translateLegacyConfig($config);
+502: 		$configPhp = $this->helper()->generateConfig($config);
+503: 		$configFile = $container['config.file'];
+504:
+505: 		if (!file_exists($configFile) && is_writable(dirname($configFile)))
+506: 		{
+507: 			try
+508: 			{
+509: 				file_put_contents($configFile, $configPhp);
+510: 				File::makeWritableByFtpUser($configFile);
+511:
+512: 				$written = true;
+513: 			}
+514: 			catch (\Exception $e)
+515: 			{
+516: 				$written = false;
+517: 			}
+518: 		}
+519: 		else
+520: 		{
+521: 			$written = false;
+522: 		}
+523:
+524: 		return $config;
+525: 	}
+
+SOURCE instances/wmtech-review/xf2313/upload/src/XF/Install/Upgrade/2000010-200a.php
+19:
+20: 	// dropping tables we no longer use (without data we need)
+21: 	public function step1()
+22: 	{
+23: 		$sm = $this->schemaManager();
+24:
+25: 		$dropTables = [
+26: 			'xf_admin_search_type',
+27: 			'xf_admin_template',
+28: 			'xf_admin_template_compiled',
+29: 			'xf_admin_template_include',
+30: 			'xf_admin_template_modification',
+31: 			'xf_admin_template_modification_log',
+32: 			'xf_admin_template_phrase',
+33: 			'xf_attachment_view', // will be recreated
+34: 			'xf_bb_code_parse_cache',
+35: 			'xf_content_type',
+36: 			'xf_deferred', // will be recreated as xf_job
+37: 			'xf_email_template',
+38: 			'xf_email_template_compiled',
+39: 			'xf_email_template_modification',
+40: 			'xf_email_template_modification_log',
+41: 			'xf_email_template_phrase',
+42: 			'xf_node_type', // will be recreated
+43: 			'xf_permission_group',
+44: 			'xf_route_prefix',
+45: 			'xf_template_compiled',
+46: 			'xf_template_include',
+47: 			'xf_thread_view', // will be recreated
+48: 			'xf_user_news_feed_cache',
+49: 			'xf_user_status',
+50: 		];
+51: 		foreach ($dropTables AS $dropTable)
+52: 		{
+53: 			$sm->dropTable($dropTable);
+54: 		}
+55: 	}
+
+SOURCE instances/wmtech-review/xf2313/upload/src/XF/Install/Upgrade/2000010-200a.php
+1012: 	// add-on system changes
+1013: 	public function step21()
+1014: 	{
+1015: 		$this->schemaManager()->alterTable('xf_addon', function (Alter $table)
+1016: 		{
+1017: 			$table->dropColumns([
+1018: 				'url',
+1019: 				'install_callback_class',
+1020: 				'install_callback_method',
+1021: 				'uninstall_callback_class',
+1022: 				'uninstall_callback_method',
+1023: 			]);
+1024: 			$table->addColumn('json_hash', 'varbinary', 64)->setDefault('')->after('version_id');
+1025: 			$table->addColumn('is_legacy', 'tinyint')->setDefault(0);
+1026: 			$table->addColumn('is_processing', 'tinyint')->setDefault(0);
+1027: 		});
+1028:
+1029: 		$this->executeUpgradeQuery("
+1030: 			UPDATE xf_addon
+1031: 			SET
+1032: 				active = 0,
+1033: 				is_legacy = 1
+1034: 		");
+1035:
+1036: 		$this->executeUpgradeQuery("
+1037: 			INSERT INTO xf_addon
+1038: 				(
+1039: 					addon_id,
+1040: 					title,
+1041: 					version_string,
+1042: 					version_id,
+1043: 					active
+1044: 				)
+1045: 			VALUES
+1046: 				('XF', 'XenForo', '2.0.0 Alpha', 2000010, 1)
+1047: 		");
+1048:
+1049: 		// other tables have (or will have) their data emptied
+1050: 		$tables = [
+1051: 			'xf_admin_permission',
+1052: 			'xf_bb_code',
+1053: 			'xf_option',
+1054: 			'xf_option_group',
+1055: 			'xf_permission',
+1056: 			'xf_permission_interface_group',
+1057: 			'xf_phrase',
+1058: 		];
+1059: 		foreach ($tables AS $table)
+1060: 		{
+1061: 			$this->executeUpgradeQuery("
+1062: 				UPDATE $table
+1063: 				SET addon_id = 'XF'
+1064: 				WHERE addon_id = 'XenForo'
+1065: 			");
+1066: 		}
+1067: 	}
+1068:
+
+SOURCE instances/wmtech-review/xf2313/upload/src/XF/Install/Upgrade/2000010-200a.php
+1070: 	public function step22()
+1071: 	{
+1072: 		$db = $this->db();
+1073: 		$sm = $this->schemaManager();
+1074:
+1075: 		$db->emptyTable('xf_template_phrase');
+1076: 		$sm->alterTable('xf_template_phrase', function (Alter $table)
+1077: 		{
+1078: 			$table->renameColumn('template_map_id', 'template_id');
+1079: 		});
+1080:
+1081: 		// We need to wipe out all non-custom templates. Custom templates may be attached to content so we need to keep them.
+1082: 		$this->executeUpgradeQuery("
+1083: 			DELETE FROM xf_template
+1084: 			WHERE style_id > 0 OR addon_id <> ''
+1085: 		");
+1086:
+1087: 		$sm->alterTable('xf_template', function (Alter $table)
+1088: 		{
+1089: 			$table->changeColumn('title')->length(100);
+1090: 			$table->addColumn('type', 'varbinary', 20)->after('template_id');
+1091: 			$table->dropColumns('disable_modifications');
+1092: 			$table->dropIndexes('title_style_id');
+1093: 			$table->addUniqueKey(['type', 'title', 'style_id']);
+1094: 		});
+
+SOURCE instances/wmtech-review/xf2313/upload/src/XF/Install/Upgrade/2000010-200a.php
+1210: 	// update option array format (now JSON)
+1211: 	public function step25()
+1212: 	{
+1213: 		$db = $this->db();
+1214:
+1215: 		$arrayTypeOptions = $db->fetchAllKeyed('
+1216: 			SELECT option_id, option_value, default_value
+1217: 			FROM xf_option
+1218: 			WHERE data_type = \'array\'
+1219: 		', 'option_id');
+1220:
+1221: 		$db->beginTransaction();
+1222:
+1223: 		foreach ($arrayTypeOptions AS $optionId => $option)
+1224: 		{
+1225: 			$value = @unserialize($option['option_value']) ?: [];
+1226: 			$defaultValue = @unserialize($option['default_value']) ?: [];
+1227:
+1228: 			if ($optionId == 'imageLibrary')
+1229: 			{
+1230: 				// currently an array type but converting to string
+1231: 				if (isset($value['class']))
+1232: 				{
+1233: 					$db->update('xf_option', [
+1234: 						'option_value' => $value['class'],
+1235: 						'default_value' => 'gd',
+1236: 						'data_type' => 'string',
+1237: 						'sub_options' => '',
+1238: 					], 'option_id = ?', $optionId);
+1239: 				}
+1240: 			}
+1241: 			else
+1242: 			{
+1243: 				$db->update('xf_option', [
+1244: 					'option_value' => json_encode($value),
+1245: 					'default_value' => json_encode($defaultValue),
+1246: 				], 'option_id = ?', $optionId);
+1247: 			}
+1248: 		}
+1249:
+1250: 		$db->commit();
+1251:
+1252: 		$this->schemaManager()->alterTable('xf_option', function (Alter $table)
+1253: 		{
+1254: 			$table->dropColumns('can_backup');
+1255: 			$table->changeColumn('edit_format')->addValues('username');
+1256: 		});
+1257: 	}
+
+SOURCE instances/wmtech-review/xf2313/upload/src/XF/Install/Upgrade/2000010-200a.php
+1527: 	public function step29()
+1528: 	{
+1529: 		$sm = $this->schemaManager();
+1530:
+1531: 		$sm->alterTable('xf_user_profile', function (Alter $table)
+1532: 		{
+1533: 			$table->renameColumn('homepage', 'website');
+1534: 			$table->renameColumn('external_auth', 'connected_accounts');
+1535: 			$table->dropColumns(['status', 'status_date', 'status_profile_post_id', 'occupation', 'csrf_token']);
+1536: 		});
+1537: 	}
+1538:
+1539: 	public function step30()
+1540: 	{
+1541: 		$this->schemaManager()->alterTable('xf_user', function (Alter $table)
+1542: 		{
+1543: 			$table->dropColumns('gender');
+1544: 			$table->changeColumn('user_state')->addValues(['rejected', 'disabled']);
+1545: 			$table->addColumn('secret_key', 'varbinary', 32);
+1546: 			$table->addColumn('avatar_highdpi', 'tinyint', 3)
+1547: 				->after('avatar_height')
+1548: 				->setDefault(0);
+1549: 		});
+1550: 	}
+1551:
+1552: 	public function step31()
+1553: 	{
+1554: 		$this->executeUpgradeQuery("
+1555: 			UPDATE xf_user
+1556: 			INNER JOIN xf_user_authenticate ON xf_user.user_id = xf_user_authenticate.user_id
+1557: 			SET xf_user.secret_key = SUBSTR(xf_user_authenticate.remember_key, 1, 32)
+1558: 		");
+1559: 	}
+1560:
+1561: 	public function step32()
+1562: 	{
+1563: 		$this->schemaManager()->alterTable('xf_user_authenticate', function (Alter $table)
+1564: 		{
+1565: 			$table->dropColumns('remember_key');
+1566: 		});
+1567: 	}
+1568:
+1569: 	// update the watch state configuration
+1570: 	public function step33()
+
+SOURCE instances/wmtech-review/xf2313/upload/src/XF/Install/Upgrade/2000010-200a.php
+2008:
+2009: 	// connected account changes
+2010: 	public function step43()
+2011: 	{
+2012: 		$sm = $this->schemaManager();
+2013:
+2014: 		$sm->renameTable('xf_user_external_auth', 'xf_user_connected_account');
+2015:
+2016: 		$this->executeUpgradeQuery("
+2017: 			INSERT INTO `xf_connected_account_provider`
+2018: 				(`provider_id`, `provider_class`, `display_order`, `options`)
+2019: 			VALUES
+2020: 				('facebook', 'XF:Provider\\\\Facebook', 10, ''),
+2021: 				('twitter', 'XF:Provider\\\\Twitter', 20, ''),
+2022: 				('google', 'XF:Provider\\\\Google', 30, ''),
+2023: 				('github', 'XF:Provider\\\\GitHub', 40, ''),
+2024: 				('linkedin', 'XF:Provider\\\\Linkedin', 50, ''),
+2025: 				('microsoft', 'XF:Provider\\\\Microsoft', 60, ''),
+2026: 				('yahoo', 'XF:Provider\\\\Yahoo', 70, '')
+2027: 		");
+2028:
+2029: 		$db = $this->db();
+2030:
+2031: 		$providers = [
+2032: 			'facebook' => [
+2033: 				'facebookAppId' => 'app_id',
+2034: 				'facebookAppSecret' => 'app_secret',
+2035: 			],
+2036: 			'twitter' => [
+2037: 				'twitterAppKey' => 'consumer_key',
+2038: 				'twitterAppSecret' => 'consumer_secret',
+2039: 			],
+2040: 			'google' => [
+2041: 				'googleClientId' => 'client_id',
+2042: 				'googleClientSecret' => 'client_secret',
+2043: 			],
+2044: 		];
+2045:
+2046: 		$updates = [];
+2047:
+2048: 		foreach ($providers AS $providerId => $optionIds)
+2049: 		{
+2050: 			foreach ($optionIds AS $oldOptionId => $newOption)
+2051: 			{
+2052: 				$value = $db->fetchOne('SELECT option_value FROM xf_option WHERE option_id = ?', $oldOptionId);
+2053: 				$updates[$providerId][$newOption] = $value;
+2054: 			}
+2055:
+2056: 			$db->update('xf_connected_account_provider', ['options' => json_encode($updates[$providerId])], 'provider_id = ?', $providerId);
+2057: 		}
+2058: 	}
+
+SOURCE instances/wmtech-review/xf2313/upload/src/XF/Install/Upgrade/2001070-2010.php
+20:
+21: 	public function step2()
+22: 	{
+23: 		$this->renameAuthSchemeClass(
+24: 			['XenForo_Authentication_Core', 'XenForo_Authentication_Default'],
+25: 			'XF:Core'
+26: 		);
+27: 	}
+28:
+29: 	public function step3()
+30: 	{
+31: 		$this->renameAuthSchemeClass(
+32: 			'XenForo_Authentication_Core12',
+33: 			'XF:Core12'
+34: 		);
+35: 	}
+
+SOURCE instances/wmtech-review/xf2313/upload/src/XF/App.php
+194: 				'basePath' => 'src' . \XF::$DS . 'styles',
+195: 			],
+196: 			'cookie' => [
+197: 				'prefix' => 'xf_',
+198: 				'path' => '/',
+199: 				'domain' => '',
+200: 			],
+201: 			'http' => [
+202: 				'sslVerify' => null,
+203: 				'proxy' => null,
+204: 			],
+205: 			'globalSalt' => '81a19bab74d985538534e09e61a548d4',
+206: 			'superAdmins' => '', // keep this for upgrade purposes
+207: 			'internalDataPath' => 'internal_data',
+208: 			'codeCachePath' => '%s/code_cache',
+209: 			'tempDataPath' => '%s/temp',
+
+SOURCE instances/wmtech-review/xf2313/upload/src/XF/App.php
+462: 		$container['response'] = function (Container $c)
+463: 		{
+464: 			/** @var Request $request */
+465: 			$request = $c['request'];
+466:
+467: 			$cookie = $c['config']['cookie'];
+468: 			$cookie['secure'] = $request->isSecure() ? true : false;
+469:
+470: 			$response = new Response();
+471: 			$response->setCookieConfig($cookie);
+472:
+473: 			$config = $c['config'];
+474: 			if ($config['enableClickjackingProtection'])
+
+SOURCE instances/wmtech-review/xf2313/upload/src/XF/App.php
+1089: 		$container['session.public'] = function (Container $c)
+1090: 		{
+1091: 			$class = $this->extendClass(Session::class);
+1092:
+1093: 			/** @var Session $session */
+1094: 			$session = new $class($c['session.public.storage'], [
+1095: 				'cookie' => 'session',
+1096: 			]);
+1097: 			return $session->start($c['request']);
+1098: 		};
+1099: 		$container['session.public.storage'] = function (Container $c)
+1100: 		{
+1101: 			$storage = null;
+1102: 			$cache = $c['cache'];
+1103:
+1104: 			$this->fire('session_public_storage_setup', [$c, $cache, &$storage]);
+1105: 			if ($storage)
+1106: 			{
+1107: 				if (!($storage instanceof StorageInterface))
+1108: 				{
+1109: 					throw new \LogicException('Storage must be instance of XF\Session\StorageInterface. Received ' . get_class($storage));
+1110: 				}
+1111: 				return $storage;
+1112: 			}
+1113:
+1114: 			if ($c['config']['cache']['sessions'] && $cache = $this->cache('sessions', true, false))
+1115: 			{
+1116: 				return new CacheStorage($cache, 'session_');
+1117: 			}
+1118: 			else
+1119: 			{
+1120: 				return new DbStorage($c['db'], 'xf_session');
+1121: 			}
+1122: 		};
+1123:
+1124: 		$container['session.admin'] = function (Container $c)
+1125: 		{
+1126: 			$class = $this->extendClass(Session::class);
+1127:
+1128: 			/** @var Session $session */
+1129: 			$session = new $class($c['session.admin.storage'], [
+1130: 				'cookie' => 'session_admin',
+1131: 			]);
+1132: 			return $session->start($c['request']);
+1133: 		};
+1134: 		$container['session.admin.storage'] = function (Container $c)
+1135: 		{
+1136: 			return new DbStorage($c['db'], 'xf_session_admin');
+
+SOURCE instances/wmtech-review/xf2313/upload/src/XF/Http/Response.php
+15: 	protected $includeContentLength = true;
+16: 	protected $cookieConfig = [
+17: 		'path' => '/',
+18: 		'domain' => '',
+19: 		'prefix' => '',
+20: 		'secure' => false,
+21: 		'samesite' => null,
+22: 	];
+23:
+24: 	protected $headers = [];
+25: 	protected $cookies = [];
+26: 	protected $body = '';
+27: 	protected $compress = false;
+28:
+29: 	public function setCookieConfig(array $config)
+30: 	{
+31: 		$this->cookieConfig = array_merge($this->cookieConfig, $config);
+32: 	}
+33:
+
+SOURCE instances/wmtech-review/xf2313/upload/src/XF/Http/Response.php
+342:
+343: 	public function setCookie($name, $value, $lifetime = 0, $secure = null, $httpOnly = true, $sameSite = null)
+344: 	{
+345: 		$cookieConfig = $this->cookieConfig;
+346:
+347: 		$path = $cookieConfig['path'];
+348: 		$domain = $cookieConfig['domain'];
+349: 		$name = $cookieConfig['prefix'] . $name;
+350:
+351: 		if ($secure === null)
+352: 		{
+353: 			$secure = $cookieConfig['secure'];
+354: 		}
+355:
+356: 		if ($sameSite === null)
+357: 		{
+358: 			$sameSite = $cookieConfig['samesite'];
+359: 		}
+360:
+361: 		return $this->setCookieRaw($name, $value, $lifetime, $path, $domain, $secure, $httpOnly, $sameSite);
+362: 	}
+363:
+364: 	public function setCookieRaw($name, $value = '', $lifetime = 0, $path = '/', $domain = '', $secure = false, $httpOnly = true, $sameSite = null)
+365: 	{
+366: 		if ($value === false)
+
+SOURCE instances/wmtech-review/xf2313/upload/src/XF/Http/Request.php
+2044: 	public function isSecure()
+2045: 	{
+2046: 		return (
+2047: 			$this->getServer('REQUEST_SCHEME') === 'https'
+2048: 			|| $this->getServer('HTTP_X_FORWARDED_PROTO') === 'https'
+2049: 			|| $this->getServer('HTTPS') === 'on'
+2050: 			|| $this->getServer('SERVER_PORT') == 443
+2051: 		);
+2052: 	}
+2053:
+
+SOURCE instances/wmtech-review/xf2313/upload/src/XF/Http/Reader.php
+96: 	 */
+97: 	public function requestUntrusted($method, $url, array $limits = [], $saveTo = null, array $options = [], &$error = null)
+98: 	{
+99: 		$this->lastLocation = null;
+100: 		$options['allow_redirects'] = false;
+101:
+102: 		$requests = 0;
+103:
+104: 		do
+105: 		{
+106: 			$continue = false;
+107: 			$requests++;
+108:
+109: 			$url = preg_replace('/#.*$/', '', $url);
+110: 			if (!$this->isRequestableUntrustedUrlExtended($url, $data, $untrustedError))
+111: 			{
+112: 				$error = "The URL is not requestable ($untrustedError)";
+113: 				return null;
+114: 			}
+115:
+116: 			if (
+117: 				defined('CURLOPT_CONNECT_TO')
+118: 				&& $this->clientUntrusted->getConfig('proxy') === null
+119: 			)
+120: 			{
+121: 				$response = null;
+122: 				$ips = array_merge(
+123: 					$data['ipv4s'],
+124: 					array_map(
+125: 						function ($ipv6) { return '[' . $ipv6 . ']'; },
+126: 						$data['ipv6s']
+127: 					)
+128: 				);
+129: 				foreach ($ips AS $ip)
+130: 				{
+131: 					$options['curl'][CURLOPT_CONNECT_TO] = ["::{$ip}:"];
+132:
+133: 					$response = $this->_request(
+134: 						$this->clientUntrusted,
+135: 						$method,
+136: 						$url,
+137: 						$limits,
+138: 						$saveTo,
+139: 						$options,
+140: 						$error
+141: 					);
+142:
+143: 					if ($response !== null)
+144: 					{
+145: 						break;
+146: 					}
+147: 				}
+148: 			}
+149: 			else
+150: 			{
+151: 				$response = $this->_request(
+152: 					$this->clientUntrusted,
+153: 					$method,
+154: 					$url,
+155: 					$limits,
+156: 					$saveTo,
+157: 					$options,
+158: 					$error
+159: 				);
+
+SOURCE instances/wmtech-review/xf2313/upload/src/XF/Http/Reader.php
+224: 	public function isRequestableUntrustedUrlExtended($url, &$data = [], &$error = null)
+225: 	{
+226: 		$parts = @parse_url($url);
+227:
+228: 		if (!$parts || empty($parts['scheme']) || empty($parts['host']))
+229: 		{
+230: 			$error = 'invalid';
+231: 			return false;
+232: 		}
+233:
+234: 		if (!in_array(strtolower($parts['scheme']), $this->untrustedAllowedSchemes))
+235: 		{
+236: 			$error = 'scheme';
+237: 			return false;
+238: 		}
+239:
+240: 		if (!empty($parts['port']) && !in_array($parts['port'], $this->untrustedAllowedPorts))
+241: 		{
+242: 			$error = 'port';
+243: 			return false;
+244: 		}
+245:
+246: 		if (!empty($parts['user']) || !empty($parts['pass']))
+247: 		{
+248: 			$error = 'userpass';
+249: 			return false;
+250: 		}
+251:
+252: 		if (strpos($parts['host'], '[') !== false)
+253: 		{
+254: 			$error = 'ipv6';
+255: 			return false;
+256: 		}
+257:
+258: 		if (preg_match('/^[0-9]+$/', $parts['host']))
+259: 		{
+260: 			$error = 'ipv4int';
+261: 			return false;
+262: 		}
+263:
+264: 		if (Url::hasPrivateUseTld($parts['host']))
+265: 		{
+266: 			$error = "private tld: {$parts['host']}";
+267: 			return false;
+268: 		}
+269:
+270: 		$hasValidIp = false;
+
+SOURCE instances/wmtech-review/xf2313/upload/src/XF/Job/Manager.php
+193: 	public function runJobEntry(array $job, $maxRunTime)
+194: 	{
+195: 		$affected = $this->db->update('xf_job', [
+196: 			'trigger_date' => time() + 15 * 60,
+197: 			'last_run_date' => time(),
+198: 		], 'job_id = ? AND trigger_date = ?', [$job['job_id'], $job['trigger_date']]);
+199: 		if (!$affected)
+200: 		{
+201: 			// job has already been taken, treat it as complete
+202: 			return JobResult::newComplete($job['job_id']);
+203: 		}
+204:
+205: 		$result = $this->runJobInternal($job, $maxRunTime);
+206:
+207: 		switch ($result->result)
+208: 		{
+209: 			case JobResult::RESULT_COMPLETED:
+210: 				$this->cancelAndDequeueJob($job);
+211: 				break;
+212:
+213: 			case JobResult::RESULT_RESUME:
+214: 			case JobResult::RESULT_REATTEMPT:
+215: 				$update = [
+216: 					'execute_data' => serialize($result->data),
+217: 					'trigger_date' => $result->continueDate ? (int) $result->continueDate : $job['trigger_date'],
+218: 					'last_run_date' => time(),
+219: 				];
+220:
+221: 				if ($result->result === JobResult::RESULT_REATTEMPT)
+222: 				{
+223: 					$update['attempts'] = $job['attempts'] + 1;
+224: 				}
+225:
+226: 				$this->db->update('xf_job', $update, 'job_id = ?', $job['job_id']);
+227:
+228: 				break;
+229:
+230: 			case JobResult::RESULT_FAILED:
+231: 				$this->cancelAndDequeueJob($job);
+232:
+233: 				if ($result->exception)
+234: 				{
+235: 					$jobForLogging = $job;
+236: 					$jobForLogging['execute_data'] = serialize($result->data);
+237: 					$this->logFailedJob($jobForLogging, $result->exception);
+238: 				}
+239:
+240: 				break;
+241: 		}
+242:
+243: 		if (!$job['manual_execute'])
+244: 		{
+245: 			$this->scheduleRunTimeUpdate();
+246: 		}
+247:
+248: 		return $result;
+249: 	}
+250:
+251: 	public function getJobRunner(array $job)
+252: 	{
+253: 		return $this->app->job($job['execute_class'], $job['job_id'], unserialize($job['execute_data']), $job['attempts']);
+254: 	}
+255:
+256: 	protected function runJobInternal(array $job, $maxRunTime)
+257: 	{
+258: 		$runner = $this->getJobRunner($job);
+259: 		if (!$runner)
+260: 		{
+261: 			$this->app->logException(new \Exception("Could not get runner for job $job[execute_class] (unique: $job[unique_key]). Skipping."));
+262:
+263: 			return JobResult::newComplete($job['job_id']);
+264: 		}
+265:
+266: 		if (!$this->shutdownRegistered)
+267: 		{
+268: 			register_shutdown_function([$this, 'handleShutdown']);
+269: 		}
+270:
+271: 		$this->runningJob = $job;
+272:
+273: 		try
+274: 		{
+275: 			$result = $runner->run($maxRunTime);
+276: 			$this->runningJob = null;
+277: 		}
+278: 		catch (\Throwable $e)
+279: 		{
+280: 			$this->runningJob = null;
+281:
+282: 			$this->db->rollbackAll();
+283:
+284: 			if ($job['manual_execute'] || $this->app->config()['development']['throwJobErrors'])
+285: 			{
+286: 				$this->db->update('xf_job', [
+287: 					'trigger_date' => $job['trigger_date'],
+288: 					'last_run_date' => time(),
+289: 				], 'job_id = ?', $job['job_id']);
+290:
+291: 				throw $e;
+292: 			}
+293:
+294: 			$this->app->logException($e, false, "$job[execute_class]: ");
+295:
+296: 			$data = unserialize($job['execute_data']);
+297: 			$result = null;
+298:
+299: 			if (method_exists($runner, 'getNextAttemptDate'))
+300: 			{
+301: 				$nextTry = $runner->getNextAttemptDate($job['attempts']);
+302: 				if ($nextTry !== null)
+303: 				{
+304: 					$result = JobResult::newReattempt($job['job_id'], $nextTry, $data);
+305: 				}
+306: 			}
+307:
+308: 			if (!$result)
+309: 			{
+310: 				$exception = $e instanceof \Exception ? $e : new \Exception($e->getMessage(), (int) $e->getCode(), $e);
+311: 				$result = JobResult::newFailed($job['job_id'], $data, $exception);
+312: 			}
+313: 		}
+314:
+315: 		if (!($result instanceof JobResult))
+316: 		{
+317: 			throw new \LogicException("Jobs must return JobResult objects");
+318: 		}
+319:
+
+SOURCE instances/wmtech-review/xf2313/upload/src/XF/Authentication/Core12.php
+36: 	public function generate($password)
+37: 	{
+38: 		$options = $this->getDefaultOptions();
+39:
+40: 		$password = $this->truncatePassword($password);
+41:
+42: 		$hash = password_hash($password, $options['algo'], $options['options']);
+43:
+44: 		return [
+45: 			'hash' => $hash,
+46: 		];
+47: 	}
+48:
+49: 	public function authenticate($userId, $password)
+50: 	{
+51: 		if (!is_string($password) || $password === '' || empty($this->data))
+52: 		{
+53: 			return false;
+54: 		}
+55:
+56: 		$password = $this->truncatePassword($password);
+57:
+58: 		if ($this->isLegacyHash())
+59: 		{
+60: 			return $this->getHandler()->CheckPassword($password, $this->data['hash']);
+61: 		}
+62: 		else
+63: 		{
+64: 			return password_verify($password, $this->data['hash']);
+65: 		}
+66: 	}
+67:
+68: 	public function isUpgradable()
+69: 	{
+70: 		if (!empty($this->data['hash']))
+71: 		{
+72: 			$hash = $this->data['hash'];
+73: 			$options = $this->getDefaultOptions();
+74:
+75: 			if ($this->isLegacyHash())
+76: 			{
+77: 				$expectedIterations = min(intval($options['options']['cost']), 30);
+78:
+79: 				preg_match('/^\$(P|H)\$(.)/i', $hash, $match);
+80: 				$iterations = $this->getHandler()->reverseItoA64($match[2]) - 5; // 5 iterations removed in PHP 5
+81:
+82: 				return $expectedIterations !== $iterations;
+83: 			}
+84: 			else
+85: 			{
+86: 				return password_needs_rehash($hash, $options['algo'], $options['options']);
+87: 			}
+88: 		}
+89:
+90: 		return true;
+91: 	}
+92:
+93: 	/**
+94: 	 * Explicitly limits the password length to mitigate a potential algorithm-specific DoS.
+95: 	 * Note that algorithms may have their own internal limits applied, like bcrypt's 72 byte limit.
+96: 	 *
+97: 	 * We limit to 4K by default as that should exceed any reasonable password length.
+98: 	 *
+99: 	 * @param string $password
+100: 	 *
+101: 	 * @return string
+102: 	 */
+103: 	protected function truncatePassword(string $password): string
+104: 	{
+105: 		return substr($password, 0, 4096);
+106: 	}
+107:
+108: 	public function getAuthenticationName()
+109: 	{
+
+SOURCE instances/wmtech-review/xf2313/upload/src/XF/Entity/UserAuth.php
+29: 		return $handler->authenticate($this->user_id, $password);
+30: 	}
+31:
+32: 	/**
+33: 	 * @return null|AbstractAuth
+34: 	 */
+35: 	public function getAuthenticationHandler()
+36: 	{
+37: 		$class = $this->scheme_class;
+38: 		if (!$class)
+39: 		{
+40: 			return null;
+41: 		}
+42:
+43: 		// note: the following fallbacks will mostly be no longer touched
+44: 		// but need to stay to ensure upgrades from versions older than
+45: 		// 2.0.10 still work - without them, it may not be possible for
+46: 		// some admins to log into the upgrade system.
+47: 		if (substr($class, 0, 7) == 'XenForo')
+48: 		{
+49: 			$class = 'XF' . substr($class, 7);
+50: 		}
+51:
+52: 		$class = str_replace('_', '\\', $class);
+53: 		$class = str_replace('_Authentication_', ':', $class);
+54:
+55: 		if ($class == 'XF:Default')
+56: 		{
+57: 			$class = 'XF:Core';
+58: 		}
+59:
+60: 		return $this->app()->auth($class, $this->data ?: []);
+61: 	}
+62:
+63: 	public function resetPassword()
+64: 	{
+
+SOURCE instances/wmtech-review/xf2313/upload/src/XF/Entity/UserAuth.php
+151:
+152: 	public static function getStructure(Structure $structure)
+153: 	{
+154: 		$structure->table = 'xf_user_authenticate';
+155: 		$structure->shortName = 'XF:UserAuth';
+156: 		$structure->primaryKey = 'user_id';
+157: 		$structure->columns = [
+158: 			'user_id' => ['type' => self::UINT, 'required' => true],
+159: 			'scheme_class' => ['type' => self::STR, 'maxLength' => 100, 'required' => true],
+160: 			'data' => ['type' => self::SERIALIZED_ARRAY, 'default' => []],
+161: 			// note: this is intentionally still serialized!
+162: 		];
+163: 		$structure->behaviors = [
+164: 			'XF:ChangeLoggable' => ['contentType' => 'user', 'optIn' => true],
+
+SOURCE instances/wmtech-review/xf2313/upload/src/XF/Entity/UserProfile.php
+305: 			'banner_date' => ['type' => self::UINT, 'default' => 0],
+306: 			'banner_position_y' => ['type' => self::UINT, 'max' => 100, 'default' => null, 'nullable' => true, 'changeLog' => false],
+307: 			'banner_optimized' => ['type' => self::BOOL, 'default' => false, 'changeLog' => false],
+308: 			'about' => ['type' => self::STR, 'maxLength' => 20000, 'default' => '',
+309: 				'verify' => 'verifyLongStringField',
+310: 			],
+311: 			'custom_fields' => ['type' => self::JSON_ARRAY, 'default' => [], 'changeLog' => 'customFields'],
+312: 			'connected_accounts' => ['type' => self::JSON_ARRAY, 'default' => [], 'changeLog' => false],
+313: 			'password_date' => ['type' => self::UINT, 'default' => 1, 'changeLog' => false],
+314: 		];
+315: 		$structure->behaviors = [
+
+SOURCE instances/wmtech-review/xf2313/upload/src/XF/Repository/TagRepository.php
+163: 	public function generateTagUrlVersion($tag)
+164: 	{
+165: 		$urlVersion = preg_replace('/[^a-zA-Z0-9_ -]/', '', Str::transliterate($tag));
+166: 		$urlVersion = preg_replace('/[ -]+/', '-', $urlVersion);
+167:
+168: 		$db = $this->db();
+169:
+170: 		if (!strlen($urlVersion))
+171: 		{
+172: 			$urlVersion = 1 + intval($db->fetchOne("
+173: 				SELECT MAX(tag_id)
+174: 				FROM xf_tag
+175: 			"));
+176: 		}
+177: 		else
+178: 		{
+179: 			$existing = $db->fetchRow("
+180: 				SELECT *
+181: 				FROM xf_tag
+182: 				WHERE tag_url = ?
+183: 					OR (tag_url LIKE ? AND tag_url REGEXP ?)
+184: 				ORDER BY tag_id DESC
+185: 				LIMIT 1
+186: 			", [$urlVersion, "$urlVersion-%", "^{$urlVersion}-[0-9]+\$"]);
+187: 			if ($existing)
+
+SOURCE instances/wmtech-review/xf2313/upload/src/XF/Service/User/PasswordResetService.php
+67:
+68: 	public function resetLostPassword($newPassword)
+69: 	{
+70: 		$user = $this->user;
+71:
+72: 		/** @var UserAuth $userAuth */
+73: 		$userAuth = $user->getRelationOrDefault('Auth', false);
+74: 		if (!$this->isAdminReset)
+75: 		{
+76: 			$userAuth->getBehavior(ChangeLoggable::class)->setOption('forceEditUserId', $user->user_id);
+77: 		}
+78: 		$userAuth->setPassword($newPassword, null, true, $this->allowPasswordReuse);
+79: 		$userAuth->save();
+80:
+81: 		if ($this->confirmation->exists())
+82: 		{
+83: 			$this->confirmation->delete();
+84: 		}
+85:
+86: 		$this->repository(UserRememberRepository::class)->clearUserRememberRecords($user->user_id);
+87:
+88: 		$ip = $this->app->request()->getIp();
+89: 		$this->repository(IpRepository::class)->logIp(
+90: 			$user->user_id,
+91: 			$ip,
+92: 			'user',
+93: 			$user->user_id,
+94: 			'reset_password'
+95: 		);
+96:
+97: 		if ($user->email)
+98: 		{
+99: 			$this->app->mailer()->newMail()
+100: 				->setToUser($user)
+101: 				->setTemplate('user_lost_password_reset', ['user' => $user])
+102: 				->send();
+103: 		}
+104:
+105: 		return $user;
+106: 	}
+107: }
+
+SOURCE instances/wmtech-review/xf2313/upload/src/XF/Cli/Command/Upgrade.php
+43: 	{
+44: 		/** @var App $app */
+45: 		$app = \XF::app();
+46: 		$upgrader = new Upgrader($app);
+47: 		$installHelper = new Helper($app);
+48:
+49: 		if ($app->config('legacyExists'))
+50: 		{
+51: 			$output->writeln("<error>Cannot start upgrade without a src/config.php file.</error>");
+52: 			$output->writeln("Please use the web interface to create the correct src/config.php file.");
+53: 			return 1;
+54: 		}
+55: 		if (!$app->config('exists'))
+56: 		{
+57: 			$output->writeln("<error>Cannot start upgrade without a src/config.php file.</error>");
+58: 			$output->writeln("Please create a new src/config.php file.");
+59: 			return 1;
+60: 		}
+61:
+62: 		$upgrader->syncUpgradeLogStructure();
+63: 		$upgrader->syncJobStructure();
+64:
+
+SOURCE instances/wmtech-review/xf2313/upload/src/XF/Install/_upgrader/requirements.json
+1: {
+2:   "php": "7.2.0",
+3:   "php-ext/ctype": "*",
+4:   "php-ext/curl": "*",
+5:   "php-ext/dom": "*",
+6:   "php-ext/gd": "*",
+7:   "php-ext/iconv": "*",
+8:   "php-ext/json": "*",
+9:   "php-ext/mbstring": "*",
+10:   "php-ext/mysqli": "*",
+11:   "php-ext/pcre": "*",
+12:   "php-ext/simplexml": "*",
+13:   "php-ext/spl": "*",
+14:   "mysql": "5.7"
+15: }
+
+
+SUPPLEMENTAL CHAIR CHECK AFTER PANEL COMPLETION
+instances/wmtech-review/base/upload/library/XenForo/Application.php
+680: 			'globalSalt' => '81a19bab74d985538534e09e61a548d4',

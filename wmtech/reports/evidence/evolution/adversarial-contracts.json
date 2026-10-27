@@ -1,0 +1,17 @@
+{
+  "url_rejections": {
+    "loopback": "local: 127.0.0.1",
+    "metadata": "local: 169.254.169.254",
+    "integer_ip": "ipv4int",
+    "credentials": "userpass",
+    "port": "port",
+    "private_tld": "private tld: service.internal",
+    "ipv6_literal": "ipv6"
+  },
+  "arrayOptionContract": {
+    "nativeSerializedSurvives": true,
+    "prematureJsonWouldBecomeEmpty": true
+  },
+  "authStorageType": 65544,
+  "profileStorageType": 65552
+}

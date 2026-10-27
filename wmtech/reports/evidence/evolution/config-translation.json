@@ -1,0 +1,22 @@
+{
+  "sourceVersion": 1055070,
+  "targetVersion": 2031370,
+  "firstUpgradeId": 2000010,
+  "remainingUpgradeCount": 57,
+  "translatedKeys": [
+    "db",
+    "debug",
+    "cookie",
+    "enableMail",
+    "globalSalt",
+    "superAdmins"
+  ],
+  "copiedCookieKeys": [
+    "sameSite",
+    "secure"
+  ],
+  "sessionOverridePreserved": false,
+  "httpUserAgentPreserved": false,
+  "copyrightHtmlPreserved": false,
+  "explicitGlobalSaltPreserved": true
+}

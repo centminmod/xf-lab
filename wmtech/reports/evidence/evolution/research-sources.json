@@ -1,0 +1,32 @@
+[
+  {
+    "url": "https://docs.xenforo.com/manual/installing-and-upgrading/upgrade",
+    "accessed": "2026-10-27",
+    "summary": "Official guidance allows direct upgrades without interim releases. The XF1 boundary requires replacement add-ons and rebuilt styles/templates. A matched database and file backup is needed for rollback. A real-site clone rehearsal remains necessary."
+  },
+  {
+    "url": "https://docs.xenforo.com/devs/add-on-structure",
+    "accessed": "2026-10-27",
+    "summary": "XF2 add-ons have explicit IDs, src/addons paths and addon.json metadata. legacy_addon_id maps a supported XF2 successor to its XF1 identity; it does not translate executable code."
+  },
+  {
+    "url": "https://docs.xenforo.com/manual/config/unicode",
+    "accessed": "2026-10-27",
+    "summary": "An existing database must be converted with the supported xf:convert-utf8mb4 command before fullUnicode is set true. This should follow the core upgrade and a separate backup/test window."
+  },
+  {
+    "url": "https://xenforo.com/community/threads/xenforo-2-3-13-and-add-ons-released-includes-security-fixes.239857/",
+    "accessed": "2026-10-27",
+    "summary": "The official 2.3.13 release includes security fixes. It states PHP 7.2 minimum, PHP 8.3 recommended, MySQL 5.7 minimum, and matching official add-on requirements. The supplied archive requirements.json agrees."
+  },
+  {
+    "url": "https://www.php.net/manual/en/function.unserialize.php",
+    "accessed": "2026-10-27",
+    "summary": "allowed_classes=false prevents normal application classes from being instantiated during decoding. It does not replace validation of decoded data shapes or the need to keep untrusted input away from deserialization."
+  },
+  {
+    "url": "https://www.php.net/archive/2026.php",
+    "accessed": "2026-10-27",
+    "summary": "The 21 October PHP advisory names critical engine vulnerabilities CVE-2026-109618 and CVE-2026-109619. Fixed supported releases include 8.3.36; older branches require documented vendor or exceptional source backports. Application compatibility patches do not apply these engine fixes."
+  }
+]

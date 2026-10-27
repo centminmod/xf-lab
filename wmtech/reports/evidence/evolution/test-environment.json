@@ -1,0 +1,11 @@
+{
+  "sourceRuntime": "PHP 7.4.33",
+  "targetRuntime": "PHP 8.3.33",
+  "database": "MariaDB 10.6",
+  "targetImage": "xf_2_3_12_php_8_3-php:latest",
+  "targetApplication": "unmodified supplied XenForo 2.3.13 archive",
+  "networkExposure": "loopback-only HTTP ports 8674 and 8683",
+  "fixture": "synthetic data, native core upgrade routines",
+  "engineSecurityFixProvenanceVerified": false,
+  "temporaryDockerProjectStopped": true
+}
