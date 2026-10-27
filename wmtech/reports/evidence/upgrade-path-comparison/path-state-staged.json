@@ -1,0 +1,45 @@
+{
+    "version": 2031370,
+    "databaseVersion": 2031370,
+    "baselineSaltPreserved": false,
+    "cookiePolicy": "Lax",
+    "titlePreserved": true,
+    "postPreserved": true,
+    "legacyAddonDisabled": true,
+    "legacyQueueDropped": true,
+    "errorLogRows": 0,
+    "users": 2,
+    "threads": 1,
+    "posts": 1,
+    "attachments": 1,
+    "user1PasswordValid": true,
+    "user1WrongPasswordRejected": true,
+    "user2PasswordValid": true,
+    "user2WrongPasswordRejected": true,
+    "serializedAuthBytesPreserved": true,
+    "authSchemes": [
+        "XF:Core12",
+        "XF:Core"
+    ],
+    "genderPreserved": true,
+    "occupationPreserved": true,
+    "attachmentsSha256": {
+        "1": "0b62ac71b94f6474796ee682094e895e9b0b209324aa228c1fd40fa0c6e306da"
+    },
+    "providers": {
+        "facebook": {
+            "configPreserved": true,
+            "linkedUsers": 1,
+            "profileCachePresent": true
+        },
+        "google": {
+            "configPreserved": true,
+            "linkedUsers": 1,
+            "profileCachePresent": true
+        }
+    },
+    "nativeHealthEntries": 13858,
+    "nativeHealthMismatches": [],
+    "tableCount": 225,
+    "permissionChecks": 308
+}

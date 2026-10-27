@@ -1,0 +1,42 @@
+{
+    "stage": "1.5.24",
+    "php": "7.4.33",
+    "mysqlVersion": "8.4.10",
+    "tagSlugs": {
+        "XenForo_Model_Tag": {
+            "cafe": {
+                "value": "cafe-3"
+            },
+            "caf\u00e9": {
+                "value": "cafe-3"
+            },
+            "CAFE": {
+                "value": "CAFE-3"
+            }
+        },
+        "XenForo_DataWriter_Tag": {
+            "cafe": {
+                "value": "cafe-3"
+            },
+            "caf\u00e9": {
+                "value": "cafe-3"
+            },
+            "CAFE": {
+                "value": "CAFE-3"
+            }
+        }
+    },
+    "queueWritePreserved": true,
+    "queueExecuted": true,
+    "queueRowAfterProbe": false,
+    "http": {
+        "https://example.com/": {
+            "status": 200,
+            "resolveRules": []
+        },
+        "https://www.php.net/": {
+            "status": 200,
+            "resolveRules": []
+        }
+    }
+}

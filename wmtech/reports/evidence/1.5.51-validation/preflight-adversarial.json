@@ -1,0 +1,8 @@
+{
+  "malformedArrayOptionReported": true,
+  "invalidHeldJobReported": true,
+  "heldCount": 1,
+  "invalidJobCount": 1,
+  "fixtureCleanup": true,
+  "testedOnIndependentRestoredClone": true
+}

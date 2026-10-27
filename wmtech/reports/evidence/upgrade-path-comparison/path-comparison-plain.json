@@ -1,0 +1,235 @@
+{
+  "comparison": "plain-to-staged",
+  "tableCountLeft": 225,
+  "tableCountRight": 225,
+  "leftOnlyTables": [],
+  "rightOnlyTables": [],
+  "schemaDifferences": [],
+  "identicalRawTables": 216,
+  "differentRawTables": {
+    "xf_cron_entry": {
+      "leftRows": 19,
+      "rightRows": 19,
+      "leftOnlyRows": 0,
+      "rightOnlyRows": 0,
+      "changedRows": 19,
+      "changedColumns": [
+        "next_run"
+      ]
+    },
+    "xf_data_registry": {
+      "leftRows": 42,
+      "rightRows": 42,
+      "leftOnlyRows": 0,
+      "rightOnlyRows": 0,
+      "changedRows": 6,
+      "changedColumns": [
+        "data_value"
+      ]
+    },
+    "xf_job": {
+      "leftRows": 15,
+      "rightRows": 15,
+      "leftOnlyRows": 0,
+      "rightOnlyRows": 0,
+      "changedRows": 15,
+      "changedColumns": [
+        "trigger_date"
+      ]
+    },
+    "xf_option": {
+      "leftRows": 220,
+      "rightRows": 220,
+      "leftOnlyRows": 0,
+      "rightOnlyRows": 0,
+      "changedRows": 3,
+      "changedColumns": [
+        "option_value"
+      ],
+      "changedOptionIds": [
+        "boardUrl",
+        "iconSpriteLastUpdate",
+        "jsLastUpdate"
+      ],
+      "leftOnlyOptionIds": [],
+      "rightOnlyOptionIds": []
+    },
+    "xf_phrase": {
+      "leftRows": 11213,
+      "rightRows": 11213,
+      "leftOnlyRows": 11176,
+      "rightOnlyRows": 11176,
+      "changedRows": 0,
+      "changedColumns": []
+    },
+    "xf_phrase_map": {
+      "leftRows": 22426,
+      "rightRows": 22426,
+      "leftOnlyRows": 0,
+      "rightOnlyRows": 0,
+      "changedRows": 22352,
+      "changedColumns": [
+        "phrase_id"
+      ]
+    },
+    "xf_style": {
+      "leftRows": 1,
+      "rightRows": 1,
+      "leftOnlyRows": 0,
+      "rightOnlyRows": 0,
+      "changedRows": 1,
+      "changedColumns": [
+        "last_modified_date"
+      ]
+    },
+    "xf_template": {
+      "leftRows": 1217,
+      "rightRows": 1217,
+      "leftOnlyRows": 0,
+      "rightOnlyRows": 0,
+      "changedRows": 1217,
+      "changedColumns": [
+        "last_edit_date"
+      ]
+    },
+    "xf_upgrade_log": {
+      "leftRows": 58,
+      "rightRows": 60,
+      "leftOnlyRows": 0,
+      "rightOnlyRows": 2,
+      "changedRows": 57,
+      "changedColumns": [
+        "completion_date"
+      ],
+      "leftOnlyVersions": [],
+      "rightOnlyVersions": [
+        1055070,
+        1055170
+      ]
+    }
+  },
+  "loadedConfigDifferentKeys": [
+    "cookie.sameSite",
+    "cookie.samesite",
+    "globalSalt"
+  ],
+  "ignoredConfigKeys": [
+    "db.dbname"
+  ],
+  "effectivePermissionsEqual": true,
+  "targetArchiveFilesCompared": 13904,
+  "targetArchiveFilesEqual": true,
+  "filesOutsideTargetArchive": {
+    "leftCount": 2680,
+    "rightCount": 2638,
+    "leftOnly": [
+      "fb_channel.php",
+      "js/swfupload/swfupload license.txt",
+      "library/Zend/Service/WindowsAzure/Credentials/CredentialsAbstract.php",
+      "library/Zend/Service/WindowsAzure/Credentials/Exception.php",
+      "library/Zend/Service/WindowsAzure/Credentials/SharedAccessSignature.php",
+      "library/Zend/Service/WindowsAzure/Credentials/SharedKey.php",
+      "library/Zend/Service/WindowsAzure/Credentials/SharedKeyLite.php",
+      "library/Zend/Service/WindowsAzure/Diagnostics/ConfigurationDataSources.php",
+      "library/Zend/Service/WindowsAzure/Diagnostics/ConfigurationDiagnosticInfrastructureLogs.php",
+      "library/Zend/Service/WindowsAzure/Diagnostics/ConfigurationDirectories.php",
+      "library/Zend/Service/WindowsAzure/Diagnostics/ConfigurationInstance.php",
+      "library/Zend/Service/WindowsAzure/Diagnostics/ConfigurationLogs.php",
+      "library/Zend/Service/WindowsAzure/Diagnostics/ConfigurationObjectBaseAbstract.php",
+      "library/Zend/Service/WindowsAzure/Diagnostics/ConfigurationPerformanceCounters.php",
+      "library/Zend/Service/WindowsAzure/Diagnostics/ConfigurationWindowsEventLog.php",
+      "library/Zend/Service/WindowsAzure/Diagnostics/DirectoryConfigurationSubscription.php",
+      "library/Zend/Service/WindowsAzure/Diagnostics/Exception.php",
+      "library/Zend/Service/WindowsAzure/Diagnostics/LogLevel.php",
+      "library/Zend/Service/WindowsAzure/Diagnostics/Manager.php",
+      "library/Zend/Service/WindowsAzure/Diagnostics/PerformanceCounterSubscription.php",
+      "library/Zend/Service/WindowsAzure/Exception.php",
+      "library/Zend/Service/WindowsAzure/RetryPolicy/Exception.php",
+      "library/Zend/Service/WindowsAzure/RetryPolicy/NoRetry.php",
+      "library/Zend/Service/WindowsAzure/RetryPolicy/RetryN.php",
+      "library/Zend/Service/WindowsAzure/RetryPolicy/RetryPolicyAbstract.php",
+      "library/Zend/Service/WindowsAzure/SessionHandler.php",
+      "library/Zend/Service/WindowsAzure/Storage.php",
+      "library/Zend/Service/WindowsAzure/Storage/Batch.php",
+      "library/Zend/Service/WindowsAzure/Storage/BatchStorageAbstract.php",
+      "library/Zend/Service/WindowsAzure/Storage/Blob.php",
+      "library/Zend/Service/WindowsAzure/Storage/Blob/Stream.php",
+      "library/Zend/Service/WindowsAzure/Storage/BlobContainer.php",
+      "library/Zend/Service/WindowsAzure/Storage/BlobInstance.php",
+      "library/Zend/Service/WindowsAzure/Storage/DynamicTableEntity.php",
+      "library/Zend/Service/WindowsAzure/Storage/LeaseInstance.php",
+      "library/Zend/Service/WindowsAzure/Storage/PageRegionInstance.php",
+      "library/Zend/Service/WindowsAzure/Storage/Queue.php",
+      "library/Zend/Service/WindowsAzure/Storage/QueueInstance.php",
+      "library/Zend/Service/WindowsAzure/Storage/QueueMessage.php",
+      "library/Zend/Service/WindowsAzure/Storage/SignedIdentifier.php",
+      "library/Zend/Service/WindowsAzure/Storage/StorageEntityAbstract.php",
+      "library/Zend/Service/WindowsAzure/Storage/Table.php",
+      "library/Zend/Service/WindowsAzure/Storage/TableEntity.php",
+      "library/Zend/Service/WindowsAzure/Storage/TableEntityQuery.php",
+      "library/Zend/Service/WindowsAzure/Storage/TableInstance.php"
+    ],
+    "rightOnly": [
+      "js/jquery/jquery-1.12.4.min.js",
+      "library/XenForo/Install/Upgrade/1055070-1550.php",
+      "library/XenForo/Install/Upgrade/1055170-1551.php"
+    ],
+    "changed": [
+      "install/data/options.xml",
+      "js/videojs/video.js",
+      "js/xenforo/filter_list.js",
+      "js/xenforo/full/filter_list.js",
+      "js/xenforo/full/xenforo.js",
+      "js/xenforo/xenforo.js",
+      "library/Lgpl/utf8.php",
+      "library/XenForo/Application.php",
+      "library/XenForo/BounceParser.php",
+      "library/XenForo/Captcha/SolveMedia.php",
+      "library/XenForo/Controller.php",
+      "library/XenForo/ControllerPublic/Member.php",
+      "library/XenForo/ControllerPublic/Register.php",
+      "library/XenForo/DataWriter/Helper/Denormalization.php",
+      "library/XenForo/DataWriter/Tag.php",
+      "library/XenForo/Dependencies/Public.php",
+      "library/XenForo/Helper/Cookie.php",
+      "library/XenForo/Helper/Hash.php",
+      "library/XenForo/Helper/Http.php",
+      "library/XenForo/Helper/Php.php",
+      "library/XenForo/Importer/IPBoard.php",
+      "library/XenForo/Install/Data/FileSums.php",
+      "library/XenForo/Install/Model/Install.php",
+      "library/XenForo/Model/CaptchaQuestion.php",
+      "library/XenForo/Model/Conversation.php",
+      "library/XenForo/Model/Deferred.php",
+      "library/XenForo/Model/Forum.php",
+      "library/XenForo/Model/SpamCleaner.php",
+      "library/XenForo/Model/Tag.php",
+      "library/XenForo/Model/User.php",
+      "library/XenForo/Model/UserChangeTemp.php",
+      "library/XenForo/Model/UserConfirmation.php",
+      "library/XenForo/Options.php",
+      "library/XenForo/PasswordHash.php",
+      "library/XenForo/ProxyOutput.php",
+      "library/XenForo/ReportHandler/Abstract.php",
+      "library/XenForo/ReportHandler/ConversationMessage.php",
+      "library/XenForo/ReportHandler/Post.php",
+      "library/XenForo/ReportHandler/ProfilePost.php",
+      "library/XenForo/ReportHandler/ProfilePostComment.php",
+      "library/XenForo/ReportHandler/User.php",
+      "library/XenForo/Session.php",
+      "library/XenForo/Template/Abstract.php",
+      "library/XenForo/Template/Helper/Core.php",
+      "library/XenForo/UserUpgradeProcessor/PayPal.php",
+      "library/Zend/Filter/Compress/Zip.php",
+      "library/Zend/Json/Decoder.php",
+      "library/Zend/Json/Encoder.php",
+      "library/Zend/Loader/PluginLoader.php",
+      "library/Zend/Registry.php",
+      "library/Zend/Validate/Isbn.php",
+      "library/Zend/Wildfire/Plugin/FirePhp.php",
+      "rgba.php"
+    ]
+  },
+  "privateSnapshotValuesExported": false,
+  "normalization": "Only DDL AUTO_INCREMENT counters and isolated config dbname are excluded at this inventory stage. Every other raw difference is reported for classification."
+}

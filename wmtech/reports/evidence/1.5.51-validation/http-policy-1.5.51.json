@@ -1,0 +1,13 @@
+{
+  "cookie-policy-0": true,
+  "cookie-policy-1": true,
+  "cookie-policy-2": true,
+  "cookie-policy-3": true,
+  "cookie-policy-4": true,
+  "retired-endpoint-facebook": true,
+  "retired-endpoint-facebook-register": true,
+  "retired-endpoint-google": true,
+  "retired-endpoint-google-register": true,
+  "retired-login-buttons-hidden": true,
+  "provider-values-not-exposed": true
+}

@@ -1,0 +1,32 @@
+{
+  "stage": "1.5.50 to 1.5.51; independent direct 1.5.24 to 1.5.51",
+  "uploadTreeSha256": "9015925fd95346b33213f5e306a533321bf80322bbfc23482a859fae073c4a7c",
+  "nativeUpgradeCompleted": true,
+  "directNativeUpgradeCompleted": true,
+  "finalGuardBothPathsPassed": true,
+  "functionDefiningConfigLoadedOncePassed": true,
+  "queueAssertions": 16,
+  "serializationAssertions": 15,
+  "nativeFileHealthEntries": 1244,
+  "nativeHealthMismatches": 0,
+  "fullWebrootPhp74LintFiles": 2296,
+  "php72RequirementRejected": true,
+  "httpPostingCsrfAdminAndFileHealthPassed": true,
+  "sameSiteCases": 5,
+  "retiredProviderRoutesRejected": 4,
+  "businessMailMessagesPerPath": 2,
+  "businessMailTransport": "local files only",
+  "pendingBusinessJobsBothPaths": 0,
+  "original50SaltRetained": true,
+  "stock24SaltRetainedOnDirectPath": true,
+  "unexpectedApplicationErrors": 0,
+  "historicalTestCorrections": [
+    "MySQL scratch adapter cache: isolated tests in separate processes",
+    "Native file-health manifest: strip CR bytes before MD5, as native helper does",
+    "Config helper test: supplied its missing language fixture",
+    "Final caller tracing found lost untrusted HTTP config without an explicit adapter; reproduced, corrected, six policy assertions passed, full chain replayed"
+  ],
+  "remainingGate": "External checkpoint 2 review pending explicit outbound approval; native XF2 full-chain replay also passed",
+  "finalFullChainXf1StagesReplayed": true,
+  "httpOptionPolicyAssertions": 6
+}

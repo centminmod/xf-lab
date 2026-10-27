@@ -1,0 +1,24 @@
+{
+  "htmlPagesChecked": 4,
+  "relativeLinksAndFragmentTargetsValid": true,
+  "pythonSourcesParsed": 17,
+  "originalArchivesUnchanged": true,
+  "candidateZipSha256": "28830bddbb0161aab9ec94fc6b056d4283a7c9c59b40fcb71d506d0060a66de7",
+  "uploadTreeSha256": "9015925fd95346b33213f5e306a533321bf80322bbfc23482a859fae073c4a7c",
+  "zipMembers": 2663,
+  "allPackageManifestHashesMatch": true,
+  "repeatedBuildIdentical": true,
+  "publicEvidenceSensitiveValuesAbsent": true,
+  "php74LintFiles": 47,
+  "nativeHealthEntries": 1244,
+  "nativeHealthMismatches": 0,
+  "sourceReviewStatus": "Full-source checkpoints 2/3 pending explicit outbound payload approval; candidate status retained",
+  "vendorWhitespaceCheck": "Six diff-check warnings are unchanged vendor whitespace/EOF lines. The five Zend files differ from the supplied 1.5.50 archive only by the patch marker and curly-offset syntax replacements. Remaining whitespace checks pass.",
+  "finalEndpointErrorRows": {
+    "plain": 0,
+    "prepared": 0,
+    "staged": 0
+  },
+  "sourceOnlyCloneHistoricalErrorRows": 3,
+  "sourceOnlyErrorMessagesMatchedOriginalBaseline": true
+}

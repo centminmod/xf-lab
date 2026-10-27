@@ -1,0 +1,28 @@
+{
+  "matchedDatabaseAndFiles": true,
+  "restoredIndependentDatabaseAndRoot": true,
+  "restoredStateMatchesSource": true,
+  "checkedFields": [
+    "codeVersion",
+    "databaseVersion",
+    "users",
+    "threads",
+    "posts",
+    "attachmentCount",
+    "attachmentPreserved",
+    "titlePreserved",
+    "adminPasswordValid",
+    "legacyPasswordValid",
+    "wrongPasswordRejected",
+    "providers",
+    "pendingBridgeJobs",
+    "schemaMatches-1.5.24",
+    "authStorageMatches-1.5.24",
+    "signaturesMatch-1.5.50"
+  ],
+  "databaseBackupSha256": "89464d23b3bc4d49e968270d85d5f5078ef5f5e34dfd0c0b751da17e4d1dd6d4",
+  "filesBackupSha256": "4c25bfeff301b27651fd03d66ce1d40b14d56d004a399761d96620c5aea6bc89",
+  "containsOnlySyntheticFixtures": true,
+  "sourceWritersStoppedDuringBackup": true,
+  "configMapping": "legacy Strict, explicit lowercase Lax; lowercase must win"
+}

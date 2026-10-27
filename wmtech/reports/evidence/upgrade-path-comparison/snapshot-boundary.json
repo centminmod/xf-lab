@@ -1,0 +1,51 @@
+{
+  "boundary": "Idle endpoints after native upgrade/rebuild commands, before HTTP logins and native post-upgrade queue completion.",
+  "postUpgradeJobConvergenceTested": false,
+  "paths": {
+    "plain": {
+      "pendingNativeJobRows": 15,
+      "classes": {
+        "XF\\Job\\ConversationEmbedMetadata": 1,
+        "XF\\Job\\Cron": 1,
+        "XF\\Job\\FileCleanUp": 1,
+        "XF\\Job\\IconUsage": 6,
+        "XF\\Job\\LikeIsCounted": 3,
+        "XF\\Job\\PostEmbedMetadata": 1,
+        "XF\\Job\\SearchRebuild": 1,
+        "XF\\Job\\UpgradeCheck": 1
+      },
+      "targetChangeLogRows": 5,
+      "targetConnectedAccountRows": 2
+    },
+    "prepared": {
+      "pendingNativeJobRows": 15,
+      "classes": {
+        "XF\\Job\\ConversationEmbedMetadata": 1,
+        "XF\\Job\\Cron": 1,
+        "XF\\Job\\FileCleanUp": 1,
+        "XF\\Job\\IconUsage": 6,
+        "XF\\Job\\LikeIsCounted": 3,
+        "XF\\Job\\PostEmbedMetadata": 1,
+        "XF\\Job\\SearchRebuild": 1,
+        "XF\\Job\\UpgradeCheck": 1
+      },
+      "targetChangeLogRows": 5,
+      "targetConnectedAccountRows": 2
+    },
+    "staged": {
+      "pendingNativeJobRows": 15,
+      "classes": {
+        "XF\\Job\\ConversationEmbedMetadata": 1,
+        "XF\\Job\\Cron": 1,
+        "XF\\Job\\FileCleanUp": 1,
+        "XF\\Job\\IconUsage": 6,
+        "XF\\Job\\LikeIsCounted": 3,
+        "XF\\Job\\PostEmbedMetadata": 1,
+        "XF\\Job\\SearchRebuild": 1,
+        "XF\\Job\\UpgradeCheck": 1
+      },
+      "targetChangeLogRows": 5,
+      "targetConnectedAccountRows": 2
+    }
+  }
+}

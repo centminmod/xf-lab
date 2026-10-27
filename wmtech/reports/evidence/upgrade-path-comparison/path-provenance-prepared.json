@@ -1,0 +1,9 @@
+{
+  "path": "prepared",
+  "sourceDatabaseSha256": "213a038dad56fd94614fa339899fc4d3a08dda89991dc5bcfea75ba461898b35",
+  "sourceFilesSha256": "f8956ca2418e925e2df362779a055b6b867360bb0a8d3ca6bb4594a1273f7be0",
+  "targetArchiveSha256": "90d8c7f21962de8b2017c145beb127611106ed04e4c73524e791a6300e4a33be",
+  "intermediateXf1Upgrades": false,
+  "sharedFixtureCompletion": true,
+  "explicitOperationalPreparation": true
+}

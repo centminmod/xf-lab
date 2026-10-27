@@ -1,0 +1,8 @@
+{
+  "xf2FixtureApplyRefusedBeforeAnyDeletion": true,
+  "xf1FixtureAllowlistedCleanupPassed": true,
+  "actualConvertedXf2RootRefused": true,
+  "reason": "XF1 Application.php can remain after an XF2 overlay; its presence alone does not prove an XF1 tree",
+  "targetArchiveReintroducesFourUnhashedFlashAssetFiles": true,
+  "actualXf2FilesDeleted": false
+}

@@ -1,0 +1,8 @@
+{
+    "adminTimeoutRetained": true,
+    "ordinaryCurlOptionRetained": true,
+    "automaticRedirectsDisabled": true,
+    "tlsPeerVerificationEnforced": true,
+    "validatedResolveOverridesConfig": true,
+    "explicitCustomAdapterRetained": true
+}

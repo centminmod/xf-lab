@@ -1,0 +1,173 @@
+{
+  "plain": {
+    "certificateVerificationEnabled": true,
+    "loopbackTls": true,
+    "accountLogins": 2,
+    "accounts": [
+      {
+        "user": "admin",
+        "loginAccountThreadAndAttachmentPassed": true,
+        "cookiePolicies": [
+          {
+            "name": "xf_csrf",
+            "secure": true,
+            "sameSite": null,
+            "httpOnly": false
+          },
+          {
+            "name": "xf_session",
+            "secure": true,
+            "sameSite": null,
+            "httpOnly": true
+          },
+          {
+            "name": "xf_user",
+            "secure": true,
+            "sameSite": null,
+            "httpOnly": true
+          }
+        ]
+      },
+      {
+        "user": "legacy_user",
+        "loginAccountThreadAndAttachmentPassed": true,
+        "cookiePolicies": [
+          {
+            "name": "xf_csrf",
+            "secure": true,
+            "sameSite": null,
+            "httpOnly": false
+          },
+          {
+            "name": "xf_session",
+            "secure": true,
+            "sameSite": null,
+            "httpOnly": true
+          },
+          {
+            "name": "xf_user",
+            "secure": true,
+            "sameSite": null,
+            "httpOnly": true
+          }
+        ]
+      }
+    ],
+    "cookieValuesExported": false,
+    "productionProxyTested": false
+  },
+  "prepared": {
+    "certificateVerificationEnabled": true,
+    "loopbackTls": true,
+    "accountLogins": 2,
+    "accounts": [
+      {
+        "user": "admin",
+        "loginAccountThreadAndAttachmentPassed": true,
+        "cookiePolicies": [
+          {
+            "name": "xf_csrf",
+            "secure": true,
+            "sameSite": "Lax",
+            "httpOnly": false
+          },
+          {
+            "name": "xf_session",
+            "secure": true,
+            "sameSite": "Lax",
+            "httpOnly": true
+          },
+          {
+            "name": "xf_user",
+            "secure": true,
+            "sameSite": "Lax",
+            "httpOnly": true
+          }
+        ]
+      },
+      {
+        "user": "legacy_user",
+        "loginAccountThreadAndAttachmentPassed": true,
+        "cookiePolicies": [
+          {
+            "name": "xf_csrf",
+            "secure": true,
+            "sameSite": "Lax",
+            "httpOnly": false
+          },
+          {
+            "name": "xf_session",
+            "secure": true,
+            "sameSite": "Lax",
+            "httpOnly": true
+          },
+          {
+            "name": "xf_user",
+            "secure": true,
+            "sameSite": "Lax",
+            "httpOnly": true
+          }
+        ]
+      }
+    ],
+    "cookieValuesExported": false,
+    "productionProxyTested": false
+  },
+  "staged": {
+    "certificateVerificationEnabled": true,
+    "loopbackTls": true,
+    "accountLogins": 2,
+    "accounts": [
+      {
+        "user": "admin",
+        "loginAccountThreadAndAttachmentPassed": true,
+        "cookiePolicies": [
+          {
+            "name": "xf_csrf",
+            "secure": true,
+            "sameSite": "Lax",
+            "httpOnly": false
+          },
+          {
+            "name": "xf_session",
+            "secure": true,
+            "sameSite": "Lax",
+            "httpOnly": true
+          },
+          {
+            "name": "xf_user",
+            "secure": true,
+            "sameSite": "Lax",
+            "httpOnly": true
+          }
+        ]
+      },
+      {
+        "user": "legacy_user",
+        "loginAccountThreadAndAttachmentPassed": true,
+        "cookiePolicies": [
+          {
+            "name": "xf_csrf",
+            "secure": true,
+            "sameSite": "Lax",
+            "httpOnly": false
+          },
+          {
+            "name": "xf_session",
+            "secure": true,
+            "sameSite": "Lax",
+            "httpOnly": true
+          },
+          {
+            "name": "xf_user",
+            "secure": true,
+            "sameSite": "Lax",
+            "httpOnly": true
+          }
+        ]
+      }
+    ],
+    "cookieValuesExported": false,
+    "productionProxyTested": false
+  }
+}

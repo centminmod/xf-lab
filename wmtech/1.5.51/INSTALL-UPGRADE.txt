@@ -1,0 +1,69 @@
+XenForo 1.5.51 community maintenance release
+==========================================
+
+Read whatsnew.html before installing. This is an unofficial XF1 maintenance
+package. PHP 7.3/7.4 compatibility does not maintain the PHP interpreter.
+Use a runtime with documented engine security fixes. Default untrusted HTTP
+requests require the cURL extension and libcurl 7.59.0 or newer.
+
+UPGRADING AN EXISTING XF1 FORUM
+
+1. Back up the matched database and files. Prove a restore in isolation.
+2. Extract this ZIP outside the public forum directory. BEFORE replacing the
+   old code, run these CLI tools with the currently installed PHP/code:
+
+     php tools/preflight.php /path/to/forum
+     php tools/prepare-upgrade.php /path/to/forum
+     php tools/prepare-upgrade.php /path/to/forum --apply
+
+   Preparation pins the CURRENT effective globalSalt in library/config.php.
+   It prints no salt. Existing explicit values are retained. This prevents
+   another signature rotation on a site already running 1.5.50. If files were
+   uploaded too early, restore the old code before running preparation.
+   The 1.5.51 upgrade step refuses to finish without an explicit salt.
+
+3. If 1.5.50 already cleared Facebook/Google settings, recover them privately
+   from a pre-1.5.50 backup or reconfigure them. 1.5.51 cannot reconstruct
+   deleted credentials. Do not enable the retired XF1 login flows.
+4. After preparation, select a verified patched PHP 7.4 runtime.
+   Merge the CONTENTS of upload/ into the forum. Keep library/config.php,
+   data/, internal_data/ and server configuration. Visit /install/ and run
+   the native upgrade. This package also supports direct 1.5.24 upgrades.
+5. Verify the ACP file-health check, sign-in, cookies, posting, tags and jobs.
+   Inspect retained failed jobs. Automatic failures retry after five minutes;
+   partial side effects require operator review and idempotent job code.
+6. Preflight reports obsolete paths from earlier overlays. Review add-on
+   dependencies before removing fb_channel.php, js/swfupload/,
+   js/videojs/video-js.swf or library/Zend/Service/WindowsAzure/.
+   Review the allowlisted cleanup report, then explicitly apply it if safe:
+
+     php tools/remove-obsolete-files.php /path/to/forum
+     php tools/remove-obsolete-files.php /path/to/forum --apply
+
+   Run this before uploading XF2. The tool refuses an XF2 tree, linked
+   ancestors, and never follows directory symlinks.
+
+MOVING TO XENFORO 2.3.13
+
+Run preflight again. Stop new writers/job producers and drain or reconcile
+pending business jobs AND queued mail before cutover. Preflight reports both.
+XF2 drops xf_deferred and clears the old serialized mail queue. Empty queues
+must be checked after producers stop. XF2 disables legacy add-ons; it does
+not translate XF1 extensions or styles.
+
+Preserve user/content IDs, serialized storage and attachment layout. Map cookie.sameSite
+to cookie.samesite explicitly. Verify HTTPS detection at the real proxy,
+because XF2 derives Secure cookies from its request instead of the old
+cookie.secure override. Generate/review src/config.php before CLI upgrade.
+After core conversion, verify accounts, providers, permissions, files and
+callbacks. Convert utf8mb4 separately before enabling fullUnicode.
+
+An already prepared 1.5.24 forum can upgrade directly to 2.3.13 using the
+native XF2 procedure. The lab's prepared direct and staged routes reached
+equivalent tested data and schema. Use 1.5.51 when XF1 must remain in service
+before cutover; original 1.5.50 is not a required migration stepping stone.
+The endpoint snapshots precede HTTP logins and completion of native XF2
+post-upgrade jobs. Finish and inspect those jobs before reopening the site.
+
+Only upload/ is web-deployed. Keep tools/, release notes and reports outside
+the public directory. Native file-health sums are prebuilt for this release.

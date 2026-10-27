@@ -1,0 +1,9 @@
+{
+  "mailEnabledForTest": true,
+  "transport": "Zend_Mail_Transport_File",
+  "messagesWritten": 2,
+  "objectLikeBodyPreserved": true,
+  "pendingBusinessJobCount": 0,
+  "externalDeliveryAttempted": false,
+  "payloadCheckedBeforeDrain": true
+}

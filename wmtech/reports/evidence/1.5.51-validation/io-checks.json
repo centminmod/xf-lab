@@ -1,0 +1,11 @@
+{
+  "preflightDatabaseUnchanged": true,
+  "preflightConfigUnchanged": true,
+  "preflightSecretsNotPrinted": true,
+  "prepare-implicit-dry-run-atomic-idempotent": true,
+  "prepare-closing-tag-dry-run-atomic-idempotent": true,
+  "prepare-custom-dry-run-atomic-idempotent": true,
+  "prepare-config-function-dry-run-atomic-idempotent": true,
+  "cleanup-default-read-only-and-allowlist": true,
+  "cleanup-refuses-linked-ancestor-before-any-delete": true
+}

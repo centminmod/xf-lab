@@ -1,0 +1,9 @@
+{
+    "testedVersionId": 1055170,
+    "actualStoredEmailVerificationValidBefore": true,
+    "actualStoredEmailVerificationValidAfterSaltChange": true,
+    "wrongVerificationKeyRejected": true,
+    "emailStopKeyChanged": true,
+    "tokenValuesExported": false,
+    "confirmationTableUnchanged": true
+}

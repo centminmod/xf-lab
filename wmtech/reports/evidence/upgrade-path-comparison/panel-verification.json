@@ -1,0 +1,95 @@
+{
+  "schema": "xf-upgrade-comparison-panel-v1",
+  "snapshotRevalidated": true,
+  "frozenRevision": "587d5686163086982aae51e9659621007b5b218a",
+  "frozenWorktreeSha256": "bc1a990a6b1f96128dc3a5fabbf21c42d56b956a257ff468c6bd10e3d1be0867",
+  "evidenceMode": "sealed",
+  "licensedCoreSourceExported": false,
+  "privateRowsOrCredentialsExported": false,
+  "respondents": [
+    {
+      "provider": "claude",
+      "model": "claude-opus-5-5",
+      "provider_model": "native Claude route",
+      "effort": "high",
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 133222,
+      "cache_read_input_tokens": 0,
+      "output_tokens": 22528,
+      "thinking_tokens": 16880,
+      "duration_ms": 219225,
+      "duration_api_ms": 220623,
+      "sdk_cost_usd": 1.6747040000000002,
+      "budget_ceiling_usd": null,
+      "model_usage": {
+        "claude-opus-5-5": {
+          "cacheCreationInputTokens": 133222,
+          "cacheReadInputTokens": 0,
+          "contextWindow": 1000000,
+          "costUSD": 1.6747040000000002,
+          "inputTokens": 39407,
+          "maxOutputTokens": 128000,
+          "outputTokens": 22565,
+          "thinkingTokens": 16880,
+          "webSearchRequests": 0
+        }
+      }
+    },
+    {
+      "provider": "zaif",
+      "model": "opus",
+      "provider_model": "glm-5.3-flash[1m]",
+      "effort": "high",
+      "input_tokens": 42273,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "output_tokens": 18070,
+      "thinking_tokens": 0,
+      "duration_ms": 451648,
+      "duration_api_ms": 475286,
+      "sdk_cost_usd": 0.810095,
+      "budget_ceiling_usd": null,
+      "model_usage": {
+        "glm-5.3-flash[1m]": {
+          "cacheCreationInputTokens": 0,
+          "cacheReadInputTokens": 0,
+          "contextWindow": 1000000,
+          "costUSD": 0.810095,
+          "inputTokens": 66989,
+          "maxOutputTokens": 32000,
+          "outputTokens": 19006,
+          "thinkingTokens": 0,
+          "webSearchRequests": 0
+        }
+      }
+    }
+  ],
+  "citationQuotesVerified": 33,
+  "citationQuotesRejected": 0,
+  "toolCalls": 0,
+  "droppedProviders": [],
+  "tieBreaker": false,
+  "crossReview": false,
+  "panelWallTimeMs": 454413,
+  "processWallTimeMs": 460253,
+  "citationCheckMs": 241,
+  "verdict": "Both respondents support a prepared direct upgrade when the site is ready for XF2, with 1.5.51 as an XF1 maintenance bridge. Equality is limited to the declared synthetic fixture and normalization rules.",
+  "chairDecisions": "All 33 quoted method/evidence anchors verified locally. The chair independently confirmed the exact boardUrl residual and registry key order, and rejected a respondent arithmetic error: 11,213 minus 11,176 is 37. Whole-archive unhashed files total 49; 46 occur in the 13,904-file comparison. Missing-source-table inventories are a separate follow-up check. Native post-upgrade jobs remain pending at the comparison snapshot, so future convergence is not claimed.",
+  "scopeLimits": [
+    "Small synthetic fixture",
+    "No live OAuth, payment, SMTP or production proxy test",
+    "Stored email-confirmation salt control covers current 1.5.51 only",
+    "No full-source 1.5.51 implementation review in this comparison panel",
+    "Separate full-source external checkpoints still await transmission approval"
+  ],
+  "subscriptionAccountingOnly": true,
+  "rawConsultationRetained": false,
+  "localFollowUpsAfterPanel": {
+    "exactResidualFieldsAndKeyOrderPassed": true,
+    "sourceOnlyTableInventoryPassed": true,
+    "connectedAccountIdentityComparisonPassed": true,
+    "nativeQueuedMailPreflightAndLocalDeliveryPassed": true,
+    "originalEndpointSnapshotsUnchanged": true,
+    "secondExternalRoundRan": false
+  }
+}

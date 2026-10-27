@@ -1,0 +1,18 @@
+{
+    "competingWorkersExecutedOnce": true,
+    "shutdown-manual-dataRetained": true,
+    "shutdown-auto-dataRetained": true,
+    "shutdown-auto-backedOff": true,
+    "throw-manual-dataRetained": true,
+    "throw-auto-dataRetained": true,
+    "throw-auto-backedOff": true,
+    "malformed-rowRetained": true,
+    "object-rowRetained": true,
+    "invalid-auto-held": true,
+    "held-auto-not-runnable": true,
+    "invalid-auto-logged-once": true,
+    "producer-update-not-deleted": true,
+    "producer-latest-data-executed-once": true,
+    "producer-runner-replacement-not-held": true,
+    "producer-runner-replacement-executed": true
+}

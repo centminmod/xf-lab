@@ -1,0 +1,5 @@
+{
+    "database": "mariadb",
+    "nativeDataWriterSave": true,
+    "savedUrl": "xf1551-native-save"
+}

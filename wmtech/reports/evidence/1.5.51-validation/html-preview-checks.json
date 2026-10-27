@@ -1,0 +1,78 @@
+{
+  "engine": "T3 headless HTML preview",
+  "checks": {
+    "initial": [
+      {
+        "width": 1100,
+        "contentHeight": 4438,
+        "capturedHeight": 4000,
+        "consoleMessages": [
+          {
+            "level": "log",
+            "text": "{\"width\":1100,\"docWidth\":1100,\"overflow\":false,\"headingCount\":1,\"brokenEmptyLinks\":0}"
+          }
+        ],
+        "screenshot": {
+          "mimeType": "image/png",
+          "width": 1100,
+          "height": 4000
+        }
+      }
+    ],
+    "evolution": [
+      {
+        "width": 360,
+        "contentHeight": 16402,
+        "capturedHeight": 4000,
+        "consoleMessages": [
+          {
+            "level": "log",
+            "text": "{\"width\":360,\"docWidth\":360,\"overflow\":false,\"headingCount\":1,\"brokenEmptyLinks\":0}"
+          }
+        ],
+        "screenshot": {
+          "mimeType": "image/png",
+          "width": 360,
+          "height": 4000
+        }
+      }
+    ],
+    "notes": [
+      {
+        "width": 360,
+        "contentHeight": 7745,
+        "capturedHeight": 4000,
+        "consoleMessages": [
+          {
+            "level": "log",
+            "text": "{\"width\":360,\"docWidth\":360,\"overflow\":false,\"headingCount\":1,\"brokenEmptyLinks\":0}"
+          }
+        ],
+        "screenshot": {
+          "mimeType": "image/png",
+          "width": 360,
+          "height": 4000
+        }
+      }
+    ],
+    "comparison": [
+      {
+        "width": 360,
+        "contentHeight": 10728,
+        "capturedHeight": 4000,
+        "consoleMessages": [
+          {
+            "level": "log",
+            "text": "{\"width\":360,\"docWidth\":360,\"overflow\":false,\"headingCount\":1,\"brokenEmptyLinks\":0}"
+          }
+        ],
+        "screenshot": {
+          "mimeType": "image/png",
+          "width": 360,
+          "height": 4000
+        }
+      }
+    ]
+  },
+  "scope": "Standalone report/release-note layout, desktop/mobile and light/dark coverage. Preview console checks found one H1, no document-width overflow and no empty links. Screenshots were inspected; local target/fragment existence was checked separately."
+}

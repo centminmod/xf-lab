@@ -1,0 +1,19 @@
+{
+    "checks": {
+        "object-like string roundtrip": true,
+        "string boundaries respected by validator": true,
+        "serialized false valid": true,
+        "nonobject malformed data keeps validator contract": true,
+        "malformed field returns validation error without object construction": true,
+        "object-like text accepted by field validator": true,
+        "blocked Xf151WakeupCanary": true,
+        "validator blocked Xf151WakeupCanary": true,
+        "blocked Xf151CustomCanary": true,
+        "validator blocked Xf151CustomCanary": true,
+        "no object wakeup or custom unserialize executed": true,
+        "cyclic value rejected": true,
+        "excessive depth rejected": true,
+        "shared-reference expansion bounded": true,
+        "bounded validation completes promptly": true
+    }
+}

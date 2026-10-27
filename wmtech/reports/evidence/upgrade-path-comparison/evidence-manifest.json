@@ -1,0 +1,259 @@
+[
+  {
+    "file": "business-job-drain-final.json",
+    "type": "JSON",
+    "exportedAt": "2026-10-27T14:04:15.160144+00:00",
+    "timestampMeaning": "Export/file-write time; not the execution time of the underlying test.",
+    "sha256": "5d5062eef69d702bf14c2976b23d562b469ef9f95f674df2b7fa480e1174a5c3",
+    "calculationNotes": "Sanitized synthetic outcome; private rows/configuration and raw provider responses excluded."
+  },
+  {
+    "file": "business-job-drain-prepared.json",
+    "type": "JSON",
+    "exportedAt": "2026-10-27T14:04:15.143306+00:00",
+    "timestampMeaning": "Export/file-write time; not the execution time of the underlying test.",
+    "sha256": "425472776a36e19bad2c737d1276e2e9817e33cc22d9ae3809ad8ba1b446f206",
+    "calculationNotes": "Sanitized synthetic outcome; private rows/configuration and raw provider responses excluded."
+  },
+  {
+    "file": "cleanup-version-boundary.json",
+    "type": "JSON",
+    "exportedAt": "2026-10-27T14:04:15.161352+00:00",
+    "timestampMeaning": "Export/file-write time; not the execution time of the underlying test.",
+    "sha256": "ff441714085f541e0a302aaf5d0758f59693c00aaa549634cc11dedd90b1127c",
+    "calculationNotes": "Sanitized synthetic outcome; private rows/configuration and raw provider responses excluded."
+  },
+  {
+    "file": "comparison-harness-correction.json",
+    "type": "JSON",
+    "exportedAt": "2026-10-27T15:00:04.614465+00:00",
+    "timestampMeaning": "Export/file-write time; not the execution time of the underlying test.",
+    "sha256": "63d9a7e0128a321cd44547c23b5a99b7d4378133fe8fb1136ece69d0dc34f3a6",
+    "calculationNotes": "Sanitized synthetic outcome; private rows/configuration and raw provider responses excluded."
+  },
+  {
+    "file": "comparison-residual-checks.json",
+    "type": "JSON",
+    "exportedAt": "2026-10-27T14:54:54.266082+00:00",
+    "timestampMeaning": "Export/file-write time; not the execution time of the underlying test.",
+    "sha256": "97b31326cf97f46cf600d79f907b84d99f4dd70dad2e9c1e12396b8cded0bfa1",
+    "calculationNotes": "Sanitized synthetic outcome; private rows/configuration and raw provider responses excluded."
+  },
+  {
+    "file": "native-xf2-final.json",
+    "type": "JSON",
+    "exportedAt": "2026-10-27T14:04:15.147615+00:00",
+    "timestampMeaning": "Export/file-write time; not the execution time of the underlying test.",
+    "sha256": "840e03045ffbbd3a503cdd533503f102de8962d1bc1642b2b3c79d1534cc4ed9",
+    "calculationNotes": "Sanitized synthetic outcome; private rows/configuration and raw provider responses excluded."
+  },
+  {
+    "file": "native-xf2-plain.json",
+    "type": "JSON",
+    "exportedAt": "2026-10-27T14:04:15.149361+00:00",
+    "timestampMeaning": "Export/file-write time; not the execution time of the underlying test.",
+    "sha256": "27465d3f4cbe922fcdb6e33a7be459601fa48e82e2e932ade215e4bb0bde3b21",
+    "calculationNotes": "Sanitized synthetic outcome; private rows/configuration and raw provider responses excluded."
+  },
+  {
+    "file": "native-xf2-prepared.json",
+    "type": "JSON",
+    "exportedAt": "2026-10-27T14:04:15.149073+00:00",
+    "timestampMeaning": "Export/file-write time; not the execution time of the underlying test.",
+    "sha256": "efc88b78fd067d7d9848782c5a84e655a402d98097635a239bf0ba2f54de92d5",
+    "calculationNotes": "Sanitized synthetic outcome; private rows/configuration and raw provider responses excluded."
+  },
+  {
+    "file": "panel-verification.json",
+    "type": "JSON",
+    "exportedAt": "2026-10-27T15:03:46.445145+00:00",
+    "timestampMeaning": "Export/file-write time; not the execution time of the underlying test.",
+    "sha256": "abe8ca98d92a8d418c069a6a62fc0539d0a100b9e32f847bbd21fba3e4243f57",
+    "calculationNotes": "Sanitized synthetic outcome; private rows/configuration and raw provider responses excluded."
+  },
+  {
+    "file": "path-comparison-plain.json",
+    "type": "JSON",
+    "exportedAt": "2026-10-27T14:04:15.146763+00:00",
+    "timestampMeaning": "Export/file-write time; not the execution time of the underlying test.",
+    "sha256": "f2b2a74e9da5b910707b8b26d32eb077bfd252db083098ae63354efed1b96f34",
+    "calculationNotes": "Sanitized synthetic outcome; private rows/configuration and raw provider responses excluded."
+  },
+  {
+    "file": "path-comparison-prepared.json",
+    "type": "JSON",
+    "exportedAt": "2026-10-27T14:04:15.152426+00:00",
+    "timestampMeaning": "Export/file-write time; not the execution time of the underlying test.",
+    "sha256": "6774ed38dfb26cabfd08f9f6f088d12e34c949bf7ef370018db205ff77bfb093",
+    "calculationNotes": "Sanitized synthetic outcome; private rows/configuration and raw provider responses excluded."
+  },
+  {
+    "file": "path-comparison-summary.json",
+    "type": "JSON",
+    "exportedAt": "2026-10-27T14:04:15.143792+00:00",
+    "timestampMeaning": "Export/file-write time; not the execution time of the underlying test.",
+    "sha256": "d2a6ae1422ce8ab3e539e43bef4e44935a7f9d20a9e6ad5d42acd35850ae48ac",
+    "calculationNotes": "Sanitized synthetic outcome; private rows/configuration and raw provider responses excluded."
+  },
+  {
+    "file": "path-http.json",
+    "type": "JSON",
+    "exportedAt": "2026-10-27T14:04:15.144172+00:00",
+    "timestampMeaning": "Export/file-write time; not the execution time of the underlying test.",
+    "sha256": "8f753d70da26ad4ac16e27a121ae58132cec3c689b9fd81018d2069fd72fe68f",
+    "calculationNotes": "Sanitized synthetic outcome; private rows/configuration and raw provider responses excluded."
+  },
+  {
+    "file": "path-provenance-plain.json",
+    "type": "JSON",
+    "exportedAt": "2026-10-27T14:04:15.160788+00:00",
+    "timestampMeaning": "Export/file-write time; not the execution time of the underlying test.",
+    "sha256": "3ad11a0fe2a2ff31ad7667cc3b6777f7699d9a810d4e45d74a52d28b9f026a49",
+    "calculationNotes": "Sanitized synthetic outcome; private rows/configuration and raw provider responses excluded."
+  },
+  {
+    "file": "path-provenance-prepared.json",
+    "type": "JSON",
+    "exportedAt": "2026-10-27T14:04:15.143041+00:00",
+    "timestampMeaning": "Export/file-write time; not the execution time of the underlying test.",
+    "sha256": "f05ca66187e8b337e4bd4877897150d447d988d2b3010cd22a25e7d779099b50",
+    "calculationNotes": "Sanitized synthetic outcome; private rows/configuration and raw provider responses excluded."
+  },
+  {
+    "file": "path-semantic-comparison.json",
+    "type": "JSON",
+    "exportedAt": "2026-10-27T14:04:15.152722+00:00",
+    "timestampMeaning": "Export/file-write time; not the execution time of the underlying test.",
+    "sha256": "24edacfb8da12c7fef0b9e87f1228f0e37162dc6d53afd3a147fd377d70b26b8",
+    "calculationNotes": "Sanitized synthetic outcome; private rows/configuration and raw provider responses excluded."
+  },
+  {
+    "file": "path-state-plain.json",
+    "type": "JSON",
+    "exportedAt": "2026-10-27T14:04:15.148464+00:00",
+    "timestampMeaning": "Export/file-write time; not the execution time of the underlying test.",
+    "sha256": "1d00c09071219257c43677624f41e2cf648a59b5e2e2c297b77ced27dd2c7380",
+    "calculationNotes": "Sanitized synthetic outcome; private rows/configuration and raw provider responses excluded."
+  },
+  {
+    "file": "path-state-prepared.json",
+    "type": "JSON",
+    "exportedAt": "2026-10-27T14:04:15.161069+00:00",
+    "timestampMeaning": "Export/file-write time; not the execution time of the underlying test.",
+    "sha256": "3c0b53a82eeef6eac1462f3bea502cd1c8acbc2c1b8cc6b06630f7988bff9a6e",
+    "calculationNotes": "Sanitized synthetic outcome; private rows/configuration and raw provider responses excluded."
+  },
+  {
+    "file": "path-state-staged.json",
+    "type": "JSON",
+    "exportedAt": "2026-10-27T14:04:15.148796+00:00",
+    "timestampMeaning": "Export/file-write time; not the execution time of the underlying test.",
+    "sha256": "aad47de88ab8fb18b28f1c962672e3270d4823ba519488ee26fb27892dde9b9d",
+    "calculationNotes": "Sanitized synthetic outcome; private rows/configuration and raw provider responses excluded."
+  },
+  {
+    "file": "regressions-1.5.24.json",
+    "type": "JSON",
+    "exportedAt": "2026-10-27T14:04:15.186420+00:00",
+    "timestampMeaning": "Export/file-write time; not the execution time of the underlying test.",
+    "sha256": "d99833a323e295055353ee70367e119f93eb66605822235fe6615d545cece0d5",
+    "calculationNotes": "Sanitized synthetic outcome; private rows/configuration and raw provider responses excluded."
+  },
+  {
+    "file": "regressions-1.5.50.json",
+    "type": "JSON",
+    "exportedAt": "2026-10-27T14:04:15.228139+00:00",
+    "timestampMeaning": "Export/file-write time; not the execution time of the underlying test.",
+    "sha256": "cc0a4afece40016812a7d16b1c3dd63ed096d3ac5235d4c897ee1b25f655e615",
+    "calculationNotes": "Sanitized synthetic outcome; private rows/configuration and raw provider responses excluded."
+  },
+  {
+    "file": "regressions-1.5.51.json",
+    "type": "JSON",
+    "exportedAt": "2026-10-27T14:04:15.298784+00:00",
+    "timestampMeaning": "Export/file-write time; not the execution time of the underlying test.",
+    "sha256": "60157bacde0e39975981f4acfe3c2a122d81d1f5dd0df955b491de1b1ddfd74f",
+    "calculationNotes": "Sanitized synthetic outcome; private rows/configuration and raw provider responses excluded."
+  },
+  {
+    "file": "runtime-provenance-final.json",
+    "type": "JSON",
+    "exportedAt": "2026-10-27T14:04:15.148183+00:00",
+    "timestampMeaning": "Export/file-write time; not the execution time of the underlying test.",
+    "sha256": "3a5bce108f0a15a6cd4c55f8e9af0cf66ec07e6aa54dca6365587be03c1a8074",
+    "calculationNotes": "Sanitized synthetic outcome; private rows/configuration and raw provider responses excluded."
+  },
+  {
+    "file": "salt-impact-scope.json",
+    "type": "JSON",
+    "exportedAt": "2026-10-27T14:04:15.142674+00:00",
+    "timestampMeaning": "Export/file-write time; not the execution time of the underlying test.",
+    "sha256": "7914033beeb02e477430c3693c98007cb18ba45d07ee732049788c0ba482579a",
+    "calculationNotes": "Sanitized synthetic outcome; private rows/configuration and raw provider responses excluded."
+  },
+  {
+    "file": "snapshot-boundary.json",
+    "type": "JSON",
+    "exportedAt": "2026-10-27T14:57:12.885608+00:00",
+    "timestampMeaning": "Export/file-write time; not the execution time of the underlying test.",
+    "sha256": "8f2d93b79a0866339823dde5d78c9f803d3e6f3460166a6bf39578b0c978bd81",
+    "calculationNotes": "Sanitized synthetic outcome; private rows/configuration and raw provider responses excluded."
+  },
+  {
+    "file": "source-table-inventory.json",
+    "type": "JSON",
+    "exportedAt": "2026-10-27T15:06:28.765257+00:00",
+    "timestampMeaning": "Export/file-write time; not the execution time of the underlying test.",
+    "sha256": "ed496ce4dd90af53a40516568c1defe82e4e95f1b03bbc117fb291f8c4cb562f",
+    "calculationNotes": "Sanitized synthetic outcome; private rows/configuration and raw provider responses excluded."
+  },
+  {
+    "file": "state-final-1.5.24.json",
+    "type": "JSON",
+    "exportedAt": "2026-10-27T14:04:15.164642+00:00",
+    "timestampMeaning": "Export/file-write time; not the execution time of the underlying test.",
+    "sha256": "60f9120b8d321dbc8b41e3d69558cd5bd076fb3f6dd9aee157298af48a6faa0e",
+    "calculationNotes": "Sanitized synthetic outcome; private rows/configuration and raw provider responses excluded."
+  },
+  {
+    "file": "state-final-1.5.50.json",
+    "type": "JSON",
+    "exportedAt": "2026-10-27T14:04:15.170973+00:00",
+    "timestampMeaning": "Export/file-write time; not the execution time of the underlying test.",
+    "sha256": "234937a5c39398d8d5a4930a31a825a245e9435c8afab5538c92d1030f62437f",
+    "calculationNotes": "Sanitized synthetic outcome; private rows/configuration and raw provider responses excluded."
+  },
+  {
+    "file": "state-final-1.5.51.json",
+    "type": "JSON",
+    "exportedAt": "2026-10-27T14:04:15.177828+00:00",
+    "timestampMeaning": "Export/file-write time; not the execution time of the underlying test.",
+    "sha256": "d796310ba86d8efd27533b7eb645a2f037ce691a0285cca675ce27d13fd50ee5",
+    "calculationNotes": "Sanitized synthetic outcome; private rows/configuration and raw provider responses excluded."
+  },
+  {
+    "file": "state-plain-1.5.24.json",
+    "type": "JSON",
+    "exportedAt": "2026-10-27T14:04:15.147336+00:00",
+    "timestampMeaning": "Export/file-write time; not the execution time of the underlying test.",
+    "sha256": "53ed5c8f0eef4bd948e2ba65b5b1108bb307410003fd0b281fa93f1c2f3b9e0a",
+    "calculationNotes": "Sanitized synthetic outcome; private rows/configuration and raw provider responses excluded."
+  },
+  {
+    "file": "state-prepared-1.5.24.json",
+    "type": "JSON",
+    "exportedAt": "2026-10-27T14:04:15.147054+00:00",
+    "timestampMeaning": "Export/file-write time; not the execution time of the underlying test.",
+    "sha256": "9201019d620f77422620716aa648f2fc30a67f2d4de789210baef63646abd186",
+    "calculationNotes": "Sanitized synthetic outcome; private rows/configuration and raw provider responses excluded."
+  },
+  {
+    "file": "private-source-corpus",
+    "type": "excluded private JSON snapshots",
+    "sourceWindow": "Captured after native rebuild and before HTTP logins",
+    "timezone": "UTC",
+    "sha256": "a7f47fc8cece8561fd7e383a5c47ea5bbc1ece91af285e7b02eb898e030621ce",
+    "calculationNotes": "Only this aggregate fingerprint is exported. Source file paths and cell values remain private.",
+    "timestampMeaning": "Protocol boundary; no measured timestamp available."
+  }
+]

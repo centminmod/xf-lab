@@ -1,0 +1,5 @@
+{
+    "database": "mysql8",
+    "nativeDataWriterSave": true,
+    "savedUrl": "cafe-3"
+}

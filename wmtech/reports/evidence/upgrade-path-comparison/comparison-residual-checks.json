@@ -1,0 +1,26 @@
+{
+  "plainRemainingNormalizedRegistryPaths": [
+    "options.boardUrl"
+  ],
+  "plainRemainingNormalizedOptionIds": [
+    "boardUrl"
+  ],
+  "decodedRegistryKeyOrderDifferences": {
+    "plain": [],
+    "prepared": []
+  },
+  "archiveFileSets": {
+    "archive": 13907,
+    "health": 13858,
+    "rawCompared": 13904,
+    "unhashedEntireArchive": 49,
+    "unhashedAmongComparedFiles": 46,
+    "archiveExcludedFromRawScan": [
+      "data/index.html",
+      "internal_data/.htaccess",
+      "internal_data/index.html"
+    ],
+    "healthExcludedFromRawScan": []
+  },
+  "sourceSnapshotCorporaUntouched": true
+}

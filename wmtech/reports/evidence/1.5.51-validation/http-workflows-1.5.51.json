@@ -1,0 +1,66 @@
+[
+  {
+    "path": "index.php?forums/main-forum.2/create-thread",
+    "status": 200,
+    "url": "http://localhost:8774/index.php?forums/main-forum.2/create-thread",
+    "title": [
+      "Create Thread | wmtech patch evaluation"
+    ]
+  },
+  {
+    "path": "index.php?forums/main-forum.2/add-thread",
+    "status": 200,
+    "url": "http://localhost:8774/index.php?threads/http-posting-test.2/",
+    "title": [
+      "HTTP posting test | wmtech patch evaluation"
+    ]
+  },
+  {
+    "path": "index.php?threads/2/add-reply",
+    "status": 200,
+    "url": "http://localhost:8774/index.php?threads/2/add-reply",
+    "title": [
+      "Error | wmtech patch evaluation"
+    ]
+  },
+  {
+    "path": "index.php?threads/2/add-reply",
+    "status": 200,
+    "url": "http://localhost:8774/index.php?threads/http-posting-test.2/#post-3",
+    "title": [
+      "HTTP posting test | wmtech patch evaluation"
+    ]
+  },
+  {
+    "path": "admin.php",
+    "status": 200,
+    "url": "http://localhost:8774/admin.php",
+    "title": [
+      "wmtech patch evaluation - Admin Control Panel Login | Admin CP - wmtech patch evaluation"
+    ]
+  },
+  {
+    "path": "admin.php?login/login",
+    "status": 200,
+    "url": "http://localhost:8774/admin.php",
+    "title": [
+      "Admin CP - wmtech patch evaluation"
+    ]
+  },
+  {
+    "path": "admin.php?tools/file-check",
+    "status": 200,
+    "url": "http://localhost:8774/admin.php?tools/file-check",
+    "title": [
+      "File Health Check | Admin CP - wmtech patch evaluation"
+    ]
+  },
+  {
+    "path": "index.php?reports/",
+    "status": 200,
+    "url": "http://localhost:8774/index.php?reports/",
+    "title": [
+      "Reported Items | wmtech patch evaluation"
+    ]
+  }
+]

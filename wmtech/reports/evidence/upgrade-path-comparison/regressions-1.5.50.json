@@ -1,0 +1,71 @@
+{
+    "stage": "1.5.50",
+    "php": "7.4.33",
+    "mysqlVersion": "8.4.10",
+    "tagSlugs": {
+        "XenForo_Model_Tag": {
+            "cafe": {
+                "error": "Zend_Db_Statement_Mysqli_Exception",
+                "mysqlErrno": 3995,
+                "message": "Mysqli prepare error: Character set 'utf8mb3_general_ci' cannot be used in conjunction with 'binary' in call to regexp_like.",
+                "mysql3995": true
+            },
+            "caf\u00e9": {
+                "error": "Zend_Db_Statement_Mysqli_Exception",
+                "mysqlErrno": 3995,
+                "message": "Mysqli prepare error: Character set 'utf8mb3_general_ci' cannot be used in conjunction with 'binary' in call to regexp_like.",
+                "mysql3995": true
+            },
+            "CAFE": {
+                "error": "Zend_Db_Statement_Mysqli_Exception",
+                "mysqlErrno": 3995,
+                "message": "Mysqli prepare error: Character set 'utf8mb3_general_ci' cannot be used in conjunction with 'binary' in call to regexp_like.",
+                "mysql3995": true
+            }
+        },
+        "XenForo_DataWriter_Tag": {
+            "cafe": {
+                "error": "Zend_Db_Statement_Mysqli_Exception",
+                "mysqlErrno": 3995,
+                "message": "Mysqli prepare error: Character set 'utf8mb3_general_ci' cannot be used in conjunction with 'binary' in call to regexp_like.",
+                "mysql3995": true
+            },
+            "caf\u00e9": {
+                "error": "Zend_Db_Statement_Mysqli_Exception",
+                "mysqlErrno": 3995,
+                "message": "Mysqli prepare error: Character set 'utf8mb3_general_ci' cannot be used in conjunction with 'binary' in call to regexp_like.",
+                "mysql3995": true
+            },
+            "CAFE": {
+                "error": "Zend_Db_Statement_Mysqli_Exception",
+                "mysqlErrno": 3995,
+                "message": "Mysqli prepare error: Character set 'utf8mb3_general_ci' cannot be used in conjunction with 'binary' in call to regexp_like.",
+                "mysql3995": true
+            }
+        }
+    },
+    "queueWritePreserved": true,
+    "queueError": "TypeError",
+    "recoveryError": "TypeError",
+    "queueRowAfterProbe": false,
+    "http": {
+        "https://example.com/": {
+            "error": "Zend_Http_Client_Exception",
+            "message": "Error in cURL request: ",
+            "resolveRules": [
+                "example.com:443:172.66.147.243",
+                "example.com:443:104.20.23.154",
+                "example.com:443:[2606:4700:10::ac42:93f3]",
+                "example.com:443:[2606:4700:10::6814:179a]"
+            ]
+        },
+        "https://www.php.net/": {
+            "error": "Zend_Http_Client_Exception",
+            "message": "Error in cURL request: ",
+            "resolveRules": [
+                "www.php.net:443:103.180.114.1",
+                "www.php.net:443:[2400:52e0:1::1]"
+            ]
+        }
+    }
+}

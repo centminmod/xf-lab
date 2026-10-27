@@ -1,0 +1,10 @@
+{
+  "path": "final",
+  "exitCode": 0,
+  "upgradeCompleted": true,
+  "nativeVersionCount": 57,
+  "firstVersion": "2.0.0 Alpha",
+  "lastVersion": "2.3.13",
+  "target": "2.3.13",
+  "statisticsOptInSkipped": true
+}

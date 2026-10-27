@@ -1,0 +1,18 @@
+{
+  "cause": "Comparison harness assumed an optional cookie.samesite config key existed",
+  "applicationDefect": false,
+  "correction": "Capture an absent optional policy as null; verify actual HTTP cookies separately",
+  "preservedIdentity": [
+    {
+      "id": 1,
+      "messageSha256": "104006f0da7de6c2d98fb4f908297594e1fe5784775afb1b58331d2ff68fb471"
+    }
+  ],
+  "onlyKnownHarnessRowRemoved": true,
+  "sourceInventoryFollowUp": {
+    "applicationDefect": false,
+    "cause": "Strict source/target scalar comparison treated numeric user IDs differently after JSON decoding",
+    "correction": "Compare native database identifiers as strings on both sides; corrected isolated source-only replay passed",
+    "originalEndpointSnapshotsChanged": false
+  }
+}

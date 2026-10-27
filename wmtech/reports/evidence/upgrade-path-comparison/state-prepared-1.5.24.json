@@ -1,0 +1,43 @@
+{
+    "stage": "prepared-1.5.24",
+    "codeVersion": 1052470,
+    "databaseVersion": 1052470,
+    "php": "7.2.34",
+    "users": 2,
+    "threads": 1,
+    "posts": 1,
+    "attachmentCount": 1,
+    "attachmentPreserved": true,
+    "titlePreserved": true,
+    "adminPasswordValid": true,
+    "legacyPasswordValid": true,
+    "wrongPasswordRejected": true,
+    "providers": {
+        "facebook": {
+            "idPresent": true,
+            "secretPresent": true,
+            "linkedUsers": 1
+        },
+        "google": {
+            "idPresent": true,
+            "secretPresent": true,
+            "linkedUsers": 1
+        }
+    },
+    "pendingBridgeJobs": 0,
+    "errorLogRows": 3,
+    "schemaMatches-1.5.24": true,
+    "authStorageMatches-1.5.24": true,
+    "signaturesMatch-1.5.24": {
+        "remember": true,
+        "confirmation": true,
+        "proxy": true
+    },
+    "schemaMatches-1.5.50": true,
+    "authStorageMatches-1.5.50": true,
+    "signaturesMatch-1.5.50": {
+        "remember": false,
+        "confirmation": false,
+        "proxy": false
+    }
+}

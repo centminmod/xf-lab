@@ -1,0 +1,11 @@
+{
+  "stage": "1.5.24 -> original 1.5.50",
+  "nativeUpgradeCompleted": true,
+  "coreContentAndPasswordsPreserved": true,
+  "schemaAndAuthStoragePreserved": true,
+  "originalFourRegressionsReproduced": true,
+  "providerSettingsClearedAssociationsRetained": true,
+  "labOnlyKnownDefects": "Do not treat 1.5.50 as a production-approved stage. Corrected by the following 1.5.51 stage, with explicit recovery for already-deleted settings.",
+  "baselineSetupErrors": 3,
+  "setupErrorExplanation": "A corrected fixture version guard, missing CLI request-path metadata and the PHP 7.2 client/MySQL 8 authentication mismatch. The MySQL comparison runs on PHP 7.4; the native stock forum was installed on PHP 7.2."
+}

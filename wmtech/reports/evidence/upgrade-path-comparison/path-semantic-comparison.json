@@ -1,0 +1,59 @@
+{
+  "plain": {
+    "tablesCompared": 225,
+    "tablesEqualAfterDeclaredNormalization": 223,
+    "remainingDifferentTables": [
+      "xf_data_registry",
+      "xf_option"
+    ],
+    "effectivePermissionsEqual": true
+  },
+  "prepared": {
+    "tablesCompared": 225,
+    "tablesEqualAfterDeclaredNormalization": 225,
+    "remainingDifferentTables": [],
+    "effectivePermissionsEqual": true
+  },
+  "normalizationLedger": {
+    "allocatedPhraseIds": "Compare all phrase fields except phrase_id, using language_id/title. Replace phrase_map references with the referenced phrase language_id/title; every nonzero reference must resolve.",
+    "wallClockOrGeneratedVersionFields": [
+      "xf_cron_entry.next_run",
+      "xf_job.trigger_date",
+      "xf_style.last_modified_date",
+      "xf_template.last_edit_date",
+      "xf_upgrade_log.completion_date",
+      "xf_option.jsLastUpdate",
+      "xf_option.iconSpriteLastUpdate",
+      "registry.autoJobRun",
+      "registry.masterStyleModifiedDate",
+      "registry.bannedIps.version",
+      "registry.discouragedIps.version",
+      "registry.options.jsLastUpdate",
+      "registry.options.iconSpriteLastUpdate",
+      "registry.styles.*.last_modified_date"
+    ],
+    "routeHistoryEntries": [
+      1055070,
+      1055170
+    ],
+    "neverNormalizedAway": [
+      "content IDs and bytes",
+      "authentication bytes",
+      "provider settings and links",
+      "permission values",
+      "cron rules",
+      "job class/data/manual flags",
+      "effective globalSalt differences"
+    ],
+    "plainRemainingDifference": "Only boardUrl, mirrored in the registry options cache. The XF1 upgrade harness changed its fixture URL to port 8774; the plain direct clone retained the original port 8772."
+  },
+  "negativeControlsDetected": {
+    "xf_user.email": true,
+    "xf_user_authenticate.data": true,
+    "xf_connected_account_provider.options": true,
+    "xf_phrase.phrase_text": true,
+    "xf_cron_entry.run_rules": true,
+    "staleRegistryDecodeRefused": true
+  },
+  "privateValuesExported": false
+}
