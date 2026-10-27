@@ -1,0 +1,76 @@
+[
+  {
+    "path": "index.php?forums/main-forum.2/create-thread",
+    "status": 200,
+    "url": "http://localhost:8574/index.php?forums/main-forum.2/create-thread",
+    "title": [
+      "Create Thread | wmtech patch evaluation"
+    ],
+    "setCookies": []
+  },
+  {
+    "path": "index.php?forums/main-forum.2/add-thread",
+    "status": 200,
+    "url": "http://localhost:8574/index.php?threads/http-posting-test.5/",
+    "title": [
+      "HTTP posting test | wmtech patch evaluation"
+    ],
+    "setCookies": []
+  },
+  {
+    "path": "index.php?threads/5/add-reply",
+    "status": 200,
+    "url": "http://localhost:8574/index.php?threads/5/add-reply",
+    "title": [
+      "Error | wmtech patch evaluation"
+    ],
+    "setCookies": []
+  },
+  {
+    "path": "index.php?threads/5/add-reply",
+    "status": 200,
+    "url": "http://localhost:8574/index.php?threads/http-posting-test.5/#post-7",
+    "title": [
+      "HTTP posting test | wmtech patch evaluation"
+    ],
+    "setCookies": []
+  },
+  {
+    "path": "admin.php",
+    "status": 200,
+    "url": "http://localhost:8574/admin.php",
+    "title": [
+      "wmtech patch evaluation - Admin Control Panel Login | Admin CP - wmtech patch evaluation"
+    ],
+    "setCookies": [
+      "xf_session_admin=[redacted]; path=/; HttpOnly; SameSite=Lax"
+    ]
+  },
+  {
+    "path": "admin.php?login/login",
+    "status": 200,
+    "url": "http://localhost:8574/admin.php",
+    "title": [
+      "Admin CP - wmtech patch evaluation"
+    ],
+    "setCookies": []
+  },
+  {
+    "path": "admin.php?tools/file-check",
+    "status": 200,
+    "url": "http://localhost:8574/admin.php?tools/file-check",
+    "title": [
+      "File Health Check | Admin CP - wmtech patch evaluation"
+    ],
+    "setCookies": []
+  },
+  {
+    "path": "index.php?reports/",
+    "status": 200,
+    "url": "http://localhost:8574/index.php?reports/",
+    "title": [
+      "Reported Items | wmtech patch evaluation"
+    ],
+    "setCookies": []
+  }
+]

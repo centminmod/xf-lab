@@ -1,0 +1,70 @@
+[
+  {
+    "url": "https://example.com/",
+    "validatedIps": [
+      "104.20.23.154",
+      "172.66.147.243",
+      "2606:4700:10::ac42:93f3",
+      "2606:4700:10::6814:179a"
+    ],
+    "patchResolve": [
+      "example.com:443:104.20.23.154",
+      "example.com:443:172.66.147.243",
+      "example.com:443:[2606:4700:10::ac42:93f3]",
+      "example.com:443:[2606:4700:10::6814:179a]"
+    ],
+    "patched": {
+      "ok": false,
+      "status": 0,
+      "ip": "",
+      "error": "",
+      "trace": "* Added example.com:443:104.20.23.154 to DNS cache\n* RESOLVE example.com:443 is - old addresses discarded!\n* Added example.com:443:172.66.147.243 to DNS cache\n* RESOLVE example.com:443 is - old addresses discarded!\n* Added example.com:443:[2606:4700:10::ac42:93f3] to DNS cache\n* RESOLVE example.com:443 is - old addresses discarded!\n* Added example.com:443:[2606:4700:10::6814:179a] to DNS cache\n* Hostname example.com was found in DNS cache\n*   Trying 2606:4700:10::6814:179a:443...\n* Immediate connect fail for 2606:4700:10::6814:179a: Network is unreachable"
+    },
+    "allValidatedIps": {
+      "ok": true,
+      "status": 200,
+      "ip": "104.20.23.154",
+      "error": "",
+      "trace": "* Added example.com:443:104.20.23.154,172.66.147.243,[2606:4700:10::ac42:93f3],[2606:4700:10::6814:179a] to DNS cache\n* Hostname example.com was found in DNS cache\n*   Trying 104.20.23.154:443...\n* Connected to example.com (104.20.23.154) port 443 (#0)\n*  SSL certificate verify ok."
+    },
+    "firstV4": {
+      "ok": true,
+      "status": 200,
+      "ip": "104.20.23.154",
+      "error": "",
+      "trace": "* Added example.com:443:104.20.23.154 to DNS cache\n* Hostname example.com was found in DNS cache\n*   Trying 104.20.23.154:443...\n* Connected to example.com (104.20.23.154) port 443 (#0)\n*  SSL certificate verify ok."
+    }
+  },
+  {
+    "url": "https://www.php.net/",
+    "validatedIps": [
+      "103.180.114.1",
+      "2400:52e0:1::1"
+    ],
+    "patchResolve": [
+      "www.php.net:443:103.180.114.1",
+      "www.php.net:443:[2400:52e0:1::1]"
+    ],
+    "patched": {
+      "ok": false,
+      "status": 0,
+      "ip": "",
+      "error": "",
+      "trace": "* Added www.php.net:443:103.180.114.1 to DNS cache\n* RESOLVE www.php.net:443 is - old addresses discarded!\n* Added www.php.net:443:[2400:52e0:1::1] to DNS cache\n* Hostname www.php.net was found in DNS cache\n*   Trying 2400:52e0:1::1:443...\n* Immediate connect fail for 2400:52e0:1::1: Network is unreachable"
+    },
+    "allValidatedIps": {
+      "ok": true,
+      "status": 200,
+      "ip": "103.180.114.1",
+      "error": "",
+      "trace": "* Added www.php.net:443:103.180.114.1,[2400:52e0:1::1] to DNS cache\n* Hostname www.php.net was found in DNS cache\n*   Trying 103.180.114.1:443...\n* Connected to www.php.net (103.180.114.1) port 443 (#0)\n*  SSL certificate verify ok."
+    },
+    "firstV4": {
+      "ok": true,
+      "status": 200,
+      "ip": "103.180.114.1",
+      "error": "",
+      "trace": "* Added www.php.net:443:103.180.114.1 to DNS cache\n* Hostname www.php.net was found in DNS cache\n*   Trying 103.180.114.1:443...\n* Connected to www.php.net (103.180.114.1) port 443 (#0)\n*  SSL certificate verify ok."
+    }
+  }
+]

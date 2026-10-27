@@ -1,0 +1,7 @@
+PHP 7.2.34 XF 1.5.24 cURL 7.64.0
+https://example.com/ adapter=Zend_Http_Client_Adapter_Socket
+status=200
+https://www.cloudflare.com/ adapter=Zend_Http_Client_Adapter_Socket
+status=200
+https://www.php.net/ adapter=Zend_Http_Client_Adapter_Socket
+status=200

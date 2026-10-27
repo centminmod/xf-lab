@@ -1,0 +1,49 @@
+[
+  {
+    "id": 1,
+    "priority": "P1",
+    "file": "upgrade/upload/library/XenForo/Helper/Http.php",
+    "line": 121,
+    "title": "DNS pinning discards earlier addresses",
+    "evidence": [
+      "http-pin-base.log",
+      "http-pin-upgrade.log",
+      "pin-check.log"
+    ]
+  },
+  {
+    "id": 2,
+    "priority": "P1 (MySQL 8)",
+    "file": "upgrade/upload/library/XenForo/DataWriter/Tag.php",
+    "line": 139,
+    "also": "upgrade/upload/library/XenForo/Model/Tag.php:460",
+    "title": "REGEXP BINARY fails on MySQL 8",
+    "evidence": [
+      "tags-base.log",
+      "tags-upgrade.log",
+      "mysql8-tags.log"
+    ]
+  },
+  {
+    "id": 3,
+    "priority": "P2",
+    "file": "upgrade/upload/library/XenForo/Model/Deferred.php",
+    "line": 284,
+    "title": "Decoder false positives crash and lose valid queued jobs",
+    "evidence": [
+      "deferred-base.log",
+      "deferred-upgrade.log"
+    ]
+  },
+  {
+    "id": 4,
+    "priority": "P2",
+    "file": "upgrade/upload/library/XenForo/Application.php",
+    "line": 701,
+    "title": "Default salt change invalidates existing signatures",
+    "evidence": [
+      "validation.log",
+      "remember-cookie-result.json"
+    ]
+  }
+]

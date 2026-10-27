@@ -1,0 +1,70 @@
+[
+  {
+    "path": "index.php",
+    "status": 200,
+    "url": "http://localhost:8574/index.php",
+    "title": [
+      "wmtech patch evaluation"
+    ]
+  },
+  {
+    "path": "index.php?login",
+    "status": 200,
+    "url": "http://localhost:8574/index.php?login",
+    "title": [
+      "Log in | wmtech patch evaluation"
+    ]
+  },
+  {
+    "path": "index.php?login/login",
+    "status": 200,
+    "url": "http://localhost:8574/index.php",
+    "title": [
+      "wmtech patch evaluation"
+    ]
+  },
+  {
+    "path": "index.php?account/",
+    "status": 200,
+    "url": "http://localhost:8574/index.php?account/",
+    "title": [
+      "Personal Details | wmtech patch evaluation"
+    ]
+  },
+  {
+    "path": "index.php?members/admin.1/",
+    "status": 200,
+    "url": "http://localhost:8574/index.php?members/admin.1/",
+    "title": [
+      "admin | wmtech patch evaluation"
+    ]
+  },
+  {
+    "path": "index.php?forums/main-forum.2/",
+    "status": 200,
+    "url": "http://localhost:8574/index.php?forums/main-forum.2/",
+    "title": [
+      "Main Forum | wmtech patch evaluation"
+    ]
+  },
+  {
+    "path": "admin.php",
+    "status": 200,
+    "url": "http://localhost:8574/admin.php",
+    "title": [
+      "wmtech patch evaluation - Admin Control Panel Login | Admin CP - wmtech patch evaluation"
+    ]
+  },
+  {
+    "path": "js/jquery/jquery-1.12.4.min.js",
+    "status": 200,
+    "url": "http://localhost:8574/js/jquery/jquery-1.12.4.min.js",
+    "title": []
+  },
+  {
+    "path": "js/xenforo/xenforo.js",
+    "status": 200,
+    "url": "http://localhost:8574/js/xenforo/xenforo.js",
+    "title": []
+  }
+]

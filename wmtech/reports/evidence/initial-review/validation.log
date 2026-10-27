@@ -1,0 +1,22 @@
+PHP 7.4.33 XenForo 1.5.50
+PASS 1238 manifest hashes match
+PASS password hash comparison
+PASS hashEquals handles matching, mismatching, and missing input
+PASS toggleClass removes only the requested class
+PASS random string length 16
+PASS random string length 32
+PASS random string length 40
+OLD_SIGNATURE_STILL_VALID remember=no
+OLD_SIGNATURE_STILL_VALID emailConfirm=no
+OLD_SIGNATURE_STILL_VALID proxyHmac=no
+PASS tag creation on MariaDB
+PASS ordinary report content roundtrip
+PASS object-like text is ordinary string data
+PASS decoder false positive reproduced; report writer separately blocks new report insertion
+PASS queued plain email data preserved on write
+PASS plain email job executes (mail delivery disabled)
+PASS queued code email data preserved on write
+PASS only code-example email fails
+REPRODUCED deferred error: Argument 2 passed to XenForo_Deferred_UserEmail::execute() must be of the type array, bool given, called in /var/www/html/library/XenForo/Model/Deferred.php on line 296
+REQUEUED_DATA=MISSING
+VALIDATION_COMPLETE

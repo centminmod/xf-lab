@@ -1,0 +1,4 @@
+PHP 7.4.33 XF 1.5.50
+PATCHED_FAILS: Argument 2 passed to XenForo_Deferred_UserEmail::execute() must be of the type array, bool given, called in /review/upgrade/upload/library/XenForo/Model/Deferred.php on line 296
+RECOVERY_FAILS: Argument 2 passed to XenForo_Application::defer() must be of the type array, bool given, called in /review/upgrade/upload/library/XenForo/Model/Deferred.php on line 259
+JOB_AFTER_EXECUTION=missing

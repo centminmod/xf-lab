@@ -1,0 +1,6 @@
+mysql: [Warning] Using a password on the command line interface can be insecure.
+ERROR 3995 (HY000) at line 1: Character set 'utf8mb3_general_ci' cannot be used in conjunction with 'binary' in call to regexp_like.
+VERSION()
+8.4.10
+tag_id
+1

@@ -1,0 +1,9 @@
+{
+    "facebookAppId": "",
+    "facebookAppSecret": "",
+    "googleClientId": "",
+    "googleClientSecret": "",
+    "jQuerySource": "local",
+    "uncompressedJs": "0"
+}
+PASS all option migrations, fixture rolled back

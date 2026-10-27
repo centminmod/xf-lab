@@ -1,0 +1,3 @@
+PHP 7.4.33 XF 1.5.50 MySQL 8.4.10
+PATCHED_FAILS XenForo_Model_Tag: Mysqli prepare error: Character set 'utf8mb3_general_ci' cannot be used in conjunction with 'binary' in call to regexp_like.
+PATCHED_FAILS XenForo_DataWriter_Tag: Mysqli prepare error: Character set 'utf8mb3_general_ci' cannot be used in conjunction with 'binary' in call to regexp_like.
