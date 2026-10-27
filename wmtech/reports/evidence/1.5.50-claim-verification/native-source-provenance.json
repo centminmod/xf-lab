@@ -1,0 +1,14 @@
+{
+  "base": {
+    "archiveSha256": "cf40db2514bbed4f5abe3c0e28a237daed663bd20a9bb57dbe5e4c4fe6bfffa2",
+    "shippedFilesChecked": 2704,
+    "mismatches": []
+  },
+  "wmtech": {
+    "archiveSha256": "397ec6b51e81f7574dcbcd638aae8f5dfdde0d7976fe14e7fd185af142d5164a",
+    "shippedFilesChecked": 2653,
+    "mismatches": []
+  },
+  "capturedAtUtc": "2026-10-27T22:08:24.499526+00:00",
+  "scope": "Every shipped upload file compared byte-for-byte with its live lab webroot after tests. Extra synthetic endpoints, private config, caches and fixture add-on files are excluded from this membership check. No candidate51 core file is overlaid."
+}

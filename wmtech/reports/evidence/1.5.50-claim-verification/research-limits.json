@@ -1,0 +1,17 @@
+{
+  "accessedLocalDate": "2026-10-28",
+  "limits": [
+    {
+      "source": "https://developers.facebook.com/docs/graph-api/changelog/versions/",
+      "result": "Primary site returned HTTP 429. Current Meta lifecycle dates are unverified here."
+    },
+    {
+      "source": "https://developers.facebook.com/docs/javascript/reference/FB.init/",
+      "result": "Primary documentation fetch failed. Changed SDK literals are verified from source only."
+    },
+    {
+      "source": "https://www.solvemedia.com/",
+      "result": "Homepage redirected to a parked-domain sale URL during the web fetch. No API challenge, verification request or authenticated account was tested. A homepage redirect is not a service lifecycle notice."
+    }
+  ]
+}

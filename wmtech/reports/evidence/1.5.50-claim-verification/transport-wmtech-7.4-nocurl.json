@@ -1,0 +1,8 @@
+{
+  "php": "7.4.33",
+  "version": 1055070,
+  "curlVersionAvailable": false,
+  "forcedPayPalCurlBranch": false,
+  "adapter": "Zend_Http_Client_Adapter_Socket",
+  "resolvePresent": false
+}

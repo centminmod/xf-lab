@@ -1,0 +1,272 @@
+[
+  {
+    "id": "PHP74",
+    "title": "PHP 7.4 migration: deprecated features",
+    "url": "https://www.php.net/manual/en/migration74.deprecated.php",
+    "accessedLocalDate": "2026-10-28",
+    "facts": [
+      "PHP 7.4 deprecates curly string offsets, array_key_exists on objects, magic-quotes accessors and reversed implode arguments."
+    ],
+    "evidenceKind": "Official primary documentation, read during this verification; current pages are interpreted with their version-specific history."
+  },
+  {
+    "id": "COOKIE",
+    "title": "PHP setcookie",
+    "url": "https://www.php.net/setcookie",
+    "accessedLocalDate": "2026-10-28",
+    "facts": [
+      "The options-array signature and SameSite support begin in PHP 7.3. Omitting samesite omits that attribute. SameSite=None needs Secure for browser acceptance. Current documentation also lists newer options that do not apply to these older runtimes."
+    ],
+    "evidenceKind": "Official primary documentation, read during this verification; current pages are interpreted with their version-specific history."
+  },
+  {
+    "id": "PRECEDENCE",
+    "title": "PHP operator precedence",
+    "url": "https://www.php.net/manual/en/language.operators.precedence.php",
+    "accessedLocalDate": "2026-10-28",
+    "facts": [
+      "Bitwise AND binds more tightly than bitwise OR; parentheses change which flags are masked."
+    ],
+    "evidenceKind": "Official primary documentation, read during this verification; current pages are interpreted with their version-specific history."
+  },
+  {
+    "id": "UNSERIALIZE",
+    "title": "PHP unserialize",
+    "url": "https://www.php.net/manual/en/function.unserialize.php",
+    "accessedLocalDate": "2026-10-28",
+    "facts": [
+      "allowed_classes=false prevents restoration of application object classes. The manual still warns against unserializing untrusted input, irrespective of this setting."
+    ],
+    "evidenceKind": "Official primary documentation, read during this verification; current pages are interpreted with their version-specific history."
+  },
+  {
+    "id": "HASH",
+    "title": "PHP hash_equals",
+    "url": "https://www.php.net/manual/en/function.hash-equals.php",
+    "accessedLocalDate": "2026-10-28",
+    "facts": [
+      "Use the known secret string first and user string second. The native primitive is designed for timing-safe equal-length string comparison; a functional test is not a timing benchmark."
+    ],
+    "evidenceKind": "Official primary documentation, read during this verification; current pages are interpreted with their version-specific history."
+  },
+  {
+    "id": "RANDOM",
+    "title": "PHP random_bytes",
+    "url": "https://www.php.net/manual/en/function.random-bytes.php",
+    "accessedLocalDate": "2026-10-28",
+    "facts": [
+      "random_bytes supplies cryptographically secure bytes from platform entropy sources."
+    ],
+    "evidenceKind": "Official primary documentation, read during this verification; current pages are interpreted with their version-specific history."
+  },
+  {
+    "id": "UNIQID",
+    "title": "PHP uniqid",
+    "url": "https://www.php.net/manual/en/function.uniqid.php",
+    "accessedLocalDate": "2026-10-28",
+    "facts": [
+      "uniqid is time-based and is unsuitable when unguessable cryptographic values are required. Hashing its result does not add source entropy."
+    ],
+    "evidenceKind": "Official primary documentation, read during this verification; current pages are interpreted with their version-specific history."
+  },
+  {
+    "id": "MYSQL",
+    "title": "MySQL 8 regular expressions",
+    "url": "https://dev.mysql.com/doc/refman/8.0/en/regexp.html",
+    "accessedLocalDate": "2026-10-28",
+    "facts": [
+      "Since MySQL 8.0.22 binary-string regex arguments are rejected with ER_CHARACTER_SET_MISMATCH."
+    ],
+    "evidenceKind": "Official primary documentation, read during this verification; current pages are interpreted with their version-specific history."
+  },
+  {
+    "id": "RESOLVE",
+    "title": "libcurl CURLOPT_RESOLVE",
+    "url": "https://curl.se/libcurl/c/CURLOPT_RESOLVE.html",
+    "accessedLocalDate": "2026-10-28",
+    "facts": [
+      "Repeated rules for the same host and port replace earlier addresses. A comma-separated multi-address entry is supported from libcurl 7.59.0."
+    ],
+    "evidenceKind": "Official primary documentation, read during this verification; current pages are interpreted with their version-specific history."
+  },
+  {
+    "id": "PEER",
+    "title": "libcurl peer verification",
+    "url": "https://curl.se/libcurl/c/CURLOPT_SSL_VERIFYPEER.html",
+    "accessedLocalDate": "2026-10-28",
+    "facts": [
+      "Peer verification validates the certificate trust chain. A failed trust check causes the connection to fail; hostname verification is independent."
+    ],
+    "evidenceKind": "Official primary documentation, read during this verification; current pages are interpreted with their version-specific history."
+  },
+  {
+    "id": "HOST",
+    "title": "libcurl hostname verification",
+    "url": "https://curl.se/libcurl/c/CURLOPT_SSL_VERIFYHOST.html",
+    "accessedLocalDate": "2026-10-28",
+    "facts": [
+      "Value 2 verifies that the certificate identifies the requested hostname."
+    ],
+    "evidenceKind": "Official primary documentation, read during this verification; current pages are interpreted with their version-specific history."
+  },
+  {
+    "id": "STREAMTLS",
+    "title": "PHP SSL context options",
+    "url": "https://www.php.net/manual/en/context.ssl.php",
+    "accessedLocalDate": "2026-10-28",
+    "facts": [
+      "The documented default stream policy enables verification of both certificate trust and peer name. This differs from stock XenForo explicitly disabling cURL peer verification."
+    ],
+    "evidenceKind": "Official primary documentation, read during this verification; current pages are interpreted with their version-specific history."
+  },
+  {
+    "id": "PAYPAL",
+    "title": "PayPal IPN listener flow",
+    "url": "https://developer.paypal.com/api/nvp-soap/ipn/IPNImplementation/",
+    "accessedLocalDate": "2026-10-28",
+    "facts": [
+      "IPN validation sends the complete received message back to PayPal using HTTPS POST. Local transport tests do not validate a payment account or live grant logic."
+    ],
+    "evidenceKind": "Official primary documentation, read during this verification; current pages are interpreted with their version-specific history."
+  },
+  {
+    "id": "XML",
+    "title": "PHP libxml entity-loader controls",
+    "url": "https://www.php.net/libxml_disable_entity_loader",
+    "accessedLocalDate": "2026-10-28",
+    "facts": [
+      "libxml 2.9 disables entity substitution by default, but explicit entity/DTD-loading flags change the risk. Runtime version and parser options remain relevant."
+    ],
+    "evidenceKind": "Official primary documentation, read during this verification; current pages are interpreted with their version-specific history."
+  },
+  {
+    "id": "ZEND",
+    "title": "Zend Framework 1.12.20 XML scanner",
+    "url": "https://raw.githubusercontent.com/zendframework/zf1/release-1.12.20/library/Zend/Xml/Security.php",
+    "accessedLocalDate": "2026-10-28",
+    "facts": [
+      "The PHP-FPM heuristic branch is limited to older PHP versions, including versions below 5.6.6. The upstream loadXml call adds LIBXML_NONET unconditionally, so not every change is gated below PHP 5.6.6. This is source comparison, not proof of a bypass in the shipped scanner."
+    ],
+    "evidenceKind": "Official primary documentation, read during this verification; current pages are interpreted with their version-specific history."
+  },
+  {
+    "id": "UPLOAD",
+    "title": "PHP getimagesize caution",
+    "url": "https://www.php.net/getimagesize",
+    "accessedLocalDate": "2026-10-28",
+    "facts": [
+      "PHP cautions that getimagesize alone is not image validation. XenForo also enforces file constraints and scans recognized images for PHP markers; those controls need their own tests."
+    ],
+    "evidenceKind": "Official primary documentation, read during this verification; current pages are interpreted with their version-specific history."
+  },
+  {
+    "id": "ESCAPE",
+    "title": "PHP htmlspecialchars",
+    "url": "https://www.php.net/manual/en/function.htmlspecialchars.php",
+    "accessedLocalDate": "2026-10-28",
+    "facts": [
+      "ENT_COMPAT converts double quotes and leaves single quotes unchanged. PHP 7 defaults must be distinguished from the newer default described on the current manual page."
+    ],
+    "evidenceKind": "Official primary documentation, read during this verification; current pages are interpreted with their version-specific history."
+  },
+  {
+    "id": "CLASS",
+    "title": "PHP class-name syntax",
+    "url": "https://www.php.net/manual/en/language.oop5.basic.php",
+    "accessedLocalDate": "2026-10-28",
+    "facts": [
+      "Class labels have identifier rules and reserved-word restrictions. Filtering delimiter characters before eval is useful, but does not prove every proxy construction case valid."
+    ],
+    "evidenceKind": "Official primary documentation, read during this verification; current pages are interpreted with their version-specific history."
+  },
+  {
+    "id": "JQ124",
+    "title": "jQuery 1.12.4 release",
+    "url": "https://blog.jquery.com/2016/05/20/jquery-1-12-4-and-2-2-4-released/",
+    "accessedLocalDate": "2026-10-28",
+    "facts": [
+      "The official release describes a small set of fixes and no expected breaking changes, and recommends Migrate 1.4.1 for the 1.x/2.x series. That is not proof of all third-party add-on compatibility."
+    ],
+    "evidenceKind": "Official primary documentation, read during this verification; current pages are interpreted with their version-specific history."
+  },
+  {
+    "id": "JQ340",
+    "title": "jQuery prototype-pollution fix",
+    "url": "https://blog.jquery.com/2019/04/10/jquery-3-4-0-released/",
+    "accessedLocalDate": "2026-10-28",
+    "facts": [
+      "jQuery 3.4.0 fixes deep-extend behavior that can modify Object.prototype from a source __proto__ property."
+    ],
+    "evidenceKind": "Official primary documentation, read during this verification; current pages are interpreted with their version-specific history."
+  },
+  {
+    "id": "JQ350",
+    "title": "jQuery HTML parsing security fix",
+    "url": "https://blog.jquery.com/2020/04/10/jquery-3-5-0-released/",
+    "accessedLocalDate": "2026-10-28",
+    "facts": [
+      "jQuery 3.5.0 fixes an HTML-prefilter issue; a 1.12.4 version bump does not include that later change. A library-version exposure is not proof of a reachable XenForo exploit."
+    ],
+    "evidenceKind": "Official primary documentation, read during this verification; current pages are interpreted with their version-specific history."
+  },
+  {
+    "id": "MSCDN",
+    "title": "Microsoft Ajax CDN status",
+    "url": "https://learn.microsoft.com/en-us/aspnet/ajax/cdn/overview",
+    "accessedLocalDate": "2026-10-28",
+    "facts": [
+      "Microsoft says this CDN is no longer actively updated and will be decommissioned in the future. The page does not support the claim that it was decommissioned in 2022. The exact stock jQuery URL also returned HTTP 200 during this verification."
+    ],
+    "evidenceKind": "Official primary documentation, read during this verification; current pages are interpreted with their version-specific history."
+  },
+  {
+    "id": "GOOGLE",
+    "title": "Google Sign-In deprecation and sunset",
+    "url": "https://developers.google.com/identity/sign-in/web/deprecation-and-sunset",
+    "accessedLocalDate": "2026-10-28",
+    "facts": [
+      "The page distinguishes the March 31, 2023 deprecation from an unspecified sunset date, and distinguishes the web JS library from other OAuth 2.0 uses. This does not prove a particular legacy forum login works."
+    ],
+    "evidenceKind": "Official primary documentation, read during this verification; current pages are interpreted with their version-specific history."
+  },
+  {
+    "id": "XFRELEASE",
+    "title": "Official XenForo 1.5.24 release",
+    "url": "https://xenforo.com/community/threads/xenforo-1-5-24-and-media-gallery-1-1-18-released.165829/",
+    "accessedLocalDate": "2026-10-28",
+    "facts": [
+      "The official announcement is dated May 29, 2019, not October 2019. It describes 1.5.24 as the last planned maintenance release."
+    ],
+    "evidenceKind": "Official primary documentation, read during this verification; current pages are interpreted with their version-specific history."
+  },
+  {
+    "id": "EOL",
+    "title": "PHP unsupported branches",
+    "url": "https://www.php.net/eol.php",
+    "accessedLocalDate": "2026-10-28",
+    "facts": [
+      "PHP 7.3 ended upstream support on December 6, 2021, and 7.4 on November 28, 2022. Application compatibility tests do not verify vendor engine security backports."
+    ],
+    "evidenceKind": "Official primary documentation, read during this verification; current pages are interpreted with their version-specific history."
+  },
+  {
+    "id": "JQ1120",
+    "title": "jQuery 1.12.0 feature release",
+    "url": "https://blog.jquery.com/2016/01/08/jquery-2-2-and-1-12-released/",
+    "accessedLocalDate": "2026-10-28",
+    "facts": [
+      "The feature release adds APIs including htmlPrefilter and uniqueSort while anticipating no breaking changes. Backward-compatibility expectations differ from an assertion of identical APIs."
+    ],
+    "evidenceKind": "Official primary documentation checked during post-panel chair verification."
+  },
+  {
+    "id": "ECMAURI",
+    "title": "ECMAScript encodeURIComponent algorithm",
+    "url": "https://tc39.es/ecma262/multipage/global-object.html#sec-encodeuricomponent-uricomponent",
+    "accessedLocalDate": "2026-10-28",
+    "facts": [
+      "encodeURIComponent encodes reserved characters as component text. The current draft is cited only for this longstanding operation, not for new runtime features."
+    ],
+    "evidenceKind": "Primary specification checked during post-panel chair verification."
+  }
+]

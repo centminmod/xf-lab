@@ -1,0 +1,40 @@
+{
+  "scope": "Additional delivered differences reviewed locally after the frozen external panel. These are source/runtime facts and documentation concerns, not new proven exploitable vulnerabilities.",
+  "differences": [
+    {
+      "id": "U-A",
+      "path": "upload/js/videojs/video.js",
+      "fact": "The default techOrder changes from html5,flash to html5. Both libraries initialize with the expected defaults in native browser frames.",
+      "recommendation": "Document the disabled Flash fallback. Do not infer full media-playback compatibility from this option test.",
+      "evidence": [
+        "source-comparison.txt",
+        "additional-browser-checks.json"
+      ]
+    },
+    {
+      "id": "U-B",
+      "path": "upload/js/xenforo/full/xenforo.js",
+      "fact": "The Facebook access-token query component changes from escape to encodeURIComponent. A synthetic a+b control produces a+b versus a%2Bb.",
+      "recommendation": "Document the encoding change independently of whether a particular social-login deployment is enabled. No live Facebook behavior is certified.",
+      "evidence": [
+        "source-comparison.txt",
+        "additional-browser-checks.json"
+      ],
+      "primaryDocumentation": [
+        "ECMAURI"
+      ]
+    },
+    {
+      "id": "U-C",
+      "path": "INSTALL-UPGRADE.txt",
+      "fact": "The stock short documentation is replaced with community install/upgrade, cleanup and provider guidance. It tells operators to regenerate FileSums after deleting leftovers and references build scripts absent from this ZIP. None of the cleanup paths is in the shipped original50 manifest.",
+      "recommendation": "Delete only the reviewed obsolete paths after checking add-on use. Preserve the manifest shipped with the reviewed release; leftover deletion does not require regeneration. Regenerating from a live tree can bless unrelated local changes. Use the reviewed stock24 overlay path, since this upgrade ZIP omits server-protection/stub files.",
+      "evidence": [
+        "chair-source-followup.txt",
+        "archive-checks.json"
+      ],
+      "currentManifestCleanupPathMatches": [],
+      "limit": "No fresh installation from this upgrade-only ZIP or web-server access-control exposure test was performed."
+    }
+  ]
+}

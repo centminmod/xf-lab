@@ -14,6 +14,7 @@
 <h1>wmtech XenForo 1.5.50<br>Compatibility and regression review</h1>
 <p class="muted">Baseline: XenForo 1.5.24 · Target: wmtech community 1.5.50 · Evaluator: Codex · Status: initial verified findings</p>
 </header>
+<p class="source">Follow-up: <a href="2026-10-28-wmtech-1.5.50-changelog-verification.html">original 1.5.50 changelog verification</a> compares 86 checks with stock24, primary documentation and native lab controls, with Claude/Z.AI review and local follow-up. It clarifies that both versions already pass allowed_classes=false on PHP 7; the new deferred caller exposes a pre-existing regex false positive. This does not clear the separate candidate51/XF2 source-panel checkpoints.</p>
 <div class="notice">
 <strong>Release disposition: hold deployment pending correction.</strong>
 <p>The tested XenForo core flows work on PHP 7.4.33. Four verified defects affect outbound HTTP, MySQL 8 tag creation, deferred jobs and signing continuity. The package also changes social-login settings and other behavior beyond PHP compatibility.</p>
@@ -109,7 +110,7 @@
 <dt>Problem</dt>
 <dd>The helper scans raw serialized bytes for object-looking syntax before decoding. Ordinary email text containing a PHP serialization example is a false positive and turns the entire array into false. The queue row is deleted before execution. Passing false to the array-typed runner raises TypeError; recovery applies the same decoder and raises another TypeError.</dd>
 <dt>Smallest correction</dt>
-<dd>Use native deserialization with allowed_classes=false on these PHP 7.x paths, respecting string boundaries. Validate the decoded array before dispatch and preserve original job data during error recovery.</dd>
+<dd>Both stock24 and original50 already use native allowed_classes=false on PHP 7 after the raw regex check. Remove that precheck on PHP 7 so decoding respects string boundaries. Validate the decoded array before dispatch and preserve original job data during error recovery.</dd>
 <dt>Consequence if unchanged</dt>
 <dd>A valid text-bearing job can fail permanently and lose its queue entry.</dd>
 <dt>Verification</dt>

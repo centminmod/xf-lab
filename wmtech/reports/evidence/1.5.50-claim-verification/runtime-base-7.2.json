@@ -1,0 +1,239 @@
+{
+  "php": "7.2.34",
+  "version": 1052470,
+  "runtime": {
+    "curl": "7.64.0",
+    "libxml": "2.9.4",
+    "openssl": "OpenSSL 1.1.1d  10 Sep 2019"
+  },
+  "probes": {
+    "php-mask": {
+      "completed": true,
+      "result": {
+        "stockEnablesDeprecations": true,
+        "patchedSuppressesDeprecations": true
+      },
+      "warningCounts": []
+    },
+    "registry-null-contract": {
+      "completed": true,
+      "result": {
+        "present": true,
+        "null": true,
+        "missing": false
+      },
+      "warningCounts": []
+    },
+    "toggleClass-and-implode": {
+      "completed": true,
+      "result": "0 1 2",
+      "warningCounts": []
+    },
+    "safe-helper": {
+      "completed": true,
+      "result": {
+        "ordinaryArray": true,
+        "objectLikeStringAccepted": false,
+        "objectRejected": true,
+        "objectHooksExecuted": 0
+      },
+      "warningCounts": []
+    },
+    "native-session-object-control": {
+      "completed": true,
+      "result": {
+        "returnedArray": true,
+        "objectHooksExecuted": 1
+      },
+      "warningCounts": []
+    },
+    "constant-time-call-contracts": {
+      "completed": true,
+      "result": {
+        "equal": true,
+        "differentRejected": true,
+        "missingRejected": true,
+        "passwordValid": true,
+        "wrongPasswordRejected": true
+      },
+      "warningCounts": {
+        "2": 1
+      }
+    },
+    "proxy-hmac": {
+      "completed": true,
+      "result": {
+        "valid": true,
+        "wrongRejected": true,
+        "missingRejected": true
+      },
+      "warningCounts": []
+    },
+    "verp-hmac": {
+      "completed": true,
+      "result": {
+        "valid": true,
+        "wrongRejected": true
+      },
+      "warningCounts": []
+    },
+    "rng-source-and-confirmation": {
+      "completed": true,
+      "result": {
+        "randomLength": 32,
+        "urlSafe": true,
+        "source": "random_bytes",
+        "confirmationKeyLength": 16
+      },
+      "warningCounts": []
+    },
+    "native-captcha-and-change-modifier": {
+      "completed": true,
+      "result": {
+        "captchaLength": 40,
+        "captchaStored": true,
+        "changeModifierLength": 28,
+        "modifierPrefix": true
+      },
+      "warningCounts": []
+    },
+    "session-binding": {
+      "completed": true,
+      "result": {
+        "defaults": {
+          "public": [
+            24,
+            64
+          ],
+          "admin": [
+            24,
+            64
+          ]
+        },
+        "adminDisabled": {
+          "public": [
+            24,
+            64
+          ],
+          "admin": [
+            24,
+            64
+          ]
+        },
+        "publicWidened": {
+          "public": [
+            24,
+            64
+          ],
+          "admin": [
+            24,
+            64
+          ]
+        }
+      },
+      "warningCounts": []
+    },
+    "branding-and-user-agent": {
+      "completed": true,
+      "result": {
+        "stockNonempty": true,
+        "blankOverride": false,
+        "replacementOverride": false,
+        "userAgentOverride": false
+      },
+      "warningCounts": []
+    },
+    "xxe-and-xee": {
+      "completed": true,
+      "result": {
+        "internal": "rejected",
+        "file": "rejected",
+        "network": "rejected",
+        "utf16": "rejected",
+        "externalLoaderCalls": 0
+      },
+      "warningCounts": []
+    },
+    "native-upload-boundaries": {
+      "completed": true,
+      "result": {
+        "validPngAccepted": true,
+        "extensionCorrected": true,
+        "plainTextRejected": true,
+        "pngWithPhpMarkerRejected": true
+      },
+      "warningCounts": []
+    },
+    "client-ip-spoof-header": {
+      "completed": true,
+      "result": "198.51.100.20",
+      "warningCounts": []
+    },
+    "native-csrf": {
+      "completed": true,
+      "result": {
+        "valid": true,
+        "wrongRejected": true,
+        "missingRejected": true
+      },
+      "warningCounts": []
+    },
+    "redirect-boundaries": {
+      "completed": true,
+      "result": {
+        "relative": {
+          "fallback": false,
+          "sameHost": true
+        },
+        "external": {
+          "fallback": true,
+          "sameHost": true
+        },
+        "schemeRelative": {
+          "fallback": true,
+          "sameHost": true
+        },
+        "lookalike": {
+          "fallback": true,
+          "sameHost": true
+        },
+        "userinfo": {
+          "fallback": true,
+          "sameHost": true
+        },
+        "crlf": {
+          "fallback": true,
+          "sameHost": true
+        }
+      },
+      "warningCounts": []
+    },
+    "order-by-whitelist": {
+      "completed": true,
+      "result": {
+        "valid": "ORDER BY user.username DESC",
+        "invalidOrder": "ORDER BY user.user_id ASC",
+        "invalidDirection": "ORDER BY user.username ASC"
+      },
+      "warningCounts": []
+    },
+    "native-attachment-hashes": {
+      "completed": true,
+      "result": {
+        "forumHashLength": 32,
+        "conversationHashLength": 32,
+        "distinctHashes": true
+      },
+      "warningCounts": []
+    },
+    "xfcp-filter": {
+      "completed": true,
+      "result": {
+        "validExtensionResolved": true,
+        "invalidSkipped": false,
+        "invalidParseError": "ParseError"
+      },
+      "warningCounts": []
+    }
+  }
+}

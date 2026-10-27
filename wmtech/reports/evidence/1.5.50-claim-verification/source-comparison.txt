@@ -1,0 +1,2817 @@
+Original archive comparison. Base and target SHA-256 are in archive-checks.json.
+Line endings are normalized for this evidence export only. Original archive bytes are unchanged.
+Diff hunk numbers refer to archive sources. Cite this export by its own current line numbers.
+Factory salt literals are redacted; archive comparison independently records that the default changes.
+Excluded generated diffs: FileSums.php, minified xenforo.js and filter_list.js. INSTALL-UPGRADE.txt is inventoried separately.
+All other changed native PHP, readable JavaScript and options XML follow. Unchanged contracts follow the diffs.
+
+--- stock24/upload/install/data/options.xml
++++ original50/upload/install/data/options.xml
+@@ -700,9 +700,8 @@
+   <option option_id="jQuerySource" edit_format="radio" data_type="string" can_backup="1">
+     <default_value>local</default_value>
+     <edit_format_params>local={xen:phrase locally_hosted}
+ google=Google Ajax API CDN
+-microsoft=Microsoft CDN
+ jquery=jQuery CDN</edit_format_params>
+     <sub_options></sub_options>
+     <relation group_id="performance" display_order="1000"/>
+     <relation group_id="serviceProviders" display_order="5000"/>
+
+--- stock24/upload/js/videojs/video.js
++++ original50/upload/js/videojs/video.js
+@@ -1,8 +1,9 @@
++/* XF1550-PATCH: removed the dead Flash tech from techOrder. XenForo 1.5.50 community release; see /CHANGELOG-1.5.50.md */
+ /*! Video.js v4.12.11 Copyright 2014 Brightcove, Inc. https://github.com/videojs/video.js/blob/master/LICENSE */ 
+ (function() {var b=void 0,f=!0,j=null,l=!1;function m(){return function(){}}function n(a){return function(){return this[a]}}function p(a){return function(){return a}}var s;document.createElement("video");document.createElement("audio");document.createElement("track");
+ function t(a,c,d){if("string"===typeof a){0===a.indexOf("#")&&(a=a.slice(1));if(t.Da[a])return c&&t.log.warn('Player "'+a+'" is already initialised. Options will not be applied.'),d&&t.Da[a].I(d),t.Da[a];a=t.m(a)}if(!a||!a.nodeName)throw new TypeError("The element or ID supplied is not valid. (videojs)");return a.player||new t.Player(a,c,d)}var videojs=window.videojs=t;t.jc="4.12";t.wd="https:"==document.location.protocol?"https://":"http://";t.VERSION="4.12.11";
+-t.options={techOrder:["html5","flash"],html5:{},flash:{},width:300,height:150,defaultVolume:0,playbackRates:[],inactivityTimeout:2E3,children:{mediaLoader:{},posterImage:{},loadingSpinner:{},textTrackDisplay:{},bigPlayButton:{},controlBar:{},errorDisplay:{},textTrackSettings:{}},language:document.getElementsByTagName("html")[0].getAttribute("lang")||navigator.languages&&navigator.languages[0]||navigator.Jf||navigator.language||"en",languages:{},notSupportedMessage:"No compatible source was found for this video."};
++t.options={techOrder:["html5"],html5:{},flash:{},width:300,height:150,defaultVolume:0,playbackRates:[],inactivityTimeout:2E3,children:{mediaLoader:{},posterImage:{},loadingSpinner:{},textTrackDisplay:{},bigPlayButton:{},controlBar:{},errorDisplay:{},textTrackSettings:{}},language:document.getElementsByTagName("html")[0].getAttribute("lang")||navigator.languages&&navigator.languages[0]||navigator.Jf||navigator.language||"en",languages:{},notSupportedMessage:"No compatible source was found for this video."};
+ "GENERATED_CDN_VSN"!==t.jc&&(videojs.options.flash.swf=t.wd+"vjs.zencdn.net/"+t.jc+"/video-js.swf");t.Kd=function(a,c){t.options.languages[a]=t.options.languages[a]!==b?t.$.Ba(t.options.languages[a],c):c;return t.options.languages};t.Da={};"function"===typeof define&&define.amd?define("videojs",[],function(){return videojs}):"object"===typeof exports&&"object"===typeof module&&(module.exports=videojs);t.Ha=t.CoreObject=m();
+ t.Ha.extend=function(a){var c,d;a=a||{};c=a.init||a.l||this.prototype.init||this.prototype.l||m();d=function(){c.apply(this,arguments)};d.prototype=t.i.create(this.prototype);d.prototype.constructor=d;d.extend=t.Ha.extend;d.create=t.Ha.create;for(var e in a)a.hasOwnProperty(e)&&(d.prototype[e]=a[e]);return d};t.Ha.create=function(){var a=t.i.create(this.prototype);this.apply(a,arguments);return a};
+ t.b=function(a,c,d){if(t.i.isArray(c))return v(t.b,a,c,d);var e=t.getData(a);e.G||(e.G={});e.G[c]||(e.G[c]=[]);d.s||(d.s=t.s++);e.G[c].push(d);e.ca||(e.disabled=l,e.ca=function(c){if(!e.disabled){c=t.Qb(c);var d=e.G[c.type];if(d)for(var d=d.slice(0),k=0,q=d.length;k<q&&!c.Rc();k++)d[k].call(a,c)}});1==e.G[c].length&&(a.addEventListener?a.addEventListener(c,e.ca,l):a.attachEvent&&a.attachEvent("on"+c,e.ca))};
+ t.n=function(a,c,d){if(t.Mc(a)){var e=t.getData(a);if(e.G){if(t.i.isArray(c))return v(t.n,a,c,d);if(c){var g=e.G[c];if(g){if(d){if(d.s)for(e=0;e<g.length;e++)g[e].s===d.s&&g.splice(e--,1)}else e.G[c]=[];t.Bc(a,c)}}else for(g in e.G)c=g,e.G[c]=[],t.Bc(a,c)}}};t.Bc=function(a,c){var d=t.getData(a);0===d.G[c].length&&(delete d.G[c],a.removeEventListener?a.removeEventListener(c,d.ca,l):a.detachEvent&&a.detachEvent("on"+c,d.ca));t.kb(d.G)&&(delete d.G,delete d.ca,delete d.disabled);t.kb(d)&&t.cd(a)};
+
+--- stock24/upload/js/xenforo/full/filter_list.js
++++ original50/upload/js/xenforo/full/filter_list.js
+@@ -1,4 +1,5 @@
++/* XF1550-PATCH: location.hash filter regex treated #-. as a character range. XenForo 1.5.50 community release; see /CHANGELOG-1.5.50.md */
+ /** @param {jQuery} $ jQuery Object */
+ !function($, window, document, _undefined)
+ {
+ 	XenForo.FilterList = function($list) { this.__construct($list); };
+@@ -86,9 +87,9 @@
+ 		handleLast: function()
+ 		{
+ 			if (window.location.hash)
+ 			{
+-				var $last = $(window.location.hash.replace(/[^\w_#-.]/g, '').replace('.', '\\.'));
++				var $last = $(window.location.hash.replace(/[^\w#.-]/g, '').replace('.', '\\.'));
+ 				if ($last.hasClass('listItem'))
+ 				{
+ 					console.log('Last: %o', $last);
+ 					$last.addClass('Last');
+
+--- stock24/upload/js/xenforo/full/xenforo.js
++++ original50/upload/js/xenforo/full/xenforo.js
+@@ -1,4 +1,5 @@
++/* XF1550-PATCH: Solve Media over HTTPS; Facebook SDK v21.0 with XFBML on and OAuth off; encodeURIComponent for OAuth params. XenForo 1.5.50 community release; see /CHANGELOG-1.5.50.md */
+ /**
+  * Create the XenForo namespace
+  * @package XenForo
+  */
+@@ -5673,9 +5674,13 @@
+ 				this.create();
+ 			}
+ 			else
+ 			{
+-				var prefix = window.location.protocol == 'https:' ? 'https://api-secure' : 'http://api';
++				// Always HTTPS: this loads executable script, and doing so over plaintext lets
++				// anyone on the network path run code in the page. (The service itself is
++				// defunct - see CHANGELOG-1.5.50.md - but a board still configured for it
++				// should not be downgraded to http.)
++				var prefix = 'https://api-secure';
+ 
+ 				window.ACPuzzleOptions = {
+ 					onload: $.context(this, 'create')
+ 				};
+@@ -6247,12 +6252,13 @@
+ 
+ 			$(document.body).append($('<div id="fb-root" />'));
+ 
+ 			var fbInfo = {
+-				version: 'v2.10',
+-				xfbml: false,
+-				oauth: true,
+-				channelUrl: XenForo.canonicalizeUrl('fb_channel.php?l=' + XenForo.Facebook.locale)
++				version: 'v21.0',
++				// XFBML on so social plugins (the Like button) render; OAuth off because
++				// 1.5.50 retires Facebook login - Graph v2.10 was removed by Meta long ago.
++				xfbml: true,
++				oauth: false
+ 			};
+ 			if (XenForo.Facebook.appId)
+ 			{
+ 				fbInfo.appId = XenForo.Facebook.appId;
+@@ -6343,10 +6349,10 @@
+ 					// facebook user, connect!
+ 					XenForo.alert(XenForo.phrases.logging_in + '...', '', 8000);
+ 					setTimeout(function() {
+ 						XenForo.redirect(
+-							'index.php?register/facebook&t=' + escape(authResponse.accessToken)
+-							+ '&redirect=' + escape(window.location)
++							'index.php?register/facebook&t=' + encodeURIComponent(authResponse.accessToken)
++							+ '&redirect=' + encodeURIComponent(window.location)
+ 						);
+ 					}, 250);
+ 				}
+ 			}
+
+--- stock24/upload/library/Lgpl/utf8.php
++++ original50/upload/library/Lgpl/utf8.php
+@@ -1,5 +1,6 @@
+ <?php
++/* XF1550-PATCH: PHP 7.4: replaced curly-brace string offsets. XenForo 1.5.50 community release; see /CHANGELOG-1.5.50.md */
+ /**
+  * UTF8 helper functions
+  *
+  * @license    LGPL 2.1 (http://www.gnu.org/copyleft/lesser.html)
+@@ -43,10 +44,10 @@
+     function utf8_strip($str){
+         $ascii = '';
+         $len = strlen($str);
+         for($i=0; $i<$len; $i++){
+-            if(ord($str{$i}) <128){
+-                $ascii .= $str{$i};
++            if(ord($str[$i]) <128){
++                $ascii .= $str[$i];
+             }
+         }
+         return $ascii;
+     }
+@@ -582,9 +583,9 @@
+         $len = strlen($str);
+ 
+         for($i = 0; $i < $len; $i++) {
+ 
+-            $in = ord($str{$i});
++            $in = ord($str[$i]);
+ 
+             if ( $mState == 0) {
+ 
+                 // When mState is zero we expect either a US-ASCII character or a
+
+--- stock24/upload/library/XenForo/Application.php
++++ original50/upload/library/XenForo/Application.php
+@@ -1,5 +1,6 @@
+ <?php
++/* XF1550-PATCH: version bump to 1.5.50; error_reporting precedence; magic-quotes removal; cookie/jQuery/copyright/User-Agent/session config overrides; XFCP class-name allow-list. XenForo 1.5.50 community release; see /CHANGELOG-1.5.50.md */
+ 
+ if (!defined('XENFORO_AUTOLOADER_SETUP')) { die('No access.'); }
+ 
+ /**
+@@ -18,10 +19,10 @@
+ 	 *
+ 	 * @var string
+ 	 * @var integer
+ 	 */
+-	public static $version = '1.5.24';
+-	public static $versionId = 1052470; // abbccde = a.b.c d (alpha: 1, beta: 3, RC: 5, stable: 7, PL: 9) e
++	public static $version = '1.5.50';
++	public static $versionId = 1055070; // abbccde = a.b.c d (alpha: 1, beta: 3, RC: 5, stable: 7, PL: 9) e
+ 
+ 	/**
+ 	 * JavaScript cache buster variable
+ 	 *
+@@ -33,9 +34,9 @@
+ 	 * jQuery version currently in use. See XenForo_Dependencies_Public::getJquerySource()
+ 	 *
+ 	 * @var string
+ 	 */
+-	public static $jQueryVersion = '1.11.0';
++	public static $jQueryVersion = '1.12.4';
+ 
+ 	/**
+ 	* Path to directory containing the application's configuration file(s).
+ 	*
+@@ -181,19 +182,12 @@
+ 			$version = explode('.', PHP_VERSION);
+ 			define('PHP_VERSION_ID', ($version[0] * 10000 + $version[1] * 100 + $version[2]));
+ 		}
+ 
+-		if (self::$_initConfig['undoMagicQuotes'] && function_exists('get_magic_quotes_gpc') && get_magic_quotes_gpc())
+-		{
+-			self::undoMagicQuotes($_GET);
+-			self::undoMagicQuotes($_POST);
+-			self::undoMagicQuotes($_COOKIE);
+-			self::undoMagicQuotes($_REQUEST);
+-		}
+-		if (function_exists('get_magic_quotes_runtime') && get_magic_quotes_runtime())
+-		{
+-			@set_magic_quotes_runtime(false);
+-		}
++		// Magic quotes were removed in PHP 5.4, so this could never fire on any supported
++		// version - and on PHP 7.4 get_magic_quotes_gpc() is itself deprecated, so merely
++		// calling it (the function_exists() guard is still true there) emits a deprecation
++		// on every request. undoMagicQuotes() is kept for add-ons that call it.
+ 
+ 		if (self::$_initConfig['setMemoryLimit'])
+ 		{
+ 			self::setMemoryLimit(64 * 1024 * 1024);
+@@ -223,9 +217,12 @@
+ 				}
+ 			}
+ 		}
+ 
+-		error_reporting(E_ALL | E_STRICT & ~8192);
++		// & binds tighter than |, so the original "E_ALL | E_STRICT & ~8192" masked E_DEPRECATED
++		// off E_STRICT instead of off the whole set, leaving deprecations enabled. On PHP 7.4 that
++		// means handlePhpError() throws an ErrorException for every deprecation in debug mode.
++		error_reporting((E_ALL | E_STRICT) & ~E_DEPRECATED);
+ 		set_error_handler(array('XenForo_Application', 'handlePhpError'));
+ 		set_exception_handler(array('XenForo_Application', 'handleException'));
+ 		register_shutdown_function(array('XenForo_Application', 'handleFatalError'));
+ 
+@@ -255,8 +252,20 @@
+ 
+ 		// this is a minor hack as people sometimes set _SERVER[HTTPS] in config.php,
+ 		// so the value may have changed compared to above
+ 		self::$secure = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on');
++
++		// $_SERVER['HTTPS'] is unset behind a TLS-terminating reverse proxy, so auto-detection
++		// silently drops the Secure flag on an HTTPS board. $config['cookie']['secure'] = true
++		// makes that explicit without needing to fake $_SERVER in config.php.
++		if ($loadDefaultData && self::isRegistered('config'))
++		{
++			$cookieConfig = self::get('config')->cookie;
++			if ($cookieConfig && $cookieConfig->secure !== null)
++			{
++				self::$secure = (bool)$cookieConfig->secure;
++			}
++		}
+ 
+ 		$this->_initialized = true;
+ 	}
+ 
+@@ -268,8 +277,16 @@
+ 		$config = $this->loadConfig();
+ 		self::set('config', $config);
+ 		self::setDebugMode($config->debug);
+ 		self::$jsVersion = substr(md5(self::$versionId . $config->jsVersion), 0, 8);
++
++		// Allow an admin to pin or roll back the bundled jQuery from config.php without
++		// editing core. 1.5.50 ships both 1.11.0 and 1.12.4.
++		if ($config->jQueryVersion)
++		{
++			self::$jQueryVersion = (string)$config->jQueryVersion;
++		}
++
+ 		self::$externalDataPath = (string)$config->externalDataPath;
+ 		self::$externalDataUrl = (string)$config->externalDataUrl;
+ 		self::$javaScriptUrl = (string)$config->javaScriptUrl;
+ 
+@@ -510,9 +527,13 @@
+ 			try
+ 			{
+ 				foreach ($extend AS $dynamicClass)
+ 				{
+-					if (preg_match('/[;,$\/#"\'\.()]/', $dynamicClass))
++					// This name is interpolated straight into eval(), so validate it as a positive
++					// allow-list rather than a deny-list. The old deny-list missed braces and
++					// whitespace, which is enough to close the generated class and open another.
++					// Reaching this requires ACP access, so it is defence in depth, not a hole.
++					if (!preg_match('/^\\\\?[a-zA-Z_\\x7f-\\xff][a-zA-Z0-9_\\x7f-\\xff]*(\\\\[a-zA-Z_\\x7f-\\xff][a-zA-Z0-9_\\x7f-\\xff]*)*$/', $dynamicClass))
+ 					{
+ 						continue;
+ 					}
+ 
+@@ -676,21 +697,54 @@
+ 				'directory' => '', // relative to the configuration directory
+ 				'default_addon' => ''
+ 			),
+ 			'superAdmins' => '1',
+-			'globalSalt' => '[BASE ARCHIVE DEFAULT REDACTED]',
++			'globalSalt' => '[TARGET ARCHIVE DEFAULT REDACTED]',
+ 			'jsVersion' => '',
+ 			'cookie' => array(
+ 				'prefix' => 'xf_',
+ 				'path' => '/',
+-				'domain' => ''
++				'domain' => '',
++				// SameSite protects session and remember-me cookies against cross-site request
++				// forgery at the browser level. 'Lax' still allows top-level GET navigation, so
++				// inbound links and OAuth-style redirect-backs keep working; 'None' requires
++				// Secure and is only useful if the board is framed cross-origin. Set '' to omit
++				// the attribute entirely and restore pre-1.5.50 behaviour.
++				'sameSite' => 'Lax',
++				// Whether to set the Secure flag. null = auto-detect from $_SERVER['HTTPS'],
++				// which is what XenForo has always done - but that is false behind a
++				// TLS-terminating reverse proxy, so an HTTPS board can end up shipping its
++				// session cookie without Secure. Set true to force it on.
++				'secure' => null
+ 			),
+ 			'enableMail' => true,
+ 			'enableMailQueue' => true,
+ 			'internalDataPath' => 'internal_data',
+ 			'externalDataPath' => 'data',
+ 			'externalDataUrl' => 'data',
+ 			'javaScriptUrl' => 'js',
++			// Overrides XenForo_Application::$jQueryVersion. 1.5.50 ships 1.11.0 and 1.12.4,
++			// so setting this to '1.11.0' rolls the bump back without touching core files.
++			'jQueryVersion' => '',
++			// Peer verification for the PayPal IPN callback. Leave null (verify) unless the
++			// host genuinely has no usable CA bundle.
++			'paypalSslVerifyPeer' => null,
++			// Overrides XenForo_Application::getCopyrightHtml(). null keeps the stock
++			// branding; '' suppresses it. Licence holders entitled to remove the branding
++			// should set this rather than editing Application.php, which every file-based
++			// upgrade reverts.
++			'copyrightHtml' => null,
++			// Overrides the outbound HTTP User-Agent (XenForo_Helper_Http::getUserAgent()).
++			// Empty keeps the stock "XenForo/1.5 (boardUrl)" string.
++			'httpUserAgent' => '',
++			// Session IP binding. adminIpv4CidrMatch/adminIpv6CidrMatch override the admin
++			// session values; 0 disables binding for that session type. null = stock (24/64).
++			'session' => array(
++				'ipv4CidrMatch' => null,
++				'ipv6CidrMatch' => null,
++				'adminIpv4CidrMatch' => null,
++				'adminIpv6CidrMatch' => null
++			),
+ 			'checkVersion' => true,
+ 			'enableGzip' => true,
+ 			'enableContentLength' => true,
+ 			'adminLogLength' => 60, // number of days to keep admin log entries
+@@ -1302,12 +1356,10 @@
+ 		{
+ 			parse_str($string, $output);
+ 		}
+ 
+-		if (function_exists('get_magic_quotes_gpc') && get_magic_quotes_gpc())
+-		{
+-			XenForo_Application::undoMagicQuotes($output);
+-		}
++		// See initialize(): magic quotes cannot be on for any PHP version we support, and
++		// probing for them is itself deprecated on 7.4.
+ 
+ 		return $output;
+ 	}
+ 
+@@ -1454,8 +1506,20 @@
+ 	}
+ 
+ 	public static function getCopyrightHtml()
+ 	{
++		// Boards entitled to remove the branding have historically edited this method by
++		// hand, which means every file-based upgrade silently restores the link. Reading it
++		// from config.php instead makes the choice survive upgrades.
++		if (self::isRegistered('config'))
++		{
++			$copyright = self::get('config')->copyrightHtml;
++			if ($copyright !== null)
++			{
++				return (string)$copyright;
++			}
++		}
++
+ 		return '<a href="https://xenforo.com" class="concealed" target="_blank">Forum software by XenForo<sup>&reg;</sup> <span>&copy; 2010-2019 XenForo Ltd.</span></a>';
+ 	}
+ 
+ 	public static $allowManualDeferred = false;
+@@ -1596,8 +1660,18 @@
+ 	}
+ 
+ 	public static function hashEquals($known, $user)
+ 	{
++		// A non-string can never equal a hash, but passing one to hash_equals() raises
++		// "Expected user_string to be a string", which XenForo logs as an ErrorException.
++		// The value being compared is usually user input that may simply be absent -
++		// proxy.php is requested by crawlers with no hash parameter at all - so returning
++		// false here keeps the same result the old === comparison gave, without the noise.
++		if (!is_string($known) || !is_string($user))
++		{
++			return false;
++		}
++
+ 		if (function_exists('hash_equals'))
+ 		{
+ 			return hash_equals($known, $user);
+ 		}
+
+--- stock24/upload/library/XenForo/BounceParser.php
++++ original50/upload/library/XenForo/BounceParser.php
+@@ -1,5 +1,6 @@
+ <?php
++/* XF1550-PATCH: constant-time VERP HMAC comparison. XenForo 1.5.50 community release; see /CHANGELOG-1.5.50.md */
+ 
+ class XenForo_BounceParser
+ {
+ 	protected $_message;
+@@ -267,9 +268,9 @@
+ 			{
+ 				$email = $match[2];
+ 				$hmac = hash_hmac('md5', $email, $this->_verpHmacKey);
+ 
+-				$this->_recipientTrusted = (substr($hmac, 0, strlen($match[1])) === $match[1]);
++				$this->_recipientTrusted = XenForo_Application::hashEquals(substr($hmac, 0, strlen($match[1])), $match[1]);
+ 				$this->_recipient = $email;
+ 				return;
+ 			}
+ 
+@@ -280,9 +281,9 @@
+ 				{
+ 					$verpEmail = str_replace('=', '@', $verpMatch[2]);
+ 					$hmac = hash_hmac('md5', $verpEmail, $this->_verpHmacKey);
+ 
+-					$this->_recipientTrusted = (substr($hmac, 0, strlen($verpMatch[1])) === $verpMatch[1]);
++					$this->_recipientTrusted = XenForo_Application::hashEquals(substr($hmac, 0, strlen($verpMatch[1])), $verpMatch[1]);
+ 					$this->_recipient = $verpEmail;
+ 					return;
+ 				}
+ 			}
+
+--- stock24/upload/library/XenForo/Captcha/SolveMedia.php
++++ original50/upload/library/XenForo/Captcha/SolveMedia.php
+@@ -1,5 +1,6 @@
+ <?php
++/* XF1550-PATCH: verification callback now uses HTTPS. XenForo 1.5.50 community release; see /CHANGELOG-1.5.50.md */
+ 
+ class XenForo_Captcha_SolveMedia extends XenForo_Captcha_Abstract
+ {
+ 	/**
+@@ -53,9 +54,9 @@
+ 		}
+ 
+ 		try
+ 		{
+-			$client = XenForo_Helper_Http::getClient('http://verify.solvemedia.com/papi/verify');
++			$client = XenForo_Helper_Http::getClient('https://verify.solvemedia.com/papi/verify');
+ 			$client->setParameterPost(array(
+ 				'privatekey' => $this->_vKey,
+ 				'challenge' => $input['adcopy_challenge'],
+ 				'response' => $input['adcopy_response'],
+
+--- stock24/upload/library/XenForo/Controller.php
++++ original50/upload/library/XenForo/Controller.php
+@@ -1,5 +1,6 @@
+ <?php
++/* XF1550-PATCH: constant-time CSRF token comparison. XenForo 1.5.50 community release; see /CHANGELOG-1.5.50.md */
+ 
+ /**
+ * General base class for controllers. Controllers should implement methods named
+ * actionX with no arguments. These will be called by the dispatcher based on the
+@@ -251,9 +252,9 @@
+ 				if (($tokenTime + 86400) < XenForo_Application::$time)
+ 				{
+ 					$csrfAttempt = 'expired';
+ 				}
+-				else if (sha1($tokenTime . $visitingUser['csrf_token']) == $tokenValue)
++				else if (XenForo_Application::hashEquals(sha1($tokenTime . $visitingUser['csrf_token']), $tokenValue))
+ 				{
+ 					$csrfAttempt = false;
+ 				}
+ 			}
+
+--- stock24/upload/library/XenForo/ControllerPublic/Member.php
++++ original50/upload/library/XenForo/ControllerPublic/Member.php
+@@ -1,5 +1,6 @@
+ <?php
++/* XF1550-PATCH: PHP 7.4 notice: indexing getUserBirthdayDetails() when it returns false. XenForo 1.5.50 community release; see /CHANGELOG-1.5.50.md */
+ 
+ class XenForo_ControllerPublic_Member extends XenForo_ControllerPublic_Abstract
+ {
+ 	public function actionIndex()
+@@ -355,10 +356,15 @@
+ 
+ 		$followersCount = $userModel->countUsersFollowingUserId($userId);
+ 		$followers = $userModel->getUsersFollowingUserId($userId, 6, 'RAND()');
+ 
++		// getUserBirthdayDetails() returns false when the member has no date of birth, or
++		// keeps it private - which is most members. Indexing that bool was silently null on
++		// PHP 7.3, but PHP 7.4 raises "Trying to access array offset on value of type bool",
++		// and XenForo logs notices, so every profile view wrote a row to xf_error_log.
++		// null is what the old expression evaluated to, so behaviour is unchanged.
+ 		$birthday = $userProfileModel->getUserBirthdayDetails($user);
+-		$user['age'] = $birthday['age'];
++		$user['age'] = ($birthday ? $birthday['age'] : null);
+ 
+ 		$user['isFollowingVisitor'] = $userModel->isFollowing($visitor['user_id'], $user);
+ 
+ 		if ($userModel->canViewWarnings())
+
+--- stock24/upload/library/XenForo/ControllerPublic/Register.php
++++ original50/upload/library/XenForo/ControllerPublic/Register.php
+@@ -1,5 +1,6 @@
+ <?php
++/* XF1550-PATCH: CSPRNG registration key instead of md5(uniqid()). XenForo 1.5.50 community release; see /CHANGELOG-1.5.50.md */
+ 
+ /**
+  * Controller for registration-related actions.
+  *
+@@ -90,9 +91,10 @@
+ 		}
+ 
+ 		XenForo_Application::getSession()->set('registrationTime', time());
+ 
+-		$regKey = md5(uniqid('xf', true));
++		// uniqid() is a microsecond timestamp, not a CSPRNG; md5() over it adds no entropy.
++		$regKey = XenForo_Application::generateRandomString(32);
+ 		XenForo_Application::getSession()->set('registrationKey', $regKey);
+ 
+ 		$customFields = $this->_getFieldModel()->prepareUserFields(
+ 			$this->_getFieldModel()->getUserFields(array('registration' => true)),
+
+--- stock24/upload/library/XenForo/DataWriter/Tag.php
++++ original50/upload/library/XenForo/DataWriter/Tag.php
+@@ -1,5 +1,6 @@
+ <?php
++/* XF1550-PATCH: MySQL 8: REGEXP BINARY for tag_url matching. XenForo 1.5.50 community release; see /CHANGELOG-1.5.50.md */
+ 
+ /**
+ * Data writer for thread prefixes.
+ */
+@@ -134,9 +135,9 @@
+ 			$existing = $db->fetchRow("
+ 				SELECT *
+ 				FROM xf_tag
+ 				WHERE tag_url = ?
+-					OR (tag_url LIKE ? AND tag_url REGEXP ?)
++					OR (tag_url LIKE ? AND tag_url REGEXP BINARY ?)
+ 				ORDER BY tag_id DESC
+ 				LIMIT 1
+ 			", array ($urlVersion, "$urlVersion-%", "^{$urlVersion}-[0-9]+\$"));
+ 			if ($existing)
+
+--- stock24/upload/library/XenForo/Dependencies/Public.php
++++ original50/upload/library/XenForo/Dependencies/Public.php
+@@ -1,5 +1,6 @@
+ <?php
++/* XF1550-PATCH: retired the decommissioned Microsoft Ajax CDN option. XenForo 1.5.50 community release; see /CHANGELOG-1.5.50.md */
+ 
+ /**
+ * Handles front controller dependencies for public-facing pages.
+ *
+@@ -686,11 +687,12 @@
+ 
+ 			case 'google':
+ 				return "https://ajax.googleapis.com/ajax/libs/jquery/{$jQueryVersion}/jquery{$min}.js";
+ 
++			// The Microsoft Ajax CDN was decommissioned in 2022, so 'microsoft' now falls
++			// through to the local copy rather than to a host that serves nothing. The
++			// 1.5.50 upgrade also rewrites the stored option value.
+ 			case 'microsoft':
+-				return "https://ajax.microsoft.com/ajax/jquery/jquery-{$jQueryVersion}{$min}.js";
+-
+ 			default:
+ 				return "{$javaScriptUrl}/jquery/jquery-{$jQueryVersion}{$min}.js";
+ 		}
+ 	}
+
+--- stock24/upload/library/XenForo/Helper/Cookie.php
++++ original50/upload/library/XenForo/Helper/Cookie.php
+@@ -1,5 +1,6 @@
+ <?php
++/* XF1550-PATCH: added SameSite support via the PHP 7.3 setcookie() options array. XenForo 1.5.50 community release; see /CHANGELOG-1.5.50.md */
+ 
+ /**
+  * Helper class for manipulating cookies with XenForo-specific options.
+  *
+@@ -42,10 +43,27 @@
+ 		}
+ 
+ 		$name = $cookieConfig->prefix . $name;
+ 
++		$sameSite = $cookieConfig->sameSite;
++
+ 		try
+ 		{
++			// PHP 7.3 introduced the options-array form of setcookie(), which is the only way
++			// to emit SameSite. It is also the reason 1.5.50 requires 7.3: SameSite is the
++			// single most valuable browser-level CSRF mitigation available to a board this old.
++			if ($sameSite && PHP_VERSION_ID >= 70300)
++			{
++				return setcookie($name, $value, array(
++					'expires'  => $expiration,
++					'path'     => $path,
++					'domain'   => $domain,
++					'secure'   => $secure,
++					'httponly' => $httpOnly,
++					'samesite' => $sameSite
++				));
++			}
++
+ 			return setcookie($name, $value, $expiration, $path, $domain, $secure, $httpOnly);
+ 		}
+ 		catch (Exception $e)
+ 		{
+
+--- stock24/upload/library/XenForo/Helper/Hash.php
++++ original50/upload/library/XenForo/Helper/Hash.php
+@@ -1,5 +1,6 @@
+ <?php
++/* XF1550-PATCH: PHP 7.4: replaced curly-brace string offset. XenForo 1.5.50 community release; see /CHANGELOG-1.5.50.md */
+ 
+ class XenForo_Helper_Hash
+ {
+ 	/**
+@@ -19,9 +20,9 @@
+ 		if ($handle = @opendir($path))
+ 		{
+ 			while ($file = readdir($handle))
+ 			{
+-				if ($file{0} != '.')
++				if ($file[0] != '.')
+ 				{
+ 					$filePath = "$path/$file";
+ 
+ 					if (!in_array($filePath, $exclude))
+
+--- stock24/upload/library/XenForo/Helper/Http.php
++++ original50/upload/library/XenForo/Helper/Http.php
+@@ -1,5 +1,6 @@
+ <?php
++/* XF1550-PATCH: enable TLS peer verification; pin untrusted requests to validated IPs (DNS rebinding). XenForo 1.5.50 community release; see /CHANGELOG-1.5.50.md */
+ 
+ class XenForo_Helper_Http
+ {
+ 	/**
+@@ -19,17 +20,9 @@
+ 		}
+ 
+ 		if (empty($options['useragent']))
+ 		{
+-			if (preg_match('/^\d+\.\d+/', XenForo_Application::$version, $versionMatch))
+-			{
+-				$version = $versionMatch[0];
+-			}
+-			else
+-			{
+-				$version = '1.x';
+-			}
+-			$options['useragent'] = "XenForo/$version (" . XenForo_Application::getOptions()->boardUrl . ')';
++			$options['useragent'] = self::getUserAgent();
+ 		}
+ 
+ 		return new Zend_Http_Client($uri, $options);
+ 	}
+@@ -46,9 +39,9 @@
+ 	public static function getUntrustedClient($uri, array $options = array())
+ 	{
+ 		$uri = self::filterUntrustedUrl($uri);
+ 
+-		if (!self::isRequestableUntrustedUrl($uri, $requestError))
++		if (!self::isRequestableUntrustedUrl($uri, $requestError, $validatedIps))
+ 		{
+ 			// use this exception type as it is caught in some cases
+ 			throw new Zend_Uri_Exception("URI '$uri' is not requestable ($requestError)");
+ 		}
+@@ -56,30 +49,89 @@
+ 		$options['maxredirects'] = 0;
+ 
+ 		if (empty($options['useragent']))
+ 		{
+-			if (preg_match('/^\d+\.\d+/', XenForo_Application::$version, $versionMatch))
+-			{
+-				$version = $versionMatch[0];
+-			}
+-			else
+-			{
+-				$version = '1.x';
+-			}
+-			$options['useragent'] = "XenForo/$version (" . XenForo_Application::getOptions()->boardUrl . ')';
++			$options['useragent'] = self::getUserAgent();
+ 		}
+ 
+ 		$untrustedConfig = XenForo_Application::getConfig()->untrustedHttpClient;
+ 		$config = $untrustedConfig ? $untrustedConfig->toArray() : array();
+ 		if (!empty($config['adapter']))
+ 		{
++			// The admin has configured their own adapter (typically an egress proxy). Respect
++			// it and leave address selection to them.
+ 			$config += $options;
+ 			return new Zend_Http_Client($uri, $config);
+ 		}
+-		else
+-		{
+-			return self::getClient($uri, $options);
+-		}
++
++		$pinned = self::getResolveOptions($uri, $validatedIps);
++		if ($pinned)
++		{
++			return new Zend_Http_Client($uri, $pinned + $options);
++		}
++
++		return self::getClient($uri, $options);
++	}
++
++	/**
++	 * Builds client options that pin a request to the IPs we just validated.
++	 *
++	 * isRequestableUntrustedUrl() resolves the host and rejects private addresses, but the
++	 * HTTP client then resolves the same host again independently. A DNS record with a short
++	 * TTL that answers publicly on the first lookup and 127.0.0.1 or 169.254.169.254 on the
++	 * second walks straight through the check - the classic DNS rebinding / TOCTOU pattern.
++	 *
++	 * CURLOPT_RESOLVE removes the second lookup entirely: cURL uses the address we already
++	 * approved, while still sending the original Host header and performing normal certificate
++	 * validation against the hostname.
++	 *
++	 * Returns an empty array when pinning is not possible (no cURL), in which case the caller
++	 * falls back to the previous behaviour - validated, but not pinned.
++	 *
++	 * @param string $uri
++	 * @param array $validatedIps
++	 *
++	 * @return array
++	 */
++	protected static function getResolveOptions($uri, array $validatedIps)
++	{
++		if (!$validatedIps || !function_exists('curl_version') || !defined('CURLOPT_RESOLVE'))
++		{
++			return array();
++		}
++
++		$parts = @parse_url($uri);
++		if (!$parts || empty($parts['host']))
++		{
++			return array();
++		}
++
++		$port = !empty($parts['port'])
++			? $parts['port']
++			: (strtolower($parts['scheme']) === 'https' ? 443 : 80);
++
++		$resolve = array();
++		foreach ($validatedIps AS $ip)
++		{
++			// cURL expects IPv6 literals in brackets in a CURLOPT_RESOLVE entry.
++			if (strpos($ip, ':') !== false)
++			{
++				$ip = '[' . $ip . ']';
++			}
++
++			$resolve[] = $parts['host'] . ':' . $port . ':' . $ip;
++		}
++
++		return array(
++			'adapter' => 'Zend_Http_Client_Adapter_Curl',
++			'curloptions' => array(
++				CURLOPT_RESOLVE => $resolve,
++				CURLOPT_SSL_VERIFYPEER => true,
++				CURLOPT_SSL_VERIFYHOST => 2,
++				// Belt and braces: even pinned, never let cURL follow a redirect itself.
++				CURLOPT_FOLLOWLOCATION => false
++			)
++		);
+ 	}
+ 
+ 	public static function filterUntrustedUrl($url)
+ 	{
+@@ -87,10 +139,12 @@
+ 
+ 		return $url;
+ 	}
+ 
+-	public static function isRequestableUntrustedUrl($url, &$error = null)
+-	{
++	public static function isRequestableUntrustedUrl($url, &$error = null, &$validatedIps = null)
++	{
++		$validatedIps = array();
++
+ 		$parts = @parse_url($url);
+ 
+ 		if (!$parts || empty($parts['scheme']) || empty($parts['host']))
+ 		{
+@@ -136,8 +190,9 @@
+ 				}
+ 				else
+ 				{
+ 					$hasValidIp = true;
++					$validatedIps[] = $ip;
+ 				}
+ 			}
+ 		}
+ 
+@@ -168,8 +223,9 @@
+ 						}
+ 						else
+ 						{
+ 							$hasValidIp = true;
++							$validatedIps[] = $ip;
+ 						}
+ 					}
+ 				}
+ 			}
+@@ -346,8 +402,40 @@
+ 	 * @param string $uri
+ 	 *
+ 	 * @return array
+ 	 */
++	/**
++	 * User-Agent for outbound HTTP requests.
++	 *
++	 * Boards that want to identify their own fetcher to remote sites have had to edit this
++	 * file, which every file-based upgrade reverts. $config['httpUserAgent'] makes the choice
++	 * survive upgrades.
++	 *
++	 * @return string
++	 */
++	public static function getUserAgent()
++	{
++		if (XenForo_Application::isRegistered('config'))
++		{
++			$configured = XenForo_Application::get('config')->httpUserAgent;
++			if ($configured)
++			{
++				return (string)$configured;
++			}
++		}
++
++		if (preg_match('/^\d+\.\d+/', XenForo_Application::$version, $versionMatch))
++		{
++			$version = $versionMatch[0];
++		}
++		else
++		{
++			$version = '1.x';
++		}
++
++		return "XenForo/$version (" . XenForo_Application::getOptions()->boardUrl . ')';
++	}
++
+ 	public static function getExtraHttpClientOptions($uri)
+ 	{
+ 		$parts = parse_url($uri);
+ 		$wrappers = stream_get_wrappers();
+@@ -355,13 +443,19 @@
+ 		{
+ 			// can't be handled by sockets -- fallback to cURL
+ 			if (function_exists('curl_getinfo'))
+ 			{
++				// Upstream left peer verification off here with a "TODO: consider validating
++				// SSL cert". On PHP 7.3 with a current cURL there is no longer a reason not to;
++				// the socket adapter this falls back from verifies by default anyway, so
++				// leaving it off made the cURL path strictly weaker than the default one.
+ 				return array(
+ 					'adapter' => 'Zend_Http_Client_Adapter_Curl',
+-					'curloptions' => array(CURLOPT_SSL_VERIFYPEER => false)
++					'curloptions' => array(
++						CURLOPT_SSL_VERIFYPEER => true,
++						CURLOPT_SSL_VERIFYHOST => 2
++					)
+ 				);
+-				// TODO: consider validating SSL cert
+ 			}
+ 		}
+ 
+ 		return array();
+
+--- stock24/upload/library/XenForo/Importer/IPBoard.php
++++ original50/upload/library/XenForo/Importer/IPBoard.php
+@@ -1,5 +1,6 @@
+ <?php
++/* XF1550-PATCH: PHP 7.4: replaced curly-brace string offsets. XenForo 1.5.50 community release; see /CHANGELOG-1.5.50.md */
+ 
+ 
+ /*
+  * New classes:
+@@ -638,14 +639,14 @@
+ 		while ($i < $strlen)
+ 		{
+ 			$count = 0;
+ 
+-			switch ($inputFormat{$i})
++			switch ($inputFormat[$i])
+ 			{
+ 				case 'n':
+ 				case 'a':
+-					$repeatChar = $inputFormat{$i};
+-					while ($i < $strlen && $inputFormat{$i} === $repeatChar)
++					$repeatChar = $inputFormat[$i];
++					while ($i < $strlen && $inputFormat[$i] === $repeatChar)
+ 					{
+ 						$i++;
+ 						$count++;
+ 					}
+@@ -653,9 +654,9 @@
+ 					$regex .= ($repeatChar == 'n' ? '\d' : '[a-zA-Z]') . ($count > 1 ? "{{$count}}" : '');
+ 					break;
+ 
+ 				default:
+-					$regex .= $inputFormat{$i};
++					$regex .= $inputFormat[$i];
+ 					$i++;
+ 					break;
+ 			}
+ 		}
+
+--- stock24/upload/library/XenForo/Model/CaptchaQuestion.php
++++ original50/upload/library/XenForo/Model/CaptchaQuestion.php
+@@ -1,5 +1,6 @@
+ <?php
++/* XF1550-PATCH: CSPRNG captcha hashes instead of timestamp-derived ones. XenForo 1.5.50 community release; see /CHANGELOG-1.5.50.md */
+ 
+ class XenForo_Model_CaptchaQuestion extends XenForo_Model
+ {
+ 	/**
+@@ -170,9 +171,11 @@
+ 				'answers' => array('failed')
+ 			);
+ 		}
+ 
+-		$result['hash'] = md5($result['question'] . uniqid() . memory_get_usage());
++		// This hash binds a rendered captcha to its answer, so it must not be guessable
++		// from the question text and a timestamp.
++		$result['hash'] = XenForo_Application::generateRandomString(32);
+ 
+ 		$this->_getDb()->insert('xf_captcha_log', array(
+ 			'hash' => $result['hash'],
+ 			'captcha_type' => 'TextCaptcha',
+@@ -248,14 +251,11 @@
+ 	 * @return string The inserted hash
+ 	 */
+ 	protected function _insertHash($questionId)
+ 	{
+-		$hash = sha1(
+-			'Question'
+-			. $questionId
+-			. XenForo_Application::get('config')->globalSalt
+-			. uniqid(microtime(), true)
+-		);
++		// Fits xf_captcha_log.hash VARBINARY(40). Derived purely from the CSPRNG rather
++		// than from the question id plus a timestamp.
++		$hash = XenForo_Application::generateRandomString(40);
+ 
+ 		$this->_getDb()->insert('xf_captcha_log', array(
+ 			'hash' => $hash,
+ 			'captcha_type' => 'Question',
+
+--- stock24/upload/library/XenForo/Model/Conversation.php
++++ original50/upload/library/XenForo/Model/Conversation.php
+@@ -1,5 +1,6 @@
+ <?php
++/* XF1550-PATCH: CSPRNG attachment temp hash instead of md5(uniqid()). XenForo 1.5.50 community release; see /CHANGELOG-1.5.50.md */
+ 
+ /**
+  * Model for conversations.
+  *
+@@ -1569,9 +1570,9 @@
+ 		if ($this->canUploadAndManageAttachment($conversation, $null, $viewingUser))
+ 		{
+ 			$existing = is_string($tempHash) && strlen($tempHash) == 32;
+ 			$output = array(
+-				'hash' => $existing ? $tempHash : md5(uniqid('', true)),
++				'hash' => $existing ? $tempHash : XenForo_Application::generateRandomString(32),
+ 				'content_type' => 'conversation_message',
+ 				'content_data' => $contentData
+ 			);
+ 			if ($existing)
+
+--- stock24/upload/library/XenForo/Model/Deferred.php
++++ original50/upload/library/XenForo/Model/Deferred.php
+@@ -1,5 +1,6 @@
+ <?php
++/* XF1550-PATCH: safeUnserialize for deferred execute_data. XenForo 1.5.50 community release; see /CHANGELOG-1.5.50.md */
+ 
+ class XenForo_Model_Deferred extends XenForo_Model
+ {
+ 	public function getDeferredById($id)
+@@ -254,9 +255,9 @@
+ 
+ 			if ($deferred['manual_execute'])
+ 			{
+ 				XenForo_Application::defer(
+-					$deferred['execute_class'], unserialize($deferred['execute_data']), $deferred['unique_key'], $deferred['manual_execute'], $deferred['trigger_date'], true
++					$deferred['execute_class'], XenForo_Helper_Php::safeUnserialize($deferred['execute_data']), $deferred['unique_key'], $deferred['manual_execute'], $deferred['trigger_date'], true
+ 				);
+ 			}
+ 		}
+ 		catch (Exception $e) {}
+@@ -279,9 +280,9 @@
+ 		{
+ 			return false;
+ 		}
+ 
+-		$data = unserialize($deferred['execute_data']);
++		$data = XenForo_Helper_Php::safeUnserialize($deferred['execute_data']);
+ 
+ 		if (!self::$_shutdownRegistered)
+ 		{
+ 			self::$_shutdownRegistered = true;
+
+--- stock24/upload/library/XenForo/Model/Forum.php
++++ original50/upload/library/XenForo/Model/Forum.php
+@@ -1,5 +1,6 @@
+ <?php
++/* XF1550-PATCH: CSPRNG attachment temp hash instead of md5(uniqid()). XenForo 1.5.50 community release; see /CHANGELOG-1.5.50.md */
+ 
+ /**
+  * Model for forums
+  *
+@@ -482,9 +483,9 @@
+ 		if ($this->canUploadAndManageAttachment($forum, $null, $nodePermissions, $viewingUser))
+ 		{
+ 			$existing = is_string($tempHash) && strlen($tempHash) == 32;
+ 			$output = array(
+-				'hash' => $existing ? $tempHash : md5(uniqid('', true)),
++				'hash' => $existing ? $tempHash : XenForo_Application::generateRandomString(32),
+ 				'content_type' => 'post',
+ 				'content_data' => $contentData
+ 			);
+ 			if ($existing)
+
+--- stock24/upload/library/XenForo/Model/SpamCleaner.php
++++ original50/upload/library/XenForo/Model/SpamCleaner.php
+@@ -1,5 +1,6 @@
+ <?php
++/* XF1550-PATCH: safeUnserialize for spam-cleaner log data. XenForo 1.5.50 community release; see /CHANGELOG-1.5.50.md */
+ 
+ class XenForo_Model_SpamCleaner extends XenForo_Model
+ {
+ 	const FETCH_USER = 0x01;
+@@ -105,9 +106,9 @@
+ 	{
+ 		$db = $this->_getDb();
+ 		XenForo_Db::beginTransaction($db);
+ 
+-		$logData = unserialize($log['data']);
++		$logData = XenForo_Helper_Php::safeUnserialize($log['data']);
+ 
+ 		foreach ($this->getSpamHandlers() AS $contentType => $spamHandler)
+ 		{
+ 			if (!empty($logData[$contentType]))
+
+--- stock24/upload/library/XenForo/Model/Tag.php
++++ original50/upload/library/XenForo/Model/Tag.php
+@@ -1,5 +1,6 @@
+ <?php
++/* XF1550-PATCH: MySQL 8: REGEXP BINARY for tag_url matching. XenForo 1.5.50 community release; see /CHANGELOG-1.5.50.md */
+ 
+ class XenForo_Model_Tag extends XenForo_Model
+ {
+ 	const CONTENT_TYPE = 0;
+@@ -455,9 +456,9 @@
+ 			$existing = $db->fetchRow("
+ 				SELECT *
+ 				FROM xf_tag
+ 				WHERE tag_url = ?
+-					OR (tag_url LIKE ? AND tag_url REGEXP ?)
++					OR (tag_url LIKE ? AND tag_url REGEXP BINARY ?)
+ 				ORDER BY tag_id DESC
+ 				LIMIT 1
+ 			", array ($urlVersion, "$urlVersion-%", "^{$urlVersion}-[0-9]+\$"));
+ 			if ($existing)
+
+--- stock24/upload/library/XenForo/Model/User.php
++++ original50/upload/library/XenForo/Model/User.php
+@@ -1,5 +1,6 @@
+ <?php
++/* XF1550-PATCH: safeUnserialize for custom_fields/external_auth; 16-char emailed reset passwords. XenForo 1.5.50 community release; see /CHANGELOG-1.5.50.md */
+ 
+ /**
+  * Model for users.
+  *
+@@ -1473,10 +1474,10 @@
+ 		{
+ 			$user['display_style_group_id'] = self::$defaultGuestGroupId;
+ 		}
+ 
+-		$user['customFields'] = (!empty($user['custom_fields']) ? @unserialize($user['custom_fields']) : array());
+-		$user['externalAuth'] = (!empty($user['external_auth']) ? @unserialize($user['external_auth']) : array());
++		$user['customFields'] = (!empty($user['custom_fields']) ? XenForo_Helper_Php::safeUnserialize($user['custom_fields']) : array());
++		$user['externalAuth'] = (!empty($user['external_auth']) ? XenForo_Helper_Php::safeUnserialize($user['external_auth']) : array());
+ 
+ 		// "trusted" user check - used to determine if no follow is enabled
+ 		$user['isTrusted'] = (!empty($user['user_id']) && (!empty($user['is_admin']) || !empty($user['is_moderator'])));
+ 
+@@ -3309,9 +3310,9 @@
+ 		$writer->setCustomFields(XenForo_Input::cleanStringArray($customFields));
+ 
+ 		// this is actually reset again, below, it's just to keep the DW happy
+ 		// before the password can be reset again and emailed to the user.
+-		$password = XenForo_Application::generateRandomString(8);
++		$password = XenForo_Application::generateRandomString(16);
+ 		$password = trim($password, '_-');
+ 		$writer->setPassword($password);
+ 
+ 		$writer->preSave();
+
+--- stock24/upload/library/XenForo/Model/UserChangeTemp.php
++++ original50/upload/library/XenForo/Model/UserChangeTemp.php
+@@ -1,5 +1,6 @@
+ <?php
++/* XF1550-PATCH: CSPRNG action modifier instead of md5(uniqid()). XenForo 1.5.50 community release; see /CHANGELOG-1.5.50.md */
+ 
+ class XenForo_Model_UserChangeTemp extends XenForo_Model
+ {
+ 	public function applyTempUserChange($userId, $actionType, $actionModifier, $newValue = null, $expiryDate = null, $changeKey = null)
+@@ -28,9 +29,9 @@
+ 		{
+ 			case 'groups':
+ 				if (!$actionModifier)
+ 				{
+-					$actionModifier = 'user_change_' . substr(md5(uniqid()), 0, 16);
++					$actionModifier = 'user_change_' . XenForo_Application::generateRandomString(16);
+ 				}
+ 				$this->_getUserModel()->addUserGroupChange($userId, $actionModifier, $newValue);
+ 				break;
+ 
+
+--- stock24/upload/library/XenForo/Model/UserConfirmation.php
++++ original50/upload/library/XenForo/Model/UserConfirmation.php
+@@ -1,5 +1,6 @@
+ <?php
++/* XF1550-PATCH: 16-char emailed reset passwords. XenForo 1.5.50 community release; see /CHANGELOG-1.5.50.md */
+ 
+ /**
+  * Model for user confirmation.
+  *
+@@ -265,9 +266,9 @@
+ 	{
+ 		$dw = XenForo_DataWriter::create('XenForo_DataWriter_User');
+ 		$dw->setExistingData($userId);
+ 
+-		$password = XenForo_Application::generateRandomString(8);
++		$password = XenForo_Application::generateRandomString(16);
+ 		$password = strtr($password, array(
+ 			'I' => 'i',
+ 			'l' => 'L',
+ 			'0' => 'O',
+
+--- stock24/upload/library/XenForo/PasswordHash.php
++++ original50/upload/library/XenForo/PasswordHash.php
+@@ -1,5 +1,6 @@
+ <?php
++/* XF1550-PATCH: constant-time password hash comparison. XenForo 1.5.50 community release; see /CHANGELOG-1.5.50.md */
+ #
+ # Portable PHP password hashing framework.
+ #
+ # Version 0.3 / modified for XenFOro.
+@@ -227,9 +228,10 @@
+ 		$hash = $this->crypt_private($password, $stored_hash);
+ 		if ($hash[0] == '*')
+ 			$hash = crypt($password, $stored_hash);
+ 
+-		return $hash == $stored_hash;
++		// Loose == on two hashes is both type-juggling-prone and timing-variable.
++		return XenForo_Application::hashEquals($stored_hash, $hash);
+ 	}
+ 
+ 	public function reverseItoA64($char)
+ 	{
+
+--- stock24/upload/library/XenForo/ProxyOutput.php
++++ original50/upload/library/XenForo/ProxyOutput.php
+@@ -1,5 +1,6 @@
+ <?php
++/* XF1550-PATCH: constant-time proxy HMAC comparison. XenForo 1.5.50 community release; see /CHANGELOG-1.5.50.md */
+ 
+ /**
+  * This class is entirely self sufficient. It handles parsing the input,
+  * getting the data, rendering it, and manipulating HTTP headers.
+@@ -148,9 +149,9 @@
+ 	{
+ 		$testHash = hash_hmac('md5', $url,
+ 			XenForo_Application::getConfig()->globalSalt . XenForo_Application::getOptions()->imageLinkProxyKey
+ 		);
+-		return ($hash === $testHash);
++		return XenForo_Application::hashEquals($testHash, $hash);
+ 	}
+ 
+ 	/**
+ 	 * Attempts to determine whether the request is referred from the expected host.
+
+--- stock24/upload/library/XenForo/ReportHandler/Abstract.php
++++ original50/upload/library/XenForo/ReportHandler/Abstract.php
+@@ -1,5 +1,6 @@
+ <?php
++/* XF1550-PATCH: safeUnserialize for report content_info. XenForo 1.5.50 community release; see /CHANGELOG-1.5.50.md */
+ 
+ /**
+  * Base (abstract) report handler for reporting specific content types.
+  *
+@@ -103,9 +104,9 @@
+ 	 * @return array Prepared report
+ 	 */
+ 	public function prepareReport(array $report)
+ 	{
+-		$contentInfo = unserialize($report['content_info']);
++		$contentInfo = XenForo_Helper_Php::safeUnserialize($report['content_info']);
+ 
+ 		$report['extraContent'] = $this->prepareExtraContent($contentInfo);
+ 		$report['contentLink'] = $this->getContentLink($report, $report['extraContent']);
+ 		$report['contentTitle'] = $this->getContentTitle($report, $report['extraContent']);
+
+--- stock24/upload/library/XenForo/ReportHandler/ConversationMessage.php
++++ original50/upload/library/XenForo/ReportHandler/ConversationMessage.php
+@@ -1,5 +1,6 @@
+ <?php
++/* XF1550-PATCH: safeUnserialize for report content_info. XenForo 1.5.50 community release; see /CHANGELOG-1.5.50.md */
+ 
+ /**
+  * Handler for reported conversation messages.
+  *
+@@ -57,9 +58,9 @@
+ 		$conversationModel = XenForo_Model::create('XenForo_Model_Conversation');
+ 
+ 		foreach ($reports AS $reportId => $report)
+ 		{
+-			$conversation = unserialize($report['content_info']);
++			$conversation = XenForo_Helper_Php::safeUnserialize($report['content_info']);
+ 
+ 			$message = array(
+ 				'message_id' => $report['content_id'],
+ 				'user_id' => $report['user_id'],
+
+--- stock24/upload/library/XenForo/ReportHandler/Post.php
++++ original50/upload/library/XenForo/ReportHandler/Post.php
+@@ -1,5 +1,6 @@
+ <?php
++/* XF1550-PATCH: safeUnserialize for report content_info. XenForo 1.5.50 community release; see /CHANGELOG-1.5.50.md */
+ 
+ /**
+  * Handler for reported posts.
+  *
+@@ -67,9 +68,9 @@
+ 	{
+ 		$reportsByForum = array();
+ 		foreach ($reports AS $reportId => $report)
+ 		{
+-			$info = unserialize($report['content_info']);
++			$info = XenForo_Helper_Php::safeUnserialize($report['content_info']);
+ 			$reportsByForum[$info['node_id']][] = $reportId;
+ 		}
+ 
+ 		/* @var $forumModel XenForo_Model_Forum */
+
+--- stock24/upload/library/XenForo/ReportHandler/ProfilePost.php
++++ original50/upload/library/XenForo/ReportHandler/ProfilePost.php
+@@ -1,5 +1,6 @@
+ <?php
++/* XF1550-PATCH: safeUnserialize for report content_info. XenForo 1.5.50 community release; see /CHANGELOG-1.5.50.md */
+ 
+ /**
+  * Handler for reported profile posts.
+  *
+@@ -46,9 +47,9 @@
+ 	{
+ 		$reportsByUser = array();
+ 		foreach ($reports AS $reportId => $report)
+ 		{
+-			$info = unserialize($report['content_info']);
++			$info = XenForo_Helper_Php::safeUnserialize($report['content_info']);
+ 			$reportsByUser[$info['profile_user_id']][] = $reportId;
+ 		}
+ 
+ 		$users = XenForo_Model::create('XenForo_Model_User')->getUsersByIds(array_keys($reportsByUser), array(
+
+--- stock24/upload/library/XenForo/ReportHandler/ProfilePostComment.php
++++ original50/upload/library/XenForo/ReportHandler/ProfilePostComment.php
+@@ -1,5 +1,6 @@
+ <?php
++/* XF1550-PATCH: safeUnserialize for report content_info. XenForo 1.5.50 community release; see /CHANGELOG-1.5.50.md */
+ 
+ /**
+  * Handler for reported profile post comments.
+  *
+@@ -55,9 +56,9 @@
+ 	{
+ 		$reportsByUser = array();
+ 		foreach ($reports AS $reportId => $report)
+ 		{
+-			$info = unserialize($report['content_info']);
++			$info = XenForo_Helper_Php::safeUnserialize($report['content_info']);
+ 			$reportsByUser[$info['profile_user_id']][] = $reportId;
+ 		}
+ 
+ 		$users = XenForo_Model::create('XenForo_Model_User')->getUsersByIds(array_keys($reportsByUser), array(
+
+--- stock24/upload/library/XenForo/ReportHandler/User.php
++++ original50/upload/library/XenForo/ReportHandler/User.php
+@@ -1,5 +1,6 @@
+ <?php
++/* XF1550-PATCH: safeUnserialize for report content_info. XenForo 1.5.50 community release; see /CHANGELOG-1.5.50.md */
+ 
+ /**
+  * Handler for reported user.
+  *
+@@ -43,9 +44,9 @@
+ 		$userModel = XenForo_Model::create('XenForo_Model_User');
+ 
+ 		foreach ($reports AS $reportId => $report)
+ 		{
+-			$info = unserialize($report['content_info']);
++			$info = XenForo_Helper_Php::safeUnserialize($report['content_info']);
+ 
+ 			if (!$info
+ 				|| empty($info['user'])
+ 				|| !$userModel->canWarnUser($info['user'], $null, $viewingUser)
+
+--- stock24/upload/library/XenForo/Session.php
++++ original50/upload/library/XenForo/Session.php
+@@ -1,5 +1,6 @@
+ <?php
++/* XF1550-PATCH: safeUnserialize for session payloads; configurable session IP binding. XenForo 1.5.50 community release; see /CHANGELOG-1.5.50.md */
+ 
+ /**
+  * Session object.
+  *
+@@ -194,9 +195,11 @@
+ 	 * @param Zend_Db_Adapter_Abstract|null $db
+ 	 */
+ 	public function __construct(array $config = array(), Zend_Cache_Core $cache = null, Zend_Db_Adapter_Abstract $db = null)
+ 	{
+-		if (empty($config['admin']))
++		$isAdmin = !empty($config['admin']);
++
++		if (!$isAdmin)
+ 		{
+ 			$defaultConfig = array(
+ 				'table' => 'xf_session',
+ 				'cacheName' => 'session',
+@@ -213,10 +216,27 @@
+ 				'lifetime' => (XenForo_Application::debugMode() ? 86400 : 3600) // longer lifetime in debug mode to get in the way less
+ 			);
+ 			unset($config['admin']);
+ 		}
+-		$defaultConfig['ipv4CidrMatch'] = 24;
+-		$defaultConfig['ipv6CidrMatch'] = 64;
++		// Session IP binding, overridable per session type from config.php:
++		//
++		//   $config['session']['ipv4CidrMatch']      = 24;  // public sessions
++		//   $config['session']['adminIpv4CidrMatch'] = 0;   // admin sessions, 0 = no binding
++		//
++		// Admins on dynamic or mobile IPs are otherwise thrown out of the ACP whenever their
++		// address changes, which boards have historically worked around by editing this file -
++		// an edit every file-based upgrade then silently reverts.
++		$sessionConfig = XenForo_Application::isRegistered('config')
++			? XenForo_Application::get('config')->session
++			: null;
++
++		$prefix = $isAdmin ? 'admin' : '';
++		foreach (array('ipv4CidrMatch' => 24, 'ipv6CidrMatch' => 64) AS $key => $stock)
++		{
++			$configKey = $prefix ? $prefix . ucfirst($key) : $key;
++			$value = ($sessionConfig ? $sessionConfig->$configKey : null);
++			$defaultConfig[$key] = ($value === null ? $stock : intval($value));
++		}
+ 
+ 		$this->_config = array_merge($defaultConfig, $config);
+ 
+ 		if (!$cache)
+@@ -797,9 +817,12 @@
+ 			return false;
+ 		}
+ 		else
+ 		{
+-			$data = unserialize($data);
++			// Session payloads are never meant to carry objects. Blocking object construction
++			// removes this as a deserialisation gadget if the session store (DB row, or a
++			// memcached/redis backend that is reachable on the network) is ever writable.
++			$data = XenForo_Helper_Php::safeUnserialize($data);
+ 			return (is_array($data) ? $data : false);
+ 		}
+ 	}
+ 
+
+--- stock24/upload/library/XenForo/Template/Abstract.php
++++ original50/upload/library/XenForo/Template/Abstract.php
+@@ -1,5 +1,6 @@
+ <?php
++/* XF1550-PATCH: uncompressedJs 'min' pointed at a directory that does not exist. XenForo 1.5.50 community release; see /CHANGELOG-1.5.50.md */
+ 
+ /**
+ * Base template rendering class.
+ *
+@@ -498,10 +499,12 @@
+ 			case 1:
+ 				$jsFiles = str_replace('js/xenforo/', 'js/xenforo/full/', $jsFiles);
+ 				break;
+ 
++			// 'min' pointed at js/xenforo/min/, a directory that has never existed in any
++			// XenForo distribution, so selecting it 404'd every script on the board. The
++			// shipped files under js/xenforo/ are already the minified ones, so fall through.
+ 			case 2:
+-				$jsFiles = str_replace('js/xenforo/', 'js/xenforo/min/', $jsFiles);
+ 				break;
+ 		}
+ 
+ 		// handle custom JS URL
+
+--- stock24/upload/library/XenForo/Template/Helper/Core.php
++++ original50/upload/library/XenForo/Template/Helper/Core.php
+@@ -1,5 +1,6 @@
+ <?php
++/* XF1550-PATCH: PHP 7.4 implode() argument order, plus a toggleClass() bug that returned array indices. XenForo 1.5.50 community release; see /CHANGELOG-1.5.50.md */
+ 
+ /**
+ * Helper methods for the core template functions/tags.
+ *
+@@ -2228,10 +2229,11 @@
+ 		switch (XenForo_Application::get('options')->uncompressedJs)
+ 		{
+ 			case 1:
+ 				return str_replace("$jsUrl/xenforo/", "$jsUrl/xenforo/full/", $scriptUrl);
++			// See XenForo_Template_Abstract: js/xenforo/min/ does not exist.
+ 			case 2:
+-				return str_replace("$jsUrl/xenforo/", "$jsUrl/xenforo/min/", $scriptUrl);
++				return $scriptUrl;
+ 		}
+ 
+ 		return $scriptUrl;
+ 	}
+@@ -2294,12 +2296,16 @@
+ 		}
+ 		else
+ 		{
+ 			// class list includes class - remove
+-			$classList = array_keys(preg_split('/\s+/', $classList, -1, PREG_SPLIT_NO_EMPTY));
++			// array_keys() here produced the split array's *indices*, so unset() by class name
++			// never matched and the helper returned "0 1 2" instead of the remaining classes.
++			// array_flip() is what makes the class name the key.
++			$classList = array_flip(preg_split('/\s+/', $classList, -1, PREG_SPLIT_NO_EMPTY));
+ 			unset($classList[$class]);
+ 
+-			$classList = implode($classList, ' ');
++			// Passing the glue after the array is deprecated as of PHP 7.4.
++			$classList = implode(' ', array_keys($classList));
+ 		}
+ 
+ 		return $classList;
+ 	}
+
+--- stock24/upload/library/XenForo/UserUpgradeProcessor/PayPal.php
++++ original50/upload/library/XenForo/UserUpgradeProcessor/PayPal.php
+@@ -1,5 +1,6 @@
+ <?php
++/* XF1550-PATCH: enable TLS peer verification on the IPN callback. XenForo 1.5.50 community release; see /CHANGELOG-1.5.50.md */
+ 
+ /**
+  * Handles user upgrade processing with PayPal.
+  *
+@@ -83,12 +84,25 @@
+ 				$sslVersion = 1; // push for TLSv1. PHP doesn't have the constant until 5.5, though cURL supports it since 7.9.2
+ 			}
+ 
+ 			// ...if it doesn't, hopefully cURL supports it
++			// This client verifies PayPal IPN callbacks, which are the only thing standing
++			// between a man in the middle and forged paid-upgrade grants - so peer
++			// verification must be on. The original "broken certificate stores" rationale
++			// predates PHP 7 and modern cURL builds. $config['paypalSslVerifyPeer'] = false
++			// remains available for the rare host with no usable CA bundle.
++			$verifyPeer = true;
++			$config = XenForo_Application::getConfig();
++			if ($config->paypalSslVerifyPeer !== null)
++			{
++				$verifyPeer = (bool)$config->paypalSslVerifyPeer;
++			}
++
+ 			$adapterOptions = array(
+ 				'adapter' => 'Zend_Http_Client_Adapter_Curl',
+ 				'curloptions' => array(
+-					CURLOPT_SSL_VERIFYPEER => false, // add this as we might find broken certificate stores
++					CURLOPT_SSL_VERIFYPEER => $verifyPeer,
++					CURLOPT_SSL_VERIFYHOST => $verifyPeer ? 2 : 0,
+ 					CURLOPT_SSLVERSION => $sslVersion
+ 				)
+ 			);
+ 		}
+
+--- stock24/upload/library/Zend/Loader/PluginLoader.php
++++ original50/upload/library/Zend/Loader/PluginLoader.php
+@@ -1,5 +1,6 @@
+ <?php
++/* XF1550-PATCH: PHP 7.4: replaced curly-brace string offset (reachable via Zend_Feed_Reader). XenForo 1.5.50 community release; see /CHANGELOG-1.5.50.md */
+ /**
+  * Zend Framework
+  *
+  * LICENSE
+@@ -127,9 +128,9 @@
+             return $prefix;
+         }
+ 
+         $last = strlen($prefix) - 1;
+-        if ($prefix{$last} == '\\') {
++        if ($prefix[$last] == '\\') {
+             return $prefix;
+         }
+ 
+         return rtrim($prefix, '_') . '_';
+
+--- stock24/upload/library/Zend/Registry.php
++++ original50/upload/library/Zend/Registry.php
+@@ -1,5 +1,6 @@
+ <?php
++/* XF1550-PATCH: PHP 7.4: array_key_exists() on an object; runs on every request via XenForo_Application. XenForo 1.5.50 community release; see /CHANGELOG-1.5.50.md */
+ /**
+  * Zend Framework
+  *
+  * LICENSE
+@@ -202,8 +203,11 @@
+      * Workaround for http://bugs.php.net/bug.php?id=40442 (ZF-960).
+      */
+     public function offsetExists($index)
+     {
+-        return array_key_exists($index, $this);
++        // array_key_exists() on an object is deprecated as of PHP 7.4 and a TypeError as of
++        // PHP 8.0. ArrayObject::offsetExists() is the direct equivalent and, unlike isset(),
++        // still reports keys whose value is null - which is what ZF-960 needed here.
++        return parent::offsetExists($index);
+     }
+ 
+ }
+
+--- stock24/upload/rgba.php
++++ original50/upload/rgba.php
+@@ -1,5 +1,6 @@
+ <?php
++/* XF1550-PATCH: Expires header was hardcoded to a date now in the past. XenForo 1.5.50 community release; see /CHANGELOG-1.5.50.md */
+ 
+ // generates an rgba png based on colors in inputs, part of XenForo
+ 
+ $r = getFromInput('r');
+@@ -7,9 +8,12 @@
+ $b = getFromInput('b');
+ $a = getFromInput('a', 255);
+ 
+ header('Content-type: image/png');
+-header('Expires: Wed, 01 Jan 2020 00:00:00 GMT');
++// This date has been in the past since 2020, which made the shim uncacheable and had
++// every page re-request one PNG per rgba() colour. Cache for a year instead; the URL
++// already varies by colour, so it is safe to treat as immutable.
++header('Expires: ' . gmdate('D, d M Y H:i:s', time() + 31536000) . ' GMT');
+ header('Cache-Control: public');
+ 
+ echo "\x89PNG\r\n\x1A\n" // signature
+ 	. "\x00\x00\x00\x0DIHDR\00\x00\x00\x0A\x00\x00\x00\x0A\x08\x03\x00\x00\x00\xBA\xEC\x3F\x8F" // header
+
+=== ADDED original50/upload/library/XenForo/Install/Upgrade/1055070-1550.php ===
+<?php
+/* XF1550-PATCH: new upgrade steps for the 1.5.50 community release. XenForo 1.5.50 community release; see /CHANGELOG-1.5.50.md */
+
+class XenForo_Install_Upgrade_1055070 extends XenForo_Install_Upgrade_Abstract
+{
+	public function getVersionName()
+	{
+		return '1.5.50';
+	}
+
+	/**
+	 * Clear the credentials for the social login providers that no longer exist.
+	 *
+	 * Facebook Graph v2.10 was removed by Meta and Google shut down gapi.auth2 in 2023,
+	 * so both login flows fail before they reach the provider. The templates render their
+	 * buttons only when these options are non-empty, so blanking the values retires the
+	 * feature without touching a single template - which is what keeps add-on template
+	 * modifications and custom styles intact.
+	 *
+	 * The option definitions are deliberately left in place so that {$xenOptions.facebookAppId}
+	 * and any add-on reading these options continue to resolve.
+	 *
+	 * Note: the Facebook Like button is unaffected. It force-initialises the SDK through the
+	 * $facebookSdk template container var, independently of the app ID.
+	 */
+	public function step1()
+	{
+		$this->executeUpgradeQuery("
+			UPDATE xf_option
+			SET option_value = ''
+			WHERE option_id IN ('facebookAppId', 'facebookAppSecret', 'googleClientId', 'googleClientSecret')
+		");
+	}
+
+	/**
+	 * Move boards off the retired Microsoft Ajax CDN.
+	 *
+	 * ajax.microsoft.com was decommissioned in 2022; a board still pointed at it serves no
+	 * jQuery at all and is effectively dead in the browser. Fall back to the local copy.
+	 */
+	public function step2()
+	{
+		$this->executeUpgradeQuery("
+			UPDATE xf_option
+			SET option_value = 'local'
+			WHERE option_id = 'jQuerySource'
+				AND option_value = 'microsoft'
+		");
+	}
+
+	/**
+	 * The 'min' setting for uncompressedJs points at js/xenforo/min/, a directory that has
+	 * never existed in any XenForo distribution, so selecting it 404s every script on the
+	 * board. Send those installs back to the shipped minified files.
+	 */
+	public function step3()
+	{
+		$this->executeUpgradeQuery("
+			UPDATE xf_option
+			SET option_value = '0'
+			WHERE option_id = 'uncompressedJs'
+				AND option_value = '2'
+		");
+	}
+}
+
+=== original50/upload/library/XenForo/Helper/Php.php:194-214; unchanged contract unless diff above ===
+	 * See serializedContainsObject for comments on false positives.
+	 *
+	 * @param string $serialized
+	 *
+	 * @return bool|mixed
+	 */
+	public static function safeUnserialize($serialized)
+	{
+		if (self::serializedContainsObject($serialized))
+		{
+			return false;
+		}
+
+		if (PHP_VERSION_ID >= 70000)
+		{
+			// PHP 7 has an option to disable unserializing objects, so use that if available
+			return @unserialize($serialized, array('allowed_classes' => false));
+		}
+
+		return @unserialize($serialized);
+	}
+
+=== original50/upload/library/XenForo/Helper/Php.php:245-272; unchanged contract unless diff above ===
+	 *
+	 * @param string $serialized
+	 *
+	 * @return bool
+	 */
+	public static function serializedContainsObject($serialized)
+	{
+		if (strpos($serialized, 'O:') !== false && preg_match('#(?<=^|[;{}])O:[+-]?[0-9]+:"#', $serialized))
+		{
+			return true;
+		}
+
+		if (strpos($serialized, 'C:') !== false && preg_match('#(?<=^|[;{}])C:[+-]?[0-9]+:"#', $serialized))
+		{
+			return true;
+		}
+
+		if (strpos($serialized, 'o:') !== false && preg_match('#(?<=^|[;{}])o:[+-]?[0-9]+:"#', $serialized))
+		{
+			return true;
+		}
+
+		return false;
+	}
+}
+=== original50/upload/library/XenForo/Application.php:1393-1481; unchanged contract unless diff above ===
+	public static function generateRandomString($length, $raw = false)
+	{
+		$mixInternal = false;
+
+		while (strlen(self::$_randomData) < $length)
+		{
+			if (function_exists('random_bytes'))
+			{
+				self::$_randomData .= random_bytes($length);
+				self::$_randomSource = 'random_bytes';
+			}
+			else if (function_exists('mcrypt_create_iv') && PHP_VERSION_ID >= 50307)
+			{
+				self::$_randomData .= mcrypt_create_iv($length, MCRYPT_DEV_URANDOM);
+				self::$_randomSource = 'mcrypt_create_iv';
+			}
+			else if (substr(PHP_OS, 0, 3) != 'WIN'
+				&& @file_exists('/dev/urandom')
+				&& @is_readable('/dev/urandom')
+				&& $fp = @fopen('/dev/urandom', 'r')
+			)
+			{
+				if (function_exists('stream_set_read_buffer'))
+				{
+					stream_set_read_buffer($fp, 0);
+				}
+
+				self::$_randomData .= fread($fp, $length);
+				fclose($fp);
+
+				self::$_randomSource = 'urandom';
+			}
+			else if (function_exists('openssl_random_pseudo_bytes')
+				&& (substr(PHP_OS, 0, 3) != 'WIN' || PHP_VERSION_ID >= 50304)
+			)
+			{
+				self::$_randomData .= openssl_random_pseudo_bytes($length);
+				$mixInternal = true;
+
+				self::$_randomSource = 'openssl_random_pseudo_bytes';
+			}
+			else
+			{
+				self::$_randomData .= self::generateInternalRandomValue();
+				self::$_randomSource = 'internal';
+			}
+		}
+
+		$return = substr(self::$_randomData, 0, $length);
+		self::$_randomData = substr(self::$_randomData, $length);
+
+		// this adds fork safety if needed (https://wiki.openssl.org/index.php/Random_fork-safety)
+		if ($mixInternal)
+		{
+			$final = '';
+			foreach (str_split($return, 20) AS $i => $part)
+			{
+				$internal = uniqid(mt_rand());
+				if ($i % 2 == 0)
+				{
+					$final .= sha1($part . $internal, true);
+				}
+				else
+				{
+					$final .= sha1($internal . $part, true);
+				}
+			}
+
+			$return = substr($final, 0, $length);
+		}
+
+		if ($raw)
+		{
+			return $return;
+		}
+
+		// modified base64 to be more URL safe (roughly in rfc4648)
+		return substr(strtr(base64_encode($return), array(
+			'=' => '',
+			"\r" => '',
+			"\n" => '',
+			'+' => '-',
+			'/' => '_'
+		)), 0, $length);
+	}
+
+	/**
+	 * Generates a random number using internal methods only.
+	 *
+
+=== original50/upload/library/XenForo/Application.php:1498-1506; unchanged contract unless diff above ===
+	public static function getRandomValueSource()
+	{
+		if (!self::$_randomSource)
+		{
+			self::generateRandomString(1);
+		}
+
+		return self::$_randomSource;
+	}
+
+=== original50/upload/library/XenForo/Application.php:1662-1687; unchanged contract unless diff above ===
+	public static function hashEquals($known, $user)
+	{
+		// A non-string can never equal a hash, but passing one to hash_equals() raises
+		// "Expected user_string to be a string", which XenForo logs as an ErrorException.
+		// The value being compared is usually user input that may simply be absent -
+		// proxy.php is requested by crawlers with no hash parameter at all - so returning
+		// false here keeps the same result the old === comparison gave, without the noise.
+		if (!is_string($known) || !is_string($user))
+		{
+			return false;
+		}
+
+		if (function_exists('hash_equals'))
+		{
+			return hash_equals($known, $user);
+		}
+		else
+		{
+			if (!is_string($known))
+			{
+				trigger_error('Expected known_string to be a string', E_USER_WARNING);
+			}
+			if (!is_string($user))
+			{
+				trigger_error('Expected user_string to be a string', E_USER_WARNING);
+			}
+
+=== original50/upload/library/XenForo/Controller.php:1113-1165; unchanged contract unless diff above ===
+	public function getDynamicRedirect($fallbackUrl = false, $useReferrer = true)
+	{
+		$redirect = $this->_input->filterSingle('redirect', XenForo_Input::STRING);
+		if (!$redirect && $useReferrer)
+		{
+			$redirect = $this->_request->getServer('HTTP_X_AJAX_REFERER');
+			if (!$redirect)
+			{
+				$redirect = $this->_request->getServer('HTTP_REFERER');
+			}
+		}
+
+		if ($redirect)
+		{
+			$redirect = strval($redirect);
+			if (strlen($redirect) && !preg_match('/./u', $redirect))
+			{
+				$redirect = utf8_strip($redirect);
+			}
+
+			if (strpos($redirect, "\n") === false && strpos($redirect, "\r") === false) {
+				$fullRedirect = XenForo_Link::convertUriToAbsoluteUri($redirect, true);
+				$redirectParts = @parse_url($fullRedirect);
+				if ($redirectParts && !empty($redirectParts['host']))
+				{
+					$paths = XenForo_Application::get('requestPaths');
+					$pageParts = @parse_url($paths['fullUri']);
+
+					if ($pageParts && !empty($pageParts['host']) && $pageParts['host'] == $redirectParts['host'])
+					{
+						return $fullRedirect;
+					}
+				}
+			}
+		}
+
+		if ($fallbackUrl === false)
+		{
+			if ($this instanceof XenForo_ControllerAdmin_Abstract)
+			{
+				$fallbackUrl = XenForo_Link::buildAdminLink('index');
+			}
+			else
+			{
+				$fallbackUrl = XenForo_Link::buildPublicLink('index');
+			}
+		}
+
+		return $fallbackUrl;
+	}
+
+	/**
+	 * Gets a dynamic redirect provided it doesn't start with the given
+
+=== original50/upload/library/XenForo/Model.php:302-335; unchanged contract unless diff above ===
+	public function getOrderByClause(array $choices, array $fetchOptions, $defaultOrderSql = '')
+	{
+		$orderSql = null;
+
+		if (!empty($fetchOptions['order']) && isset($choices[$fetchOptions['order']]))
+		{
+			$orderSql = $choices[$fetchOptions['order']];
+
+			if (empty($fetchOptions['direction']))
+			{
+				$fetchOptions['direction'] = 'asc';
+			}
+
+			$dir = (strtolower($fetchOptions['direction']) == 'desc' ? 'DESC' : 'ASC');
+			$orderSqlOld = $orderSql;
+			$orderSql = sprintf($orderSql, $dir);
+			if ($orderSql === $orderSqlOld)
+			{
+				$orderSql .= ' ' . $dir;
+			}
+		}
+
+		if (!$orderSql)
+		{
+			$orderSql = $defaultOrderSql;
+		}
+		return ($orderSql ? 'ORDER BY ' . $orderSql : '');
+	}
+
+	/**
+	 * Adds the equivalent of a limit clause using position-based limits.
+	 * It no limit value is specified, nothing will be returned.
+	 *
+	 * This must be added within a WHERE clause. If a clause is required,
+
+=== original50/upload/library/XenForo/Upload.php:165-246; unchanged contract unless diff above ===
+	public function isImage()
+	{
+		$this->_checkImageState();
+		return ($this->_imageInfo ? true : false);
+	}
+
+	/**
+	 * Checks the state of the upload to determine if it's
+	 * a valid image.
+	 */
+	protected function _checkImageState()
+	{
+		if ($this->_imageInfo !== null)
+		{
+			return;
+		}
+
+		$this->_imageInfo = false; // default to not an image
+
+		if (!$this->_tempFile)
+		{
+			return;
+		}
+
+		$imageInfo = @getimagesize($this->_tempFile);
+		if (!$imageInfo)
+		{
+			if (in_array($this->_extension, array('gif', 'jpg', 'jpe', 'jpeg', 'png')))
+			{
+				$this->_errors['extension'] = new XenForo_Phrase('the_uploaded_file_was_not_an_image_as_expected');
+			}
+			return;
+		}
+
+		$imageInfo['width'] = $imageInfo[0];
+		$imageInfo['height'] = $imageInfo[1];
+		$imageInfo['type'] = $imageInfo[2];
+
+		$type = $imageInfo['type'];
+		$extensionMap = array(
+			IMAGETYPE_GIF => array('gif'),
+			IMAGETYPE_JPEG => array('jpg', 'jpeg', 'jpe'),
+			IMAGETYPE_PNG => array('png')
+		);
+		if (!isset($extensionMap[$type]))
+		{
+			return; // only consider gif, jpeg, png to be images in this system
+		}
+		if (!in_array($this->_extension, $extensionMap[$type]))
+		{
+			$newExtension = reset($extensionMap[$type]);
+			$this->setFileName(pathinfo($this->_fileName, PATHINFO_FILENAME) . ".$newExtension");
+		}
+
+		$fp = @fopen($this->_tempFile, 'rb');
+		if ($fp)
+		{
+			$previous = '';
+			while (!@feof($fp))
+			{
+				$content = fread($fp, 256000);
+				$test = $previous . $content;
+				$exists = (
+					strpos($test, '<?php') !== false
+					|| preg_match('/<script\s+language\s*=\s*(php|"php"|\'php\')\s*>/i', $test)
+				);
+				if ($exists) {
+					@fclose($fp);
+					$this->_errors['content'] = new XenForo_Phrase('uploaded_image_contains_invalid_content');
+					return;
+				}
+
+				$previous = $content;
+			}
+
+			@fclose($fp);
+		}
+
+		$orientation = 0;
+		if ($imageInfo['type'] == IMAGETYPE_JPEG && function_exists('exif_read_data'))
+		{
+			$exif = @exif_read_data($this->_tempFile, 'EXIF');
+
+=== original50/upload/library/XenForo/Upload.php:270-305; unchanged contract unless diff above ===
+		if (XenForo_Image_Abstract::canResize($imageInfo['width'], $imageInfo['height'])
+			&& ($resizeRequired || $transformRequired)
+		)
+		{
+			$image = XenForo_Image_Abstract::createFromFile($this->_tempFile, $type);
+			if ($image)
+			{
+				if ($resizeRequired)
+				{
+					$image->thumbnail($maxWidth ? $maxWidth : $maxHeight, $maxHeight);
+				}
+				if ($transformRequired)
+				{
+					$image->transformByExif($orientation);
+				}
+
+				$success = $image->output($type, $this->_tempFile);
+				if ($success)
+				{
+					$imageInfo['width'] = $imageInfo[0] = $image->getWidth();
+					$imageInfo['height'] = $imageInfo[1] = $image->getHeight();
+				}
+				else
+				{
+					if ($resizeRequired)
+					{
+						$this->_errors['dimensions'] = new XenForo_Phrase('uploaded_image_is_too_big');
+					}
+					// ok to ignore the EXIF transform failing
+				}
+			}
+			else
+			{
+				// treat as non-image
+				$imageInfo = false;
+			}
+
+=== original50/upload/library/XenForo/ViewPublic/Member/Find.php:1-30; unchanged contract unless diff above ===
+<?php
+
+class XenForo_ViewPublic_Member_Find extends XenForo_ViewPublic_Base
+{
+	public function renderJson()
+	{
+		$results = array();
+		foreach ($this->_params['users'] AS $user)
+		{
+			$results[$user['username']] = array(
+				'avatar' => XenForo_Template_Helper_Core::callHelper('avatar', array($user, 's')),
+				'username' => htmlspecialchars($user['username'])
+			);
+		}
+
+		return array(
+			'results' => $results
+		);
+	}
+}
+=== original50/upload/library/XenForo/ViewPublic/Attachment/View.php:25-45; unchanged contract unless diff above ===
+			'jpe' => 'image/jpeg',
+			'png' => 'image/png'
+		);
+
+		if (in_array($extension, array_keys($imageTypes)))
+		{
+			$this->_response->setHeader('Content-type', $imageTypes[$extension], true);
+			$this->setDownloadFileName($attachment['filename'], true);
+		}
+		else
+		{
+			$this->_response->setHeader('Content-type', 'application/octet-stream', true);
+			$this->setDownloadFileName($attachment['filename']);
+		}
+
+		$this->_response->setHeader('ETag', '"' . $attachment['attach_date'] . '"', true);
+		$this->_response->setHeader('Content-Length', $attachment['file_size'], true);
+		$this->_response->setHeader('X-Content-Type-Options', 'nosniff');
+
+		return new XenForo_FileOutput($this->_params['attachmentFile']);
+	}
+
+=== original50/upload/library/XenForo/Helper/Ip.php:1-40; unchanged contract unless diff above ===
+<?php
+
+class XenForo_Helper_Ip
+{
+	/**
+	 * Gets the binary form of the provided IP or if no IP is provided, from the request.
+	 * Binary IPs are IPv4 or IPv6 IPs compressed into 4 or 16 bytes.
+	 *
+	 * @param Zend_Controller_Request_Http|null $request Request object used; created if needed
+	 * @param string|null $ip String value of the IP to use or null to read from request
+	 * @param mixed $invalidValue Value to use for the IP if no valid IP is available
+	 *
+	 * @return mixed Usually a string containing a binary IP, but can be the invalid value
+	 */
+	public static function getBinaryIp(Zend_Controller_Request_Http $request = null, $ip = null, $invalidValue = false)
+	{
+		if (!$ip)
+		{
+			if ($request)
+			{
+				$ip = $request->getServer('REMOTE_ADDR');
+			}
+			else
+			{
+				$ip = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : null;
+			}
+		}
+
+		$ip = $ip ? self::convertIpStringToBinary($ip) : false;
+		return $ip !== false ? $ip : $invalidValue;
+	}
+
+	/**
+	 * Converts a string based IP (v4 or v6) to a 4 or 16 byte string.
+	 * This tries to identify not only 192.168.1.1 and 2001::1:2:3:4 style IPs,
+	 * but integer encoded IPv4 and already binary encoded IPs. IPv4
+	 * embedded in IPv6 via things like ::ffff:192.168.1.1 is also detected.
+	 *
+	 * @param string|int $ip
+	 *
+
+=== original50/upload/library/Zend/Xml/Security.php:1-110; unchanged contract unless diff above ===
+<?php
+/**
+ * Zend Framework
+ *
+ * LICENSE
+ *
+ * This source file is subject to the new BSD license that is bundled
+ * with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://framework.zend.com/license/new-bsd
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@zend.com so we can send you a copy immediately.
+ *
+ * @category   Zend
+ * @package    Zend_Xml
+ * @copyright  Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @version    $Id$
+ */
+
+
+/**
+ * @category   Zend
+ * @package    Zend_Xml_SecurityScan
+ * @copyright  Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ */
+class Zend_Xml_Security
+{
+    /**
+     * Scan XML string for potential XXE and XEE attacks
+     *
+     * @param   string $xml
+     * @param   DomDocument $dom
+     * @throws  Zend_Xml_Exception
+     * @return  SimpleXMLElement|DomDocument|boolean
+     */
+    public static function scan($xml, DOMDocument $dom = null)
+    {
+        if (null === $dom) {
+            $simpleXml = true;
+            $dom = new DOMDocument();
+        }
+
+        // Disable entity load
+        $loadEntities = libxml_disable_entity_loader(true);
+        $useInternalXmlErrors = libxml_use_internal_errors(true);
+
+        if (!$dom->loadXml($xml)) {
+            // Entity load to previous setting
+            libxml_disable_entity_loader($loadEntities);
+            libxml_use_internal_errors($useInternalXmlErrors);
+            return false;
+        }
+
+        // Scan for potential XEE attacks using Entity
+        foreach ($dom->childNodes as $child) {
+            if ($child->nodeType === XML_DOCUMENT_TYPE_NODE) {
+                if ($child->entities->length > 0) {
+                    require_once 'Exception.php';
+                    throw new Zend_Xml_Exception(
+                        'Detected use of ENTITY_NODE in XML, disabled to prevent XEE attacks'
+                    );
+                }
+            }
+        }
+
+        // Entity load to previous setting
+        libxml_disable_entity_loader($loadEntities);
+        libxml_use_internal_errors($useInternalXmlErrors);
+
+        if (isset($simpleXml)) {
+            $result = simplexml_import_dom($dom);
+            if (!$result instanceof SimpleXMLElement) {
+                return false;
+            }
+            return $result;
+        }
+        return $dom;
+    }
+
+    /**
+     * Scan XML file for potential XXE/XEE attacks
+     *
+     * @param  string $file
+     * @param  DOMDocument $dom
+     * @throws Zend_Xml_Exception
+     * @return SimpleXMLElement|DomDocument
+     */
+    public static function scanFile($file, DOMDocument $dom = null)
+    {
+        if (!file_exists($file)) {
+            require_once 'Exception.php';
+            throw new Zend_Xml_Exception(
+                "The file $file specified doesn't exist"
+            );
+        }
+        return self::scan(file_get_contents($file), $dom);
+    }
+}
+=== original50/upload/library/XenForo/Install/Model/Install.php:1-34; unchanged contract unless diff above ===
+<?php
+
+class XenForo_Install_Model_Install extends XenForo_Model
+{
+	public function getRequirementErrors(Zend_Db_Adapter_Abstract $db = null)
+	{
+		$errors = array();
+
+		$phpVersion = phpversion();
+		if (version_compare($phpVersion, '5.2.11', '<'))
+		{
+			$errors['phpVersion'] = new XenForo_Phrase('php_version_x_does_not_meet_requirements', array('version' => $phpVersion));
+		}
+
+		$safeModeIni = @ini_get('safe_mode');
+		if (is_bool($safeModeIni) || intval($safeModeIni))
+		{
+			$isSafeMode = (bool)$safeModeIni;
+		}
+		else
+		{
+			$isSafeMode = in_array(strtolower($safeModeIni), array('on', 'yes', 'true'));
+		}
+		if ($isSafeMode)
+		{
+			$errors['safe_mode'] = new XenForo_Phrase('php_must_not_be_in_safe_mode');
+		}
+
+		if (!function_exists('mysqli_connect'))
+		{
+			$errors['mysqlPhp'] = new XenForo_Phrase('required_php_extension_x_not_found', array('extension' => 'MySQLi'));
+		}
+
+		if (!function_exists('gd_info'))
+
+=== original50/upload/library/XenForo/Model/UserConfirmation.php:59-85; unchanged contract unless diff above ===
+	 *
+	 * @param string $key
+	 * @param array $confirmation Confirmation record from DB.
+	 *
+	 * @return boolean
+	 */
+	public function validateUserConfirmationRecord($key, array $confirmation)
+	{
+		if (!XenForo_Application::hashEquals($confirmation['confirmation_key'], $key))
+		{
+			return false;
+		}
+
+		if ($confirmation['confirmation_date'] < XenForo_Application::$time - 3 * 86400)
+		{
+			return false;
+		}
+
+		if ($confirmation['confirmation_type'] == 'password'
+			&& $confirmation['confirmation_date'] < XenForo_Application::$time - 12 * 3600
+		)
+		{
+			return false;
+		}
+
+		return true;
+	}
+
+=== original50/upload/library/XenForo/Model/UserConfirmation.php:96-117; unchanged contract unless diff above ===
+	public function generateUserConfirmationRecord($userId, $type)
+	{
+		$confirmation = array(
+			'user_id' => $userId,
+			'confirmation_type' => $type,
+			'confirmation_key' => XenForo_Application::generateRandomString(16),
+			'confirmation_date' => XenForo_Application::$time
+		);
+
+		$this->_getDb()->query('
+			INSERT INTO xf_user_confirmation
+				(user_id, confirmation_type, confirmation_key, confirmation_date)
+			VALUES
+				(?, ?, ?, ?)
+			ON DUPLICATE KEY UPDATE
+				confirmation_key = VALUES(confirmation_key),
+				confirmation_date = VALUES(confirmation_date)
+		', array($userId, $type, $confirmation['confirmation_key'], $confirmation['confirmation_date']));
+
+		return $confirmation;
+	}
+
+
+=== original50/upload/library/XenForo/Model/UserConfirmation.php:265-302; unchanged contract unless diff above ===
+	public function resetPassword($userId, $sendEmail = true)
+	{
+		$dw = XenForo_DataWriter::create('XenForo_DataWriter_User');
+		$dw->setExistingData($userId);
+
+		$password = XenForo_Application::generateRandomString(16);
+		$password = strtr($password, array(
+			'I' => 'i',
+			'l' => 'L',
+			'0' => 'O',
+			'o' => 'O'
+		));
+		$password = trim($password, '_-');
+
+		$auth = XenForo_Authentication_Abstract::createDefault();
+		$dw->set('scheme_class', $auth->getClassName());
+		$dw->set('data', $auth->generate($password));
+		$dw->save();
+
+		$user = $dw->getMergedData();
+
+		if ($sendEmail)
+		{
+			$params = array(
+				'user' => $user,
+				'password' => $password,
+				'boardTitle' => XenForo_Application::get('options')->boardTitle,
+				'boardUrl' => XenForo_Application::get('options')->boardUrl,
+			);
+			$mail = XenForo_Mail::create('user_lost_password_reset', $params, $user['language_id']);
+			$mail->send($user['email'], $user['username']);
+		}
+
+		if ($userId == XenForo_Visitor::getUserId())
+		{
+			$session = XenForo_Application::getSession();
+			if ($session->get('password_date'))
+			{
+
+=== original50/upload/library/XenForo/Model/User.php:1352-1374; unchanged contract unless diff above ===
+	public function loginUserByRememberKeyFromCookie($userId, $rememberKey, $auth = null)
+	{
+		if ($auth === null)
+		{
+			$auth = $this->getUserAuthenticationRecordByUserId($userId);
+		}
+		if (!$auth)
+		{
+			return false;
+		}
+
+		$known = $this->prepareRememberKeyForCookie($auth['remember_key']);
+		if (!$known || !$rememberKey)
+		{
+			return false;
+		}
+
+		return XenForo_Application::hashEquals($known, $rememberKey);
+	}
+
+	/**
+	 * Logs a user in based on the raw value of the remember cookie.
+	 *
+
+=== original50/upload/library/XenForo/Model/User.php:1432-1462; unchanged contract unless diff above ===
+	public function getUserRememberKeyForCookie($userId, $auth = null)
+	{
+		if ($auth === null)
+		{
+			$auth = $this->getUserAuthenticationRecordByUserId($userId);
+		}
+
+		if (!$auth)
+		{
+			return false;
+		}
+
+		return intval($userId) . ',' . $this->prepareRememberKeyForCookie($auth['remember_key']);
+	}
+
+	/**
+	 * Prepares the remember key for use in a cookie (or for comparison against the cookie).
+	 *
+	 * @param string $rememberKey Key from DB
+	 *
+	 * @return string
+	 */
+	public function prepareRememberKeyForCookie($rememberKey)
+	{
+		return sha1(XenForo_Application::get('config')->globalSalt . $rememberKey);
+	}
+
+	public function getUserEmailConfirmKey(array $user)
+	{
+		return md5(XenForo_Application::get('config')->globalSalt . $user['user_id'] . $user['email']);
+	}
+
+=== original50/upload/library/XenForo/ControllerPublic/Register.php:1032-1070; unchanged contract unless diff above ===
+	public function actionGoogle()
+	{
+		$code = $this->_input->filterSingle('code', XenForo_Input::STRING);
+		$options = XenForo_Application::getOptions();
+		$session = XenForo_Application::getSession();
+		$redirect = $this->_getExternalAuthRedirect();
+
+		if (!$options->googleClientId)
+		{
+			return $this->responseRedirect(
+				XenForo_ControllerResponse_Redirect::RESOURCE_CANONICAL,
+				$this->getDynamicRedirect()
+			);
+		}
+
+		$csrf = $this->_input->filterSingle('csrf', XenForo_Input::STRING);
+		if ($csrf !== $session->get('sessionCsrf'))
+		{
+			return $this->responseError(new XenForo_Phrase('unexpected_error_occurred'));
+		}
+
+		$client = XenForo_Helper_Http::getClient('https://oauth2.googleapis.com/token');
+		$client->setParameterPost(array(
+			'code' => $code,
+			'client_id' => $options->googleClientId,
+			'client_secret' => $options->googleClientSecret,
+			'redirect_uri' => 'postmessage',
+			'grant_type' => 'authorization_code'
+		));
+		$result = $client->request('POST');
+
+		$body = @json_decode($result->getBody(), true);
+		if (!$body || !empty($body['error']))
+		{
+			$credentials = $session->get('googleCredentials');
+			if (!$credentials)
+			{
+				return $this->responseError(new XenForo_Phrase('error_occurred_when_connecting_to_google'));
+			}
+
+=== original50/upload/js/xenforo/full/xenforo.js:1238-1298; unchanged contract unless diff above ===
+			if ($(el).find('.GoogleLogin').length)
+			{
+				var locale = $('html').attr('lang');
+
+				var callback = function()
+				{
+					if (!window.gapi)
+					{
+						return;
+					}
+
+					$(el).find('.GoogleLogin').each(function() {
+						var $button = $(this),
+							clientId = $button.data('client-id'),
+							auth2;
+
+						gapi.load('auth2', function()
+						{
+							auth2 = gapi.auth2.init({
+								client_id: clientId,
+								scope: 'profile email',
+								response_type: 'permission',
+								cookie_policy: 'single_host_origin'
+							});
+							$button.on('click', function()
+							{
+								auth2.grantOfflineAccess({
+									scope: 'profile email'
+								})
+								.then(function(resp)
+								{
+									var code = resp.code;
+
+									if (code)
+									{
+										window.location = XenForo.canonicalizeUrl(
+											$button.data('redirect-url').replace('__CODE__', code)
+										);
+									}
+								}).
+								catch(function() {});
+							});
+						});
+					});
+				};
+
+				if (window.___gcfg && window.gapi)
+				{
+					callback();
+				}
+				else
+				{
+					window.___gcfg = {
+						lang: locale,
+						isSignedOut: true // this is to stop the "welcome back" prompt as it doesn't fit with our flow
+					};
+
+					XenForo.loadJs('https://apis.google.com/js/api:client.js', callback);
+				}
+			}
+		},
+
+=== original50/upload/js/xenforo/full/xenforo.js:2775-2788; unchanged contract unless diff above ===
+		htmlspecialchars: function(string)
+		{
+			return (String(string) || '')
+				.replace(/&/g, '&amp;')
+				.replace(/"/g, '&quot;')
+				.replace(/</g, '&lt;')
+				.replace(/>/g, '&gt;');
+		},
+
+		htmlEntityDecode: function(string)
+		{
+			return (String(string) || '')
+				.replace(/&quot;/g, '"')
+				.replace(/&lt;/g, '<')
+
+=== original50/upload/js/xenforo/full/xenforo.js:9014-9040; unchanged contract unless diff above ===
+				$li = $('<li />')
+					.css('cursor', 'pointer')
+					.attr('unselectable', 'on')
+					.data('autocomplete', i)
+					.click($.context(this, 'resultClick'))
+					.mouseenter($.context(this, 'resultMouseEnter'));
+
+				if (typeof result == 'string')
+				{
+					$li.html(XenForo.htmlspecialchars(result).replace(filterRegex, '<strong>$1</strong>'));
+				}
+				else
+				{
+					// unescaping the avatar here as we expect the username to be escaped, so this means
+					// that we can/should expect all values to be escaped
+					$li.html(result['username'].replace(filterRegex, '<strong>$1</strong>'))
+						.prepend(
+							$('<img class="autoCompleteAvatar" />')
+								.attr('src', XenForo.htmlEntityDecode(result['avatar']))
+						);
+				}
+
+				$li.appendTo(this.$results);
+			}
+
+			if (!this.$results.children().length)
+			{
+
+=== base/upload/library/XenForo/Model/Deferred.php:237-303; caller context ===
+
+	protected static $_shutdownRegistered = false;
+	protected static $_runningDeferred = false;
+
+	public static function shutdownHandleFatalDeferred()
+	{
+		if (!self::$_runningDeferred)
+		{
+			return;
+		}
+
+		// if we get a fatal error from a manual deferred, reinsert it so a refresh can catch it
+
+		$deferred = self::$_runningDeferred;
+		try
+		{
+			XenForo_Db::rollbackAll();
+
+			if ($deferred['manual_execute'])
+			{
+				XenForo_Application::defer(
+					$deferred['execute_class'], unserialize($deferred['execute_data']), $deferred['unique_key'], $deferred['manual_execute'], $deferred['trigger_date'], true
+				);
+			}
+		}
+		catch (Exception $e) {}
+	}
+
+	public function runDeferred(array $deferred, $targetRunTime, &$status, &$canCancel)
+	{
+		$this->resetUniqueDeferInserts();
+
+		$canCancel = false;
+
+		if (!$this->deleteDeferredById($deferred['deferred_id']))
+		{
+			// already being run
+			return false;
+		}
+
+		$runner = XenForo_Deferred_Abstract::create($deferred['execute_class']);
+		if (!$runner)
+		{
+			return false;
+		}
+
+		$data = unserialize($deferred['execute_data']);
+
+		if (!self::$_shutdownRegistered)
+		{
+			self::$_shutdownRegistered = true;
+			register_shutdown_function(array(__CLASS__, 'shutdownHandleFatalDeferred'));
+		}
+
+		self::$_runningDeferred = $deferred;
+
+		try
+		{
+			$output = $runner->execute($deferred, $data, $targetRunTime, $status);
+			self::$_runningDeferred = false;
+		}
+		catch (Exception $e)
+		{
+			self::$_runningDeferred = false;
+
+			// transactions are likely from the manual runner, so we need to roll them back
+			// as they probably won't be committed
+
+=== base/upload/library/XenForo/Session.php:782-825; caller context ===
+		{
+			$data = $this->_cache->load($this->_getSessionCacheName($sessionId));
+		}
+		else
+		{
+			$data = $this->_db->fetchOne('
+				SELECT session_data
+				FROM ' . $this->_config['table'] . '
+				WHERE session_id = ?
+					AND expiry_date >= ?
+			', array($sessionId, XenForo_Application::$time));
+		}
+
+		if (!$data)
+		{
+			return false;
+		}
+		else
+		{
+			$data = unserialize($data);
+			return (is_array($data) ? $data : false);
+		}
+	}
+
+	/**
+	 * Deletes the specified session from the source.
+	 *
+	 * @param string $sessionId
+	 */
+	public function deleteSessionFromSource($sessionId)
+	{
+		if ($this->_cache)
+		{
+			$this->_cache->remove($this->_getSessionCacheName());
+		}
+		else
+		{
+			$this->_db->delete($this->_config['table'],
+				'session_id = ' . $this->_db->quote($sessionId)
+			);
+		}
+	}
+
+	public function saveSessionToSource($sessionId, $isUpdate)
+
+=== wmtech/upload/library/XenForo/Model/Deferred.php:237-303; caller context ===
+	}
+
+	protected static $_shutdownRegistered = false;
+	protected static $_runningDeferred = false;
+
+	public static function shutdownHandleFatalDeferred()
+	{
+		if (!self::$_runningDeferred)
+		{
+			return;
+		}
+
+		// if we get a fatal error from a manual deferred, reinsert it so a refresh can catch it
+
+		$deferred = self::$_runningDeferred;
+		try
+		{
+			XenForo_Db::rollbackAll();
+
+			if ($deferred['manual_execute'])
+			{
+				XenForo_Application::defer(
+					$deferred['execute_class'], XenForo_Helper_Php::safeUnserialize($deferred['execute_data']), $deferred['unique_key'], $deferred['manual_execute'], $deferred['trigger_date'], true
+				);
+			}
+		}
+		catch (Exception $e) {}
+	}
+
+	public function runDeferred(array $deferred, $targetRunTime, &$status, &$canCancel)
+	{
+		$this->resetUniqueDeferInserts();
+
+		$canCancel = false;
+
+		if (!$this->deleteDeferredById($deferred['deferred_id']))
+		{
+			// already being run
+			return false;
+		}
+
+		$runner = XenForo_Deferred_Abstract::create($deferred['execute_class']);
+		if (!$runner)
+		{
+			return false;
+		}
+
+		$data = XenForo_Helper_Php::safeUnserialize($deferred['execute_data']);
+
+		if (!self::$_shutdownRegistered)
+		{
+			self::$_shutdownRegistered = true;
+			register_shutdown_function(array(__CLASS__, 'shutdownHandleFatalDeferred'));
+		}
+
+		self::$_runningDeferred = $deferred;
+
+		try
+		{
+			$output = $runner->execute($deferred, $data, $targetRunTime, $status);
+			self::$_runningDeferred = false;
+		}
+		catch (Exception $e)
+		{
+			self::$_runningDeferred = false;
+
+			// transactions are likely from the manual runner, so we need to roll them back
+
+=== wmtech/upload/library/XenForo/Session.php:790-834; caller context ===
+	 *
+	 * @return array|false
+	 */
+	public function getSessionFromSource($sessionId)
+	{
+		if (!preg_match('/^[a-f0-9]{32}$/', $sessionId))
+		{
+			// doesn't correspond with approach in _setup
+			return false;
+		}
+
+		if ($this->_cache)
+		{
+			$data = $this->_cache->load($this->_getSessionCacheName($sessionId));
+		}
+		else
+		{
+			$data = $this->_db->fetchOne('
+				SELECT session_data
+				FROM ' . $this->_config['table'] . '
+				WHERE session_id = ?
+					AND expiry_date >= ?
+			', array($sessionId, XenForo_Application::$time));
+		}
+
+		if (!$data)
+		{
+			return false;
+		}
+		else
+		{
+			// Session payloads are never meant to carry objects. Blocking object construction
+			// removes this as a deserialisation gadget if the session store (DB row, or a
+			// memcached/redis backend that is reachable on the network) is ever writable.
+			$data = XenForo_Helper_Php::safeUnserialize($data);
+			return (is_array($data) ? $data : false);
+		}
+	}
+
+	/**
+	 * Deletes the specified session from the source.
+	 *
+	 * @param string $sessionId
+	 */
+	public function deleteSessionFromSource($sessionId)
+
+=== Public upstream Zend Framework release-1.12.20/library/Zend/Xml/Security.php:66-123; https://raw.githubusercontent.com/zendframework/zf1/release-1.12.20/library/Zend/Xml/Security.php ===
+     * @param   string $xml
+     * @param   DomDocument $dom
+     * @throws  Zend_Xml_Exception
+     * @return  SimpleXMLElement|DomDocument|boolean
+     */
+    public static function scan($xml, DOMDocument $dom = null)
+    {
+        // If running with PHP-FPM we perform an heuristic scan
+        // We cannot use libxml_disable_entity_loader because of this bug
+        // @see https://bugs.php.net/bug.php?id=64938
+        if (self::isPhpFpm()) {
+            self::heuristicScan($xml);
+        }
+
+        if (null === $dom) {
+            $simpleXml = true;
+            $dom = new DOMDocument();
+        }
+
+        if (!self::isPhpFpm()) {
+            $loadEntities = libxml_disable_entity_loader(true);
+            $useInternalXmlErrors = libxml_use_internal_errors(true);
+        }
+
+        // Load XML with network access disabled (LIBXML_NONET)
+        // error disabled with @ for PHP-FPM scenario
+        set_error_handler(array('Zend_Xml_Security', 'loadXmlErrorHandler'), E_WARNING);
+
+        $result = $dom->loadXml($xml, LIBXML_NONET);
+        restore_error_handler();
+
+        if (!$result) {
+            // Entity load to previous setting
+            if (!self::isPhpFpm()) {
+                libxml_disable_entity_loader($loadEntities);
+                libxml_use_internal_errors($useInternalXmlErrors);
+            }
+            return false;
+        }
+
+        // Scan for potential XEE attacks using ENTITY, if not PHP-FPM
+        if (!self::isPhpFpm()) {
+            foreach ($dom->childNodes as $child) {
+                if ($child->nodeType === XML_DOCUMENT_TYPE_NODE) {
+                    if ($child->entities->length > 0) {
+                        require_once 'Exception.php';
+                        throw new Zend_Xml_Exception(self::ENTITY_DETECT);
+                    }
+                }
+            }
+        }
+
+        // Entity load to previous setting
+        if (!self::isPhpFpm()) {
+            libxml_disable_entity_loader($loadEntities);
+            libxml_use_internal_errors($useInternalXmlErrors);
+        }
+
+
+=== Public upstream Zend Framework release-1.12.20/library/Zend/Xml/Security.php:156-168; https://raw.githubusercontent.com/zendframework/zf1/release-1.12.20/library/Zend/Xml/Security.php ===
+     * This method is mainly used to determine whether or not heuristic checks
+     * (vs libxml checks) should be made, due to threading issues in libxml;
+     * under php-fpm, threading becomes a concern.
+     *
+     * However, PHP versions 5.5.22+ and 5.6.6+ contain a patch to the
+     * libxml support in PHP that makes the libxml checks viable; in such
+     * versions, this method will return false to enforce those checks, which
+     * are more strict and accurate than the heuristic checks.
+     *
+     * @return boolean
+     */
+    public static function isPhpFpm()
+    {
+

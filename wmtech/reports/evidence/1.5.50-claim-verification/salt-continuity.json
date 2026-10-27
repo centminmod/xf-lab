@@ -1,0 +1,18 @@
+{
+    "php": "7.4.33",
+    "codeVersion": 1055070,
+    "archiveDefaultsDiffer": true,
+    "before": {
+        "remember": true,
+        "proxy": true,
+        "storedVerification": true
+    },
+    "after": {
+        "oldRememberAccepted": false,
+        "oldProxyAccepted": false,
+        "emailStopKeyChanged": true,
+        "storedVerificationAccepted": true
+    },
+    "valuesExported": false,
+    "control": "Same native original50 consumers, same synthetic records and URL, only effective archive-default salt changes. Existing active sessions are outside this signature test."
+}

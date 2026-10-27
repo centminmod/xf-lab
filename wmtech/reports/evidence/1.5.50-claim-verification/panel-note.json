@@ -1,0 +1,54 @@
+{
+  "status": "verified",
+  "scope": "Independent review of the frozen 86-check original50/stock24 claim matrix, followed by local chair verification. This is a compact report note, not a retained panel audit sample.",
+  "summary": "Both external reviewers supported the principal archive and regression findings. Codex checked their citations and interpretations, accepted specific wording refinements and rejected unsupported triggers, an invalid entropy calculation and an unproven installer assumption.",
+  "respondents": [
+    {
+      "provider": "Claude",
+      "model": "Claude Opus 5.5",
+      "effort": "high",
+      "accountingSummary": "Input 2; cache created 147815; cache read 85035; output 42875; 408.3 s; SDK USD 2.615399."
+    },
+    {
+      "provider": "Z.AI",
+      "model": "Z.AI GLM 5.3 Flash",
+      "effort": "high",
+      "accountingSummary": "Input 108358; cache created 0; cache read 0; output 25700; 638.3 s; SDK USD 1.655165."
+    }
+  ],
+  "verificationSummary": "The frozen run record validated against its revision and worktree fingerprint. Of 47 submitted anchors, 45 passed exact matching and two Z.AI quotations failed whitespace/diff-prefix matching. The underlying helper and pinning facts were verified with valid shared anchors. Repeated-quote warnings were checked in their stated locations. No provider response was dropped.",
+  "budgetAndTiming": "Both calls used subscriptions with no USD budget ceiling, one attempt each and no tie-breaker or cross-review. SDK USD figures are accounting metadata, not additional charges. Provider-turn wall time was 640.470 s; process wall time 644.456 s. Citation checking took 7.711 s. These exclude chair preparation, semantic checks and report work. The identical approved prompt was 322,871 bytes, above the 256,000-byte lean target to retain the detailed claim evidence.",
+  "decisions": [
+    "Qualified S11 because general-client TLS verification changes a fallback branch. Split the Google shutdown rationale from the unverified Meta premise.",
+    "Closed the configuration-only session-binding gap with native IPv4 and IPv6 sessionMatchesIp controls. Default checks reject wider/unrelated prefixes; original50 overrides change acceptance as intended.",
+    "Rejected a suggested new member-to-report/custom-field persistence trigger. The unchanged TYPE_SERIALIZED writer rejects that object-looking text on both versions. Direct synthetic legacy reads still demonstrate the new reader false positive.",
+    "Rejected a proposed entropy estimate: its mapped probabilities totalled 63/64. The actual deterministic mapping has 57 singleton, two doubleton and one tripleton symbols. No exact final entropy guarantee is published.",
+    "Retained the distinction between current active sessions and later persistent-login/signature continuity. A post-panel native config-generator control rejects the assumption that the installer automatically inserts globalSalt; no board-prevalence estimate is made.",
+    "Reviewed three additional delivered differences locally: video.js Flash fallback removal, Facebook query-component encoding, and replacement INSTALL-UPGRADE guidance. The live-manifest regeneration advice is unnecessary for deleting paths absent from that manifest.",
+    "Original50 regressions remain verified. This consultation does not approve candidate51 or XF2 or clear their separate full-source checkpoint requirements."
+  ],
+  "limitations": "No live payment/social/captcha transactions or production deployment were reviewed. Initial packet omissions remain explicit. Both runners recorded zero tool calls; Claude reported a preliminary license read that is not corroborated by that metadata, and no discovered license fact was accepted. New chair follow-up tests and documentation notes were not sent for another external round. Raw prompts, responses, manifests and full audit stay temporary and are removed after synthesis.",
+  "citationCounts": {
+    "verified": 45,
+    "wrong": 2,
+    "missing": 0
+  },
+  "initialMatrixCounts": {
+    "verified": 44,
+    "qualified": 33,
+    "contradicted": 5,
+    "unverified": 4
+  },
+  "followupEvidence": [
+    "panel-followup-base.json",
+    "panel-followup-wmtech.json",
+    "password-alphabet-check.json",
+    "chair-source-followup.txt"
+  ],
+  "finalMatrixCounts": {
+    "verified": 43,
+    "contradicted": 5,
+    "qualified": 34,
+    "unverified": 4
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "capturedAtUtc": "2026-10-27T21:58:10.793458+00:00",
+  "services": {
+    "php72": {
+      "Image": "sha256:c65258544ef64d79d43c5e27dbbfedc49d708087fa04efbb65a829af236eb9b6",
+      "Platform": "linux",
+      "imageTag": "xf-wmtech-review:php72",
+      "runtime": {
+        "php": "7.2.34",
+        "sapi": "cli",
+        "curl": "7.64.0",
+        "libxml": "2.9.4",
+        "openssl": "OpenSSL 1.1.1d  10 Sep 2019"
+      }
+    },
+    "php73": {
+      "Image": "sha256:6fc52cecde7522a043843cc383a16b7fc3e87ef43913112b726e67a7f2fc4b57",
+      "Platform": "linux",
+      "imageTag": "xf-wmtech-claims:php73",
+      "runtime": {
+        "php": "7.3.33",
+        "sapi": "cli",
+        "curl": "7.74.0",
+        "libxml": "2.9.10",
+        "openssl": "OpenSSL 1.1.1k  25 Mar 2021"
+      }
+    },
+    "php74": {
+      "Image": "sha256:5714f194af30dc17723e2ffd8a14194b373e257d25475f7af41ce10951dd2dac",
+      "Platform": "linux",
+      "imageTag": "xf-wmtech-review:php74",
+      "runtime": {
+        "php": "7.4.33",
+        "sapi": "cli",
+        "curl": "7.74.0",
+        "libxml": "2.9.10",
+        "openssl": "OpenSSL 1.1.1n  15 Mar 2022"
+      }
+    },
+    "db": {
+      "Image": "sha256:92e50059ea0a5965a33ef751970eab37d421b91ebbd01ac909039cffe159e574",
+      "Platform": "linux",
+      "imageTag": "mariadb:10.6",
+      "version": "10.6.28-MariaDB-ubu2204"
+    },
+    "mysql8": {
+      "Image": "sha256:d36d39a64cd12a5c1cc9e6aa2bfb5f8d4c81a2f6586e0a04a9ae13939db02209",
+      "Platform": "linux",
+      "imageTag": "mysql:8.4",
+      "version": "8.4.10"
+    }
+  }
+}

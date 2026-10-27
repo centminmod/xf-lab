@@ -1,0 +1,17 @@
+{
+  "encoding": {
+    "componentEncoding": "a%2Bb",
+    "input": "a+b",
+    "legacyEscape": "a+b"
+  },
+  "scope": "Post-panel native browser configuration and built-in encoding control. No media playback, Flash runtime or live Facebook request.",
+  "videoTechOrder": {
+    "base": [
+      "html5",
+      "flash"
+    ],
+    "wmtech": [
+      "html5"
+    ]
+  }
+}

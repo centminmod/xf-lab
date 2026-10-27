@@ -1,0 +1,32 @@
+{
+  "status": "passed",
+  "layouts": [
+    {
+      "width": 1100,
+      "appearance": "light",
+      "horizontalOverflow": false,
+      "duplicateIds": [],
+      "consoleErrors": []
+    },
+    {
+      "width": 360,
+      "appearance": "dark",
+      "horizontalOverflow": false,
+      "duplicateIds": [],
+      "consoleErrors": []
+    }
+  ],
+  "interactions": [
+    "verdict filter",
+    "search filter",
+    "expand visible",
+    "collapse visible",
+    "reset"
+  ],
+  "claimEntries": 86,
+  "phpHarnessSyntax": "9 scripts passed on PHP 7.3.33",
+  "javascriptSyntax": "Browser helper and final report script passed node --check",
+  "pythonSyntax": "All claim-test Python files parsed",
+  "candidate51AndXf213ArchiveHashesUnchanged": true,
+  "scope": "Local link, layout, interaction and syntax checks. Does not certify external URLs or production integrations."
+}

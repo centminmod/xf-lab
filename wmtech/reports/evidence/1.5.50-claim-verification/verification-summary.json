@@ -1,0 +1,20 @@
+{
+  "status": "passed",
+  "claimChecks": 86,
+  "verdictCounts": {
+    "verified": 43,
+    "contradicted": 5,
+    "qualified": 34,
+    "unverified": 4
+  },
+  "nativeProbeRuns": 5,
+  "nativeProbeCases": 100,
+  "postPanelNativeSourceRuns": 2,
+  "postPanelSessionIpDecisions": 60,
+  "cookieCases": 75,
+  "customizedRenderedPages": 3,
+  "fullMinBundleControls": 4,
+  "reusedEvidenceExplicitlyTagged": true,
+  "originalArchivesUnchanged": true,
+  "scope": "Evidence consistency and specific expected behavior assertions. Not a full product security certification."
+}

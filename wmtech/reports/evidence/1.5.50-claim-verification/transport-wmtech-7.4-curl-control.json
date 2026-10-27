@@ -1,0 +1,57 @@
+{
+  "php": "7.4.33",
+  "version": 1055070,
+  "curlVersionAvailable": true,
+  "forcedPayPalCurlBranch": true,
+  "general": {
+    "untrustedCertificate": {
+      "connected": false,
+      "exception": "Zend_Http_Client_Exception",
+      "certificateFailure": true,
+      "adapter": "Zend_Http_Client_Adapter_Curl",
+      "peerFlag": true,
+      "hostnameFlag": 2
+    },
+    "trustedCertificate": {
+      "connected": true,
+      "status": 200,
+      "adapter": "Zend_Http_Client_Adapter_Curl",
+      "peerFlag": true,
+      "hostnameFlag": 2
+    },
+    "wrongHostname": {
+      "connected": false,
+      "exception": "Zend_Http_Client_Exception",
+      "certificateFailure": true,
+      "adapter": "Zend_Http_Client_Adapter_Curl",
+      "peerFlag": true,
+      "hostnameFlag": 2
+    }
+  },
+  "paypal": {
+    "untrustedCertificate": {
+      "connected": false,
+      "exception": "Zend_Http_Client_Exception",
+      "certificateFailure": true,
+      "adapter": "Zend_Http_Client_Adapter_Curl",
+      "peerFlag": true,
+      "hostnameFlag": 2
+    },
+    "trustedCertificate": {
+      "connected": true,
+      "status": 200,
+      "adapter": "Zend_Http_Client_Adapter_Curl",
+      "peerFlag": true,
+      "hostnameFlag": 2
+    },
+    "wrongHostname": {
+      "connected": false,
+      "exception": "Zend_Http_Client_Exception",
+      "certificateFailure": true,
+      "adapter": "Zend_Http_Client_Adapter_Curl",
+      "peerFlag": true,
+      "hostnameFlag": 2
+    }
+  },
+  "duplicateResolveHostPortRules": 3
+}

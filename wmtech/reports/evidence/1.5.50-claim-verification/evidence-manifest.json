@@ -1,0 +1,608 @@
+{
+  "generatedAtUtc": "2026-10-27T22:58:45.432787+00:00",
+  "entries": [
+    {
+      "relative_path": "wmtech/reports/2026-10-28-wmtech-1.5.50-changelog-verification.html",
+      "type": "html",
+      "sha256": "df890aee9f6ca38db8daa11910e2f7fb3ab2323d6d24991b4ccb462c8b91d072",
+      "bytes": 153957,
+      "source_window": "2026-10-28 follow-up review; earlier records retain explicit reused tags",
+      "timezone": "Australia/Brisbane; timestamped runtime/download fields use UTC",
+      "calculation_notes": "Native assertions and field-based calculations are in the accompanying harness, claim matrix and verification summary. The panel note separates frozen external evidence from later local checks."
+    },
+    {
+      "relative_path": "wmtech/reports/evidence/1.5.50-claim-verification/additional-browser-checks.json",
+      "type": "json",
+      "sha256": "b8e82efd419f68ac759cad803648b08c1131de56ff63ac505cdacf7d7dadc2c3",
+      "bytes": 361,
+      "source_window": "2026-10-28 follow-up review; earlier records retain explicit reused tags",
+      "timezone": "Australia/Brisbane; timestamped runtime/download fields use UTC",
+      "calculation_notes": "Native assertions and field-based calculations are in the accompanying harness, claim matrix and verification summary. The panel note separates frozen external evidence from later local checks."
+    },
+    {
+      "relative_path": "wmtech/reports/evidence/1.5.50-claim-verification/additional-differences.json",
+      "type": "json",
+      "sha256": "43cdfda4083e7ac25f65111378d6847423fa30a66fb3d6565df88c7e55880c44",
+      "bytes": 2263,
+      "source_window": "2026-10-28 follow-up review; earlier records retain explicit reused tags",
+      "timezone": "Australia/Brisbane; timestamped runtime/download fields use UTC",
+      "calculation_notes": "Native assertions and field-based calculations are in the accompanying harness, claim matrix and verification summary. The panel note separates frozen external evidence from later local checks."
+    },
+    {
+      "relative_path": "wmtech/reports/evidence/1.5.50-claim-verification/archive-checks.json",
+      "type": "json",
+      "sha256": "48e19309cff893e29b3831a792bd19c33b60443082a6f074de66e41d62b06ae1",
+      "bytes": 13442,
+      "source_window": "2026-10-28 follow-up review; earlier records retain explicit reused tags",
+      "timezone": "Australia/Brisbane; timestamped runtime/download fields use UTC",
+      "calculation_notes": "Native assertions and field-based calculations are in the accompanying harness, claim matrix and verification summary. The panel note separates frozen external evidence from later local checks."
+    },
+    {
+      "relative_path": "wmtech/reports/evidence/1.5.50-claim-verification/browser-controls.json",
+      "type": "json",
+      "sha256": "6bbd17ce1b1172d71de6f02c5fc2b8e96930939d2d7a329b5c619db2f8a25525",
+      "bytes": 42564,
+      "source_window": "2026-10-28 follow-up review; earlier records retain explicit reused tags",
+      "timezone": "Australia/Brisbane; timestamped runtime/download fields use UTC",
+      "calculation_notes": "Native assertions and field-based calculations are in the accompanying harness, claim matrix and verification summary. The panel note separates frozen external evidence from later local checks."
+    },
+    {
+      "relative_path": "wmtech/reports/evidence/1.5.50-claim-verification/chair-source-followup.txt",
+      "type": "txt",
+      "sha256": "96868f61b99f224e332c4d60c7f146de374557b8de0cee6f18e1c8967da7b7e0",
+      "bytes": 9234,
+      "source_window": "2026-10-28 follow-up review; earlier records retain explicit reused tags",
+      "timezone": "Australia/Brisbane; timestamped runtime/download fields use UTC",
+      "calculation_notes": "Native assertions and field-based calculations are in the accompanying harness, claim matrix and verification summary. The panel note separates frozen external evidence from later local checks."
+    },
+    {
+      "relative_path": "wmtech/reports/evidence/1.5.50-claim-verification/claim-matrix.json",
+      "type": "json",
+      "sha256": "dcddca25caab9fa14b8b963e99585cab23130050c33c96ef77b1367c658da2a4",
+      "bytes": 90942,
+      "source_window": "2026-10-28 follow-up review; earlier records retain explicit reused tags",
+      "timezone": "Australia/Brisbane; timestamped runtime/download fields use UTC",
+      "calculation_notes": "Native assertions and field-based calculations are in the accompanying harness, claim matrix and verification summary. The panel note separates frozen external evidence from later local checks."
+    },
+    {
+      "relative_path": "wmtech/reports/evidence/1.5.50-claim-verification/custom-xf_patch-seed.json",
+      "type": "json",
+      "sha256": "f2c0ed8c4e342d29386833e966422bdae2a0c41638940b8a0f912b0a2485fb85",
+      "bytes": 579,
+      "source_window": "2026-10-28 follow-up review; earlier records retain explicit reused tags",
+      "timezone": "Australia/Brisbane; timestamped runtime/download fields use UTC",
+      "calculation_notes": "Native assertions and field-based calculations are in the accompanying harness, claim matrix and verification summary. The panel note separates frozen external evidence from later local checks."
+    },
+    {
+      "relative_path": "wmtech/reports/evidence/1.5.50-claim-verification/custom-xf_patch-upgrade.json",
+      "type": "json",
+      "sha256": "ff53fd3a6c3d9d258d505e84166caaeb2088c8bef977644b170e570682730a53",
+      "bytes": 579,
+      "source_window": "2026-10-28 follow-up review; earlier records retain explicit reused tags",
+      "timezone": "Australia/Brisbane; timestamped runtime/download fields use UTC",
+      "calculation_notes": "Native assertions and field-based calculations are in the accompanying harness, claim matrix and verification summary. The panel note separates frozen external evidence from later local checks."
+    },
+    {
+      "relative_path": "wmtech/reports/evidence/1.5.50-claim-verification/http-checks.json",
+      "type": "json",
+      "sha256": "c820db6b7ab2cf40bd91f785b4f4f207e81b4e7fa81b28e95d982bf2848e4443",
+      "bytes": 18075,
+      "source_window": "2026-10-28 follow-up review; earlier records retain explicit reused tags",
+      "timezone": "Australia/Brisbane; timestamped runtime/download fields use UTC",
+      "calculation_notes": "Native assertions and field-based calculations are in the accompanying harness, claim matrix and verification summary. The panel note separates frozen external evidence from later local checks."
+    },
+    {
+      "relative_path": "wmtech/reports/evidence/1.5.50-claim-verification/lab-environment.json",
+      "type": "json",
+      "sha256": "5128fc52d65a2bf674bc5c282f33b1da2cf0ad2f49f3dfe302a7a33eee1cbae2",
+      "bytes": 1570,
+      "source_window": "2026-10-28 follow-up review; earlier records retain explicit reused tags",
+      "timezone": "Australia/Brisbane; timestamped runtime/download fields use UTC",
+      "calculation_notes": "Native assertions and field-based calculations are in the accompanying harness, claim matrix and verification summary. The panel note separates frozen external evidence from later local checks."
+    },
+    {
+      "relative_path": "wmtech/reports/evidence/1.5.50-claim-verification/lint-base-7.3.json",
+      "type": "json",
+      "sha256": "52c22116acfbb2d4f86b82f60bbe0f574452fb1dd9e2fa769e754e6df812847b",
+      "bytes": 422,
+      "source_window": "2026-10-28 follow-up review; earlier records retain explicit reused tags",
+      "timezone": "Australia/Brisbane; timestamped runtime/download fields use UTC",
+      "calculation_notes": "Native assertions and field-based calculations are in the accompanying harness, claim matrix and verification summary. The panel note separates frozen external evidence from later local checks."
+    },
+    {
+      "relative_path": "wmtech/reports/evidence/1.5.50-claim-verification/lint-base-7.4.json",
+      "type": "json",
+      "sha256": "a071baee31f0c708840615b0d525d22cfd3aa0c26d2599e1e8a2032d245c88ec",
+      "bytes": 784,
+      "source_window": "2026-10-28 follow-up review; earlier records retain explicit reused tags",
+      "timezone": "Australia/Brisbane; timestamped runtime/download fields use UTC",
+      "calculation_notes": "Native assertions and field-based calculations are in the accompanying harness, claim matrix and verification summary. The panel note separates frozen external evidence from later local checks."
+    },
+    {
+      "relative_path": "wmtech/reports/evidence/1.5.50-claim-verification/lint-wmtech-7.3.json",
+      "type": "json",
+      "sha256": "0f836b983845210ac3542c533d6de2252e66adf98e54be8827825d99267d1060",
+      "bytes": 219,
+      "source_window": "2026-10-28 follow-up review; earlier records retain explicit reused tags",
+      "timezone": "Australia/Brisbane; timestamped runtime/download fields use UTC",
+      "calculation_notes": "Native assertions and field-based calculations are in the accompanying harness, claim matrix and verification summary. The panel note separates frozen external evidence from later local checks."
+    },
+    {
+      "relative_path": "wmtech/reports/evidence/1.5.50-claim-verification/lint-wmtech-7.4.json",
+      "type": "json",
+      "sha256": "a071b9190c087d5d875a12227af64e75b8282f97b0f9e29301955c942a81dad5",
+      "bytes": 425,
+      "source_window": "2026-10-28 follow-up review; earlier records retain explicit reused tags",
+      "timezone": "Australia/Brisbane; timestamped runtime/download fields use UTC",
+      "calculation_notes": "Native assertions and field-based calculations are in the accompanying harness, claim matrix and verification summary. The panel note separates frozen external evidence from later local checks."
+    },
+    {
+      "relative_path": "wmtech/reports/evidence/1.5.50-claim-verification/native-source-provenance.json",
+      "type": "json",
+      "sha256": "b3f58b8d986287045ff419d7572fd9903479e2edde7d4db562acbe9809209e8f",
+      "bytes": 636,
+      "source_window": "2026-10-28 follow-up review; earlier records retain explicit reused tags",
+      "timezone": "Australia/Brisbane; timestamped runtime/download fields use UTC",
+      "calculation_notes": "Native assertions and field-based calculations are in the accompanying harness, claim matrix and verification summary. The panel note separates frozen external evidence from later local checks."
+    },
+    {
+      "relative_path": "wmtech/reports/evidence/1.5.50-claim-verification/original-changelog.txt",
+      "type": "txt",
+      "sha256": "7094b5c1c4e714417d747bc70839ee2164a4a45c23dd6fa2e72c5742484aff8a",
+      "bytes": 23727,
+      "source_window": "2026-10-28 follow-up review; earlier records retain explicit reused tags",
+      "timezone": "Australia/Brisbane; timestamped runtime/download fields use UTC",
+      "calculation_notes": "Native assertions and field-based calculations are in the accompanying harness, claim matrix and verification summary. The panel note separates frozen external evidence from later local checks."
+    },
+    {
+      "relative_path": "wmtech/reports/evidence/1.5.50-claim-verification/panel-followup-base.json",
+      "type": "json",
+      "sha256": "0655529436c25bb27d4d12cef9121b0c7ab57409203006c7bff4d4ed6b6420aa",
+      "bytes": 2407,
+      "source_window": "2026-10-28 follow-up review; earlier records retain explicit reused tags",
+      "timezone": "Australia/Brisbane; timestamped runtime/download fields use UTC",
+      "calculation_notes": "Native assertions and field-based calculations are in the accompanying harness, claim matrix and verification summary. The panel note separates frozen external evidence from later local checks."
+    },
+    {
+      "relative_path": "wmtech/reports/evidence/1.5.50-claim-verification/panel-followup-wmtech.json",
+      "type": "json",
+      "sha256": "0361131fd692f65d1099aa0124735e2be565cd614f57aedc4fdc68ade0fa0916",
+      "bytes": 2400,
+      "source_window": "2026-10-28 follow-up review; earlier records retain explicit reused tags",
+      "timezone": "Australia/Brisbane; timestamped runtime/download fields use UTC",
+      "calculation_notes": "Native assertions and field-based calculations are in the accompanying harness, claim matrix and verification summary. The panel note separates frozen external evidence from later local checks."
+    },
+    {
+      "relative_path": "wmtech/reports/evidence/1.5.50-claim-verification/panel-note.json",
+      "type": "json",
+      "sha256": "2668464ac091f19fe67a2da518ae189f94c2d18f61bd6b275ac42e6f30831743",
+      "bytes": 4404,
+      "source_window": "2026-10-28 follow-up review; earlier records retain explicit reused tags",
+      "timezone": "Australia/Brisbane; timestamped runtime/download fields use UTC",
+      "calculation_notes": "Native assertions and field-based calculations are in the accompanying harness, claim matrix and verification summary. The panel note separates frozen external evidence from later local checks."
+    },
+    {
+      "relative_path": "wmtech/reports/evidence/1.5.50-claim-verification/password-alphabet-check.json",
+      "type": "json",
+      "sha256": "8d7eaba03dde6b3de3ba83312ba434ed1122c21bcbcddcbb4488ca91d508e195",
+      "bytes": 441,
+      "source_window": "2026-10-28 follow-up review; earlier records retain explicit reused tags",
+      "timezone": "Australia/Brisbane; timestamped runtime/download fields use UTC",
+      "calculation_notes": "Native assertions and field-based calculations are in the accompanying harness, claim matrix and verification summary. The panel note separates frozen external evidence from later local checks."
+    },
+    {
+      "relative_path": "wmtech/reports/evidence/1.5.50-claim-verification/password-reset-base.json",
+      "type": "json",
+      "sha256": "505cee1a3f38c4f652b6b94acf3898b406023e6e6a54837ddc8df7598281541e",
+      "bytes": 558,
+      "source_window": "2026-10-28 follow-up review; earlier records retain explicit reused tags",
+      "timezone": "Australia/Brisbane; timestamped runtime/download fields use UTC",
+      "calculation_notes": "Native assertions and field-based calculations are in the accompanying harness, claim matrix and verification summary. The panel note separates frozen external evidence from later local checks."
+    },
+    {
+      "relative_path": "wmtech/reports/evidence/1.5.50-claim-verification/password-reset-wmtech.json",
+      "type": "json",
+      "sha256": "4c450943b63a89a98fa9553951ce00b248ed561d37d49a47d05f8d0cab595d13",
+      "bytes": 560,
+      "source_window": "2026-10-28 follow-up review; earlier records retain explicit reused tags",
+      "timezone": "Australia/Brisbane; timestamped runtime/download fields use UTC",
+      "calculation_notes": "Native assertions and field-based calculations are in the accompanying harness, claim matrix and verification summary. The panel note separates frozen external evidence from later local checks."
+    },
+    {
+      "relative_path": "wmtech/reports/evidence/1.5.50-claim-verification/phrase-count-reconciliation.json",
+      "type": "json",
+      "sha256": "c1de749d62c86ac88e3ed36ce1e8994e3dbe04d7dfd9960a9eac0e32fc42155c",
+      "bytes": 3158,
+      "source_window": "2026-10-28 follow-up review; earlier records retain explicit reused tags",
+      "timezone": "Australia/Brisbane; timestamped runtime/download fields use UTC",
+      "calculation_notes": "Native assertions and field-based calculations are in the accompanying harness, claim matrix and verification summary. The panel note separates frozen external evidence from later local checks."
+    },
+    {
+      "relative_path": "wmtech/reports/evidence/1.5.50-claim-verification/primary-documentation.json",
+      "type": "json",
+      "sha256": "81fe1d67a78e74655e22f6158a73e472f7415b958f00e256c236b9e2ca582e1f",
+      "bytes": 14090,
+      "source_window": "2026-10-28 follow-up review; earlier records retain explicit reused tags",
+      "timezone": "Australia/Brisbane; timestamped runtime/download fields use UTC",
+      "calculation_notes": "Native assertions and field-based calculations are in the accompanying harness, claim matrix and verification summary. The panel note separates frozen external evidence from later local checks."
+    },
+    {
+      "relative_path": "wmtech/reports/evidence/1.5.50-claim-verification/primary-downloads.json",
+      "type": "json",
+      "sha256": "1677fd06632300c3844f2cbfbdc0eabd9eb052f33ff8afa024efed06bb83ffd2",
+      "bytes": 1249,
+      "source_window": "2026-10-28 follow-up review; earlier records retain explicit reused tags",
+      "timezone": "Australia/Brisbane; timestamped runtime/download fields use UTC",
+      "calculation_notes": "Native assertions and field-based calculations are in the accompanying harness, claim matrix and verification summary. The panel note separates frozen external evidence from later local checks."
+    },
+    {
+      "relative_path": "wmtech/reports/evidence/1.5.50-claim-verification/report-validation.json",
+      "type": "json",
+      "sha256": "ee1a8d6dae4788de9a4bf45e62642c5bd8d247579bf54df1256a200da7c8e616",
+      "bytes": 863,
+      "source_window": "2026-10-28 follow-up review; earlier records retain explicit reused tags",
+      "timezone": "Australia/Brisbane; timestamped runtime/download fields use UTC",
+      "calculation_notes": "Native assertions and field-based calculations are in the accompanying harness, claim matrix and verification summary. The panel note separates frozen external evidence from later local checks."
+    },
+    {
+      "relative_path": "wmtech/reports/evidence/1.5.50-claim-verification/requirements-50-php72.json",
+      "type": "json",
+      "sha256": "12954e50400d98165c5a669fe529f2e9b8d36cea44d01f2a2b9c0e9e367d1a24",
+      "bytes": 138,
+      "source_window": "2026-10-28 follow-up review; earlier records retain explicit reused tags",
+      "timezone": "Australia/Brisbane; timestamped runtime/download fields use UTC",
+      "calculation_notes": "Native assertions and field-based calculations are in the accompanying harness, claim matrix and verification summary. The panel note separates frozen external evidence from later local checks."
+    },
+    {
+      "relative_path": "wmtech/reports/evidence/1.5.50-claim-verification/research-limits.json",
+      "type": "json",
+      "sha256": "7ecfca669adeabee443bbd173e3bee5bc0c3622ee533d88cbcfd986aeeb633e7",
+      "bytes": 741,
+      "source_window": "2026-10-28 follow-up review; earlier records retain explicit reused tags",
+      "timezone": "Australia/Brisbane; timestamped runtime/download fields use UTC",
+      "calculation_notes": "Native assertions and field-based calculations are in the accompanying harness, claim matrix and verification summary. The panel note separates frozen external evidence from later local checks."
+    },
+    {
+      "relative_path": "wmtech/reports/evidence/1.5.50-claim-verification/runtime-base-7.2.json",
+      "type": "json",
+      "sha256": "c82fb3434084a383bacdaa5b9595bf381c61cf5ba7863b305cf602327aa92d77",
+      "bytes": 5312,
+      "source_window": "2026-10-28 follow-up review; earlier records retain explicit reused tags",
+      "timezone": "Australia/Brisbane; timestamped runtime/download fields use UTC",
+      "calculation_notes": "Native assertions and field-based calculations are in the accompanying harness, claim matrix and verification summary. The panel note separates frozen external evidence from later local checks."
+    },
+    {
+      "relative_path": "wmtech/reports/evidence/1.5.50-claim-verification/runtime-base-7.3.json",
+      "type": "json",
+      "sha256": "be448fb8d9a1c92f1f0f3f1b56c8f89439c1940f8be82abf97539e05b9cd8ef9",
+      "bytes": 5313,
+      "source_window": "2026-10-28 follow-up review; earlier records retain explicit reused tags",
+      "timezone": "Australia/Brisbane; timestamped runtime/download fields use UTC",
+      "calculation_notes": "Native assertions and field-based calculations are in the accompanying harness, claim matrix and verification summary. The panel note separates frozen external evidence from later local checks."
+    },
+    {
+      "relative_path": "wmtech/reports/evidence/1.5.50-claim-verification/runtime-base-7.4.json",
+      "type": "json",
+      "sha256": "23c84d9b215664524912f5084fb12477f67eb3000240449ece8fe107c2a4297a",
+      "bytes": 5616,
+      "source_window": "2026-10-28 follow-up review; earlier records retain explicit reused tags",
+      "timezone": "Australia/Brisbane; timestamped runtime/download fields use UTC",
+      "calculation_notes": "Native assertions and field-based calculations are in the accompanying harness, claim matrix and verification summary. The panel note separates frozen external evidence from later local checks."
+    },
+    {
+      "relative_path": "wmtech/reports/evidence/1.5.50-claim-verification/runtime-wmtech-7.3.json",
+      "type": "json",
+      "sha256": "f7aae4008a271f718dbe83e74b2b3bf127dcdb98fe7aec9d374be75f8a70de26",
+      "bytes": 5283,
+      "source_window": "2026-10-28 follow-up review; earlier records retain explicit reused tags",
+      "timezone": "Australia/Brisbane; timestamped runtime/download fields use UTC",
+      "calculation_notes": "Native assertions and field-based calculations are in the accompanying harness, claim matrix and verification summary. The panel note separates frozen external evidence from later local checks."
+    },
+    {
+      "relative_path": "wmtech/reports/evidence/1.5.50-claim-verification/runtime-wmtech-7.4.json",
+      "type": "json",
+      "sha256": "68b984d7bb7ed20a769aa2060b32ef4d1d459afea11a366cd758720bd176c09c",
+      "bytes": 5283,
+      "source_window": "2026-10-28 follow-up review; earlier records retain explicit reused tags",
+      "timezone": "Australia/Brisbane; timestamped runtime/download fields use UTC",
+      "calculation_notes": "Native assertions and field-based calculations are in the accompanying harness, claim matrix and verification summary. The panel note separates frozen external evidence from later local checks."
+    },
+    {
+      "relative_path": "wmtech/reports/evidence/1.5.50-claim-verification/salt-continuity.json",
+      "type": "json",
+      "sha256": "3211c227747db8ae6136991d38535888429b21e374d40e1ce882c3051bed5963",
+      "bytes": 585,
+      "source_window": "2026-10-28 follow-up review; earlier records retain explicit reused tags",
+      "timezone": "Australia/Brisbane; timestamped runtime/download fields use UTC",
+      "calculation_notes": "Native assertions and field-based calculations are in the accompanying harness, claim matrix and verification summary. The panel note separates frozen external evidence from later local checks."
+    },
+    {
+      "relative_path": "wmtech/reports/evidence/1.5.50-claim-verification/source-comparison.txt",
+      "type": "txt",
+      "sha256": "07f17b3b9e54258040b80ab8ae7631fe432f96815310829adf3bfcc3bef969e1",
+      "bytes": 93111,
+      "source_window": "2026-10-28 follow-up review; earlier records retain explicit reused tags",
+      "timezone": "Australia/Brisbane; timestamped runtime/download fields use UTC",
+      "calculation_notes": "Native assertions and field-based calculations are in the accompanying harness, claim matrix and verification summary. The panel note separates frozen external evidence from later local checks."
+    },
+    {
+      "relative_path": "wmtech/reports/evidence/1.5.50-claim-verification/transport-base-7.4-curl-control.json",
+      "type": "json",
+      "sha256": "0fb41df00d1a8ae5b142bb83a507d50745d28c71feba8b13d0552a3d94a610fb",
+      "bytes": 1365,
+      "source_window": "2026-10-28 follow-up review; earlier records retain explicit reused tags",
+      "timezone": "Australia/Brisbane; timestamped runtime/download fields use UTC",
+      "calculation_notes": "Native assertions and field-based calculations are in the accompanying harness, claim matrix and verification summary. The panel note separates frozen external evidence from later local checks."
+    },
+    {
+      "relative_path": "wmtech/reports/evidence/1.5.50-claim-verification/transport-base-7.4.json",
+      "type": "json",
+      "sha256": "c6b1bad255d855288d24bee485f1192f99b913ee1a8bd180232213b7980b5d77",
+      "bytes": 1448,
+      "source_window": "2026-10-28 follow-up review; earlier records retain explicit reused tags",
+      "timezone": "Australia/Brisbane; timestamped runtime/download fields use UTC",
+      "calculation_notes": "Native assertions and field-based calculations are in the accompanying harness, claim matrix and verification summary. The panel note separates frozen external evidence from later local checks."
+    },
+    {
+      "relative_path": "wmtech/reports/evidence/1.5.50-claim-verification/transport-wmtech-7.4-curl-control.json",
+      "type": "json",
+      "sha256": "1b67aafc96c1b30045c2815f057ea70596fb0582d9f3c7b8faaf940271a504ef",
+      "bytes": 1505,
+      "source_window": "2026-10-28 follow-up review; earlier records retain explicit reused tags",
+      "timezone": "Australia/Brisbane; timestamped runtime/download fields use UTC",
+      "calculation_notes": "Native assertions and field-based calculations are in the accompanying harness, claim matrix and verification summary. The panel note separates frozen external evidence from later local checks."
+    },
+    {
+      "relative_path": "wmtech/reports/evidence/1.5.50-claim-verification/transport-wmtech-7.4-nocurl.json",
+      "type": "json",
+      "sha256": "9f5509f7f1ffbee13227fc8d687d68b60e674a1c52e33cee84a7342d1c948b6d",
+      "bytes": 187,
+      "source_window": "2026-10-28 follow-up review; earlier records retain explicit reused tags",
+      "timezone": "Australia/Brisbane; timestamped runtime/download fields use UTC",
+      "calculation_notes": "Native assertions and field-based calculations are in the accompanying harness, claim matrix and verification summary. The panel note separates frozen external evidence from later local checks."
+    },
+    {
+      "relative_path": "wmtech/reports/evidence/1.5.50-claim-verification/transport-wmtech-7.4.json",
+      "type": "json",
+      "sha256": "37cd00f5e067e503fcc276bfb2fa013fe0aca4e6a5f94551765b9672e35b9012",
+      "bytes": 1537,
+      "source_window": "2026-10-28 follow-up review; earlier records retain explicit reused tags",
+      "timezone": "Australia/Brisbane; timestamped runtime/download fields use UTC",
+      "calculation_notes": "Native assertions and field-based calculations are in the accompanying harness, claim matrix and verification summary. The panel note separates frozen external evidence from later local checks."
+    },
+    {
+      "relative_path": "wmtech/reports/evidence/1.5.50-claim-verification/verification-summary.json",
+      "type": "json",
+      "sha256": "96420d460665cb58edcf7c69faf99a9168b5fbd6f551aae3b4b8d9a0bd2ba084",
+      "bytes": 561,
+      "source_window": "2026-10-28 follow-up review; earlier records retain explicit reused tags",
+      "timezone": "Australia/Brisbane; timestamped runtime/download fields use UTC",
+      "calculation_notes": "Native assertions and field-based calculations are in the accompanying harness, claim matrix and verification summary. The panel note separates frozen external evidence from later local checks."
+    },
+    {
+      "relative_path": "wmtech/tests/claims-1.5.50/README.md",
+      "type": "md",
+      "sha256": "472d380182a0ed90cbc17764dbf037ad3049df6d582aae416e84ff19cb07c0e3",
+      "bytes": 3667,
+      "source_window": "2026-10-28 follow-up review; earlier records retain explicit reused tags",
+      "timezone": "Australia/Brisbane; timestamped runtime/download fields use UTC",
+      "calculation_notes": "Native assertions and field-based calculations are in the accompanying harness, claim matrix and verification summary. The panel note separates frozen external evidence from later local checks."
+    },
+    {
+      "relative_path": "wmtech/tests/claims-1.5.50/bootstrap.php",
+      "type": "php",
+      "sha256": "d425e3b7090e4a90d77e8e77113b4fbfc1a1d02f28467c9f8971c35dfbeb6e13",
+      "bytes": 2052,
+      "source_window": "2026-10-28 follow-up review; earlier records retain explicit reused tags",
+      "timezone": "Australia/Brisbane; timestamped runtime/download fields use UTC",
+      "calculation_notes": "Native assertions and field-based calculations are in the accompanying harness, claim matrix and verification summary. The panel note separates frozen external evidence from later local checks."
+    },
+    {
+      "relative_path": "wmtech/tests/claims-1.5.50/browser-followup.js",
+      "type": "js",
+      "sha256": "02ab1c67bb2c6c9b87b4757e6714f4d3d6c5055e9798a8ee865228fac1594356",
+      "bytes": 1079,
+      "source_window": "2026-10-28 follow-up review; earlier records retain explicit reused tags",
+      "timezone": "Australia/Brisbane; timestamped runtime/download fields use UTC",
+      "calculation_notes": "Native assertions and field-based calculations are in the accompanying harness, claim matrix and verification summary. The panel note separates frozen external evidence from later local checks."
+    },
+    {
+      "relative_path": "wmtech/tests/claims-1.5.50/browser-probe.html",
+      "type": "html",
+      "sha256": "c742427111c3c85fc6552571a1b63663a403fad9395ba768ed83fd4839b809a3",
+      "bytes": 3755,
+      "source_window": "2026-10-28 follow-up review; earlier records retain explicit reused tags",
+      "timezone": "Australia/Brisbane; timestamped runtime/download fields use UTC",
+      "calculation_notes": "Native assertions and field-based calculations are in the accompanying harness, claim matrix and verification summary. The panel note separates frozen external evidence from later local checks."
+    },
+    {
+      "relative_path": "wmtech/tests/claims-1.5.50/cookie-endpoint.php",
+      "type": "php",
+      "sha256": "189e62ee1302391cea0323f02dac6de04045ebce7ec73575722c8c44839c3347",
+      "bytes": 1302,
+      "source_window": "2026-10-28 follow-up review; earlier records retain explicit reused tags",
+      "timezone": "Australia/Brisbane; timestamped runtime/download fields use UTC",
+      "calculation_notes": "Native assertions and field-based calculations are in the accompanying harness, claim matrix and verification summary. The panel note separates frozen external evidence from later local checks."
+    },
+    {
+      "relative_path": "wmtech/tests/claims-1.5.50/customizations.php",
+      "type": "php",
+      "sha256": "93a55181bf6ff3615326fe0575f3a862ff17ae9a705429f2c10de57109950804",
+      "bytes": 6136,
+      "source_window": "2026-10-28 follow-up review; earlier records retain explicit reused tags",
+      "timezone": "Australia/Brisbane; timestamped runtime/download fields use UTC",
+      "calculation_notes": "Native assertions and field-based calculations are in the accompanying harness, claim matrix and verification summary. The panel note separates frozen external evidence from later local checks."
+    },
+    {
+      "relative_path": "wmtech/tests/claims-1.5.50/http-checks.py",
+      "type": "py",
+      "sha256": "07c9c426082091d66e61c674b7e75f983a0068a50873bf08283aaf908ad6e79b",
+      "bytes": 4670,
+      "source_window": "2026-10-28 follow-up review; earlier records retain explicit reused tags",
+      "timezone": "Australia/Brisbane; timestamped runtime/download fields use UTC",
+      "calculation_notes": "Native assertions and field-based calculations are in the accompanying harness, claim matrix and verification summary. The panel note separates frozen external evidence from later local checks."
+    },
+    {
+      "relative_path": "wmtech/tests/claims-1.5.50/lint.php",
+      "type": "php",
+      "sha256": "e77d7017e4d47ad133fe4c694c30b3d2dc3d314115a0ad599d32e6d913d8ccb2",
+      "bytes": 1341,
+      "source_window": "2026-10-28 follow-up review; earlier records retain explicit reused tags",
+      "timezone": "Australia/Brisbane; timestamped runtime/download fields use UTC",
+      "calculation_notes": "Native assertions and field-based calculations are in the accompanying harness, claim matrix and verification summary. The panel note separates frozen external evidence from later local checks."
+    },
+    {
+      "relative_path": "wmtech/tests/claims-1.5.50/panel-followup.php",
+      "type": "php",
+      "sha256": "2aa9000b005d62566376518ef6be3a211d18ff39354a23b0675b7cb638f94801",
+      "bytes": 4561,
+      "source_window": "2026-10-28 follow-up review; earlier records retain explicit reused tags",
+      "timezone": "Australia/Brisbane; timestamped runtime/download fields use UTC",
+      "calculation_notes": "Native assertions and field-based calculations are in the accompanying harness, claim matrix and verification summary. The panel note separates frozen external evidence from later local checks."
+    },
+    {
+      "relative_path": "wmtech/tests/claims-1.5.50/password-reset.php",
+      "type": "php",
+      "sha256": "5a63424b59e432eaa359536906a1b77754607a2b412024a4a50558b98d4576f6",
+      "bytes": 2359,
+      "source_window": "2026-10-28 follow-up review; earlier records retain explicit reused tags",
+      "timezone": "Australia/Brisbane; timestamped runtime/download fields use UTC",
+      "calculation_notes": "Native assertions and field-based calculations are in the accompanying harness, claim matrix and verification summary. The panel note separates frozen external evidence from later local checks."
+    },
+    {
+      "relative_path": "wmtech/tests/claims-1.5.50/runtime.php",
+      "type": "php",
+      "sha256": "c7a79b177e0a88a12927dbffb5907a27c1878730d837192c2786a7790ec21b6d",
+      "bytes": 13438,
+      "source_window": "2026-10-28 follow-up review; earlier records retain explicit reused tags",
+      "timezone": "Australia/Brisbane; timestamped runtime/download fields use UTC",
+      "calculation_notes": "Native assertions and field-based calculations are in the accompanying harness, claim matrix and verification summary. The panel note separates frozen external evidence from later local checks."
+    },
+    {
+      "relative_path": "wmtech/tests/claims-1.5.50/salt-continuity.php",
+      "type": "php",
+      "sha256": "1b227b1c65a499fbd8b22489423b6bbad5bdd6d457c42bd5ad17655f2ba9c1e6",
+      "bytes": 2734,
+      "source_window": "2026-10-28 follow-up review; earlier records retain explicit reused tags",
+      "timezone": "Australia/Brisbane; timestamped runtime/download fields use UTC",
+      "calculation_notes": "Native assertions and field-based calculations are in the accompanying harness, claim matrix and verification summary. The panel note separates frozen external evidence from later local checks."
+    },
+    {
+      "relative_path": "wmtech/tests/claims-1.5.50/static.py",
+      "type": "py",
+      "sha256": "75b53539568953fe9ca7cb8783ec04ed849c14934d6db77dfab55d040f9e4470",
+      "bytes": 9887,
+      "source_window": "2026-10-28 follow-up review; earlier records retain explicit reused tags",
+      "timezone": "Australia/Brisbane; timestamped runtime/download fields use UTC",
+      "calculation_notes": "Native assertions and field-based calculations are in the accompanying harness, claim matrix and verification summary. The panel note separates frozen external evidence from later local checks."
+    },
+    {
+      "relative_path": "wmtech/tests/claims-1.5.50/transport.php",
+      "type": "php",
+      "sha256": "441a522dfd69d4424dc016a7c644b42b43c64c91051bffdc93775cd9bd7e47c9",
+      "bytes": 3442,
+      "source_window": "2026-10-28 follow-up review; earlier records retain explicit reused tags",
+      "timezone": "Australia/Brisbane; timestamped runtime/download fields use UTC",
+      "calculation_notes": "Native assertions and field-based calculations are in the accompanying harness, claim matrix and verification summary. The panel note separates frozen external evidence from later local checks."
+    },
+    {
+      "relative_path": "wmtech/tests/claims-1.5.50/verify-evidence.py",
+      "type": "py",
+      "sha256": "b3248648c76c7a34743519b96833c49535e367875723d36e38638bf69c07ef05",
+      "bytes": 5155,
+      "source_window": "2026-10-28 follow-up review; earlier records retain explicit reused tags",
+      "timezone": "Australia/Brisbane; timestamped runtime/download fields use UTC",
+      "calculation_notes": "Native assertions and field-based calculations are in the accompanying harness, claim matrix and verification summary. The panel note separates frozen external evidence from later local checks."
+    },
+    {
+      "relative_path": "wmtech/reports/evidence/1.5.51-validation/stage-1-summary.json",
+      "type": "json",
+      "sha256": "a80035947de85fcdd594179ca618880643bc7448b5a42e0a2ede96cf0e58dd18",
+      "bytes": 706,
+      "source_window": "Earlier exact-archive lab record, reused explicitly in the current review",
+      "timezone": "Original record scope and timestamps apply",
+      "calculation_notes": "Not represented as a fresh follow-up run. Read alongside the current claim matrix and its stated limits."
+    },
+    {
+      "relative_path": "wmtech/reports/evidence/initial-review/address-pinning.json",
+      "type": "json",
+      "sha256": "f689b327aeca316818cf5a636b97f0bf29a918359b2d5ca84661107f111cc86c",
+      "bytes": 3226,
+      "source_window": "Earlier exact-archive lab record, reused explicitly in the current review",
+      "timezone": "Original record scope and timestamps apply",
+      "calculation_notes": "Not represented as a fresh follow-up run. Read alongside the current claim matrix and its stated limits."
+    },
+    {
+      "relative_path": "wmtech/reports/evidence/initial-review/http-upgrade.json",
+      "type": "json",
+      "sha256": "4a8bb851a5935222e103cc5586eef0968ceecfa92bb7b3f615fb1e71402f2b9f",
+      "bytes": 1594,
+      "source_window": "Earlier exact-archive lab record, reused explicitly in the current review",
+      "timezone": "Original record scope and timestamps apply",
+      "calculation_notes": "Not represented as a fresh follow-up run. Read alongside the current claim matrix and its stated limits."
+    },
+    {
+      "relative_path": "wmtech/reports/evidence/initial-review/http-workflows.json",
+      "type": "json",
+      "sha256": "10bbb95640205db205e976eaacfee94f3143fa5ee3e02bc57ccc51a66e457be5",
+      "bytes": 1943,
+      "source_window": "Earlier exact-archive lab record, reused explicitly in the current review",
+      "timezone": "Original record scope and timestamps apply",
+      "calculation_notes": "Not represented as a fresh follow-up run. Read alongside the current claim matrix and its stated limits."
+    },
+    {
+      "relative_path": "wmtech/reports/evidence/initial-review/tags-upgrade.log",
+      "type": "log",
+      "sha256": "10b18c8f0fc9d1b130edd6c88ddd65b0bc8a5417bf774b02e5ff6c390b4bcdf3",
+      "bytes": 355,
+      "source_window": "Earlier exact-archive lab record, reused explicitly in the current review",
+      "timezone": "Original record scope and timestamps apply",
+      "calculation_notes": "Not represented as a fresh follow-up run. Read alongside the current claim matrix and its stated limits."
+    },
+    {
+      "relative_path": "wmtech/reports/evidence/initial-review/upgrade-option-check.log",
+      "type": "log",
+      "sha256": "e96eebd25f84183b7e254f959e095010d3123f2c9d79a757211c38d5aae7181b",
+      "bytes": 217,
+      "source_window": "Earlier exact-archive lab record, reused explicitly in the current review",
+      "timezone": "Original record scope and timestamps apply",
+      "calculation_notes": "Not represented as a fresh follow-up run. Read alongside the current claim matrix and its stated limits."
+    },
+    {
+      "relative_path": "wmtech/reports/evidence/initial-review/upgrade.log",
+      "type": "log",
+      "sha256": "abc978cb89aab10bf7dc89ae95439cd4b7c5ff9eb5b1f2b55d5840a167289321",
+      "bytes": 181,
+      "source_window": "Earlier exact-archive lab record, reused explicitly in the current review",
+      "timezone": "Original record scope and timestamps apply",
+      "calculation_notes": "Not represented as a fresh follow-up run. Read alongside the current claim matrix and its stated limits."
+    },
+    {
+      "relative_path": "wmtech/reports/evidence/initial-review/validation.log",
+      "type": "log",
+      "sha256": "473094dd2d615e12ec1cd35445db5a7bcff1186d069df4743cf0850b4609f6be",
+      "bytes": 1039,
+      "source_window": "Earlier exact-archive lab record, reused explicitly in the current review",
+      "timezone": "Original record scope and timestamps apply",
+      "calculation_notes": "Not represented as a fresh follow-up run. Read alongside the current claim matrix and its stated limits."
+    },
+    {
+      "relative_path": "wmtech/reports/evidence/upgrade-path-comparison/regressions-1.5.24.json",
+      "type": "json",
+      "sha256": "d99833a323e295055353ee70367e119f93eb66605822235fe6615d545cece0d5",
+      "bytes": 943,
+      "source_window": "Earlier exact-archive lab record, reused explicitly in the current review",
+      "timezone": "Original record scope and timestamps apply",
+      "calculation_notes": "Not represented as a fresh follow-up run. Read alongside the current claim matrix and its stated limits."
+    },
+    {
+      "relative_path": "wmtech/reports/evidence/upgrade-path-comparison/regressions-1.5.50.json",
+      "type": "json",
+      "sha256": "cc0a4afece40016812a7d16b1c3dd63ed096d3ac5235d4c897ee1b25f655e615",
+      "bytes": 2999,
+      "source_window": "Earlier exact-archive lab record, reused explicitly in the current review",
+      "timezone": "Original record scope and timestamps apply",
+      "calculation_notes": "Not represented as a fresh follow-up run. Read alongside the current claim matrix and its stated limits."
+    }
+  ]
+}

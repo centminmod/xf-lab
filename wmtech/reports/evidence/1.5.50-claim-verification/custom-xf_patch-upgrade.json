@@ -1,0 +1,26 @@
+{
+  "php": "7.4.33",
+  "version": 1055070,
+  "databaseVersion": 1055070,
+  "tables": 174,
+  "schemaSha256": "bc275e854345acc76d3a4746372ec7ab449e811055549fbe0790adce7e82111a",
+  "customTemplatePreserved": true,
+  "translationPreserved": true,
+  "modificationLogs": [
+    {
+      "status": "ok",
+      "apply_count": 1
+    },
+    {
+      "status": "ok",
+      "apply_count": 1
+    }
+  ],
+  "outdatedTemplates": 1,
+  "outdatedPhrases": 0,
+  "masterTemplates": 523,
+  "masterPhrases": 5787,
+  "masterTemplateNewVersionRows": 0,
+  "masterPhraseNewVersionRows": 0,
+  "errorRows": 0
+}

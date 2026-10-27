@@ -1,0 +1,2156 @@
+{
+  "reportDate": "2026-10-28",
+  "scope": "Exact supplied original50 changelog compared with stock24, not a fresh full-code audit of candidate51 or XF2.13.",
+  "verdictDefinitions": {
+    "verified": "The stated delivered behavior or narrowly specified source fact is supported. This is not universal security certification.",
+    "qualified": "A real change or partial result exists, but the original wording, scope or guarantee is broader than the evidence.",
+    "contradicted": "Source, a controlled native test or primary documentation conflicts with the substantive claim.",
+    "unverified": "Required historical, production, live-provider or build evidence is unavailable."
+  },
+  "priorAnswerCorrection": "Stock24 and original50 already pass allowed_classes=false on PHP7. The helper is byte-identical; the regex rejection occurs before native decoding.",
+  "evidenceConvention": "Unprefixed evidence paths are fresh follow-up evidence in this directory. reused: paths are earlier exact-archive lab records under wmtech/reports/evidence. Archive paths are relative to upload/. Source-comparison.txt exports code and public upstream context with origin mapping.",
+  "claims": [
+    {
+      "id": "M01",
+      "group": "Release scope",
+      "claim": "Version changes from 1052470 to 1055070",
+      "verdict": "verified",
+      "claimType": "explicit changelog claim",
+      "changelog": {
+        "path": "original-changelog.txt",
+        "lineStart": 4,
+        "lineEnd": 7
+      },
+      "assessment": "The original archive version constants and native upgraded database agree with the advertised community version.",
+      "archiveCode": [
+        "library/XenForo/Application.php",
+        "library/XenForo/Install/Upgrade/1055070-1550.php"
+      ],
+      "evidence": [
+        "archive-checks.json",
+        "custom-xf_patch-upgrade.json"
+      ],
+      "primaryDocumentation": [],
+      "recommendation": "",
+      "limit": ""
+    },
+    {
+      "id": "M02",
+      "group": "Release scope",
+      "claim": "The base release dates to October 2019",
+      "verdict": "contradicted",
+      "claimType": "explicit changelog claim",
+      "changelog": {
+        "path": "original-changelog.txt",
+        "lineStart": 3,
+        "lineEnd": 6
+      },
+      "assessment": "The official XenForo 1.5.24 release announcement is May 29, 2019. It calls this the last planned maintenance release.",
+      "archiveCode": [],
+      "evidence": [
+        "archive-checks.json"
+      ],
+      "primaryDocumentation": [
+        "XFRELEASE"
+      ],
+      "recommendation": "Correct the release date and distinguish last planned maintenance from a claim about every subsequent public artifact.",
+      "limit": ""
+    },
+    {
+      "id": "M03",
+      "group": "Release scope",
+      "claim": "Source and native core work on PHP 7.3 and 7.4",
+      "verdict": "qualified",
+      "claimType": "explicit changelog claim",
+      "changelog": {
+        "path": "original-changelog.txt",
+        "lineStart": 5,
+        "lineEnd": 8
+      },
+      "assessment": "Original50 parses all 2,293 shipped PHP files on 7.3.33 and 7.4.33. All 20 native probes completed on each. Native customized pages rendered on both. Five untouched Zend files still emit 7.4 deprecations without the application mask.",
+      "archiveCode": [
+        "library/XenForo/Application.php"
+      ],
+      "evidence": [
+        "lint-wmtech-7.3.json",
+        "lint-wmtech-7.4.json",
+        "runtime-wmtech-7.3.json",
+        "runtime-wmtech-7.4.json",
+        "http-checks.json"
+      ],
+      "primaryDocumentation": [
+        "PHP74"
+      ],
+      "recommendation": "Describe tested core compatibility separately from arbitrary add-on or vendor-code compatibility.",
+      "limit": "Apache module and CLI were tested. No new PHP-FPM test, arbitrary add-on execution or other PHP patch level was certified."
+    },
+    {
+      "id": "M04",
+      "group": "Release scope",
+      "claim": "Every add-on, style and template customization keeps working",
+      "verdict": "qualified",
+      "claimType": "explicit changelog claim",
+      "changelog": {
+        "path": "original-changelog.txt",
+        "lineStart": 10,
+        "lineEnd": 13
+      },
+      "assessment": "Byte-identical template payloads and the native customization fixture support a narrow preservation claim. They cannot prove universal add-on compatibility. Safe decoding rejects objects and some valid strings; original50 also changes provider settings, signing defaults and outbound request behavior.",
+      "archiveCode": [
+        "library/XenForo/Model/Deferred.php",
+        "library/XenForo/Application.php"
+      ],
+      "evidence": [
+        "archive-checks.json",
+        "custom-xf_patch-upgrade.json",
+        "http-checks.json",
+        "salt-continuity.json"
+      ],
+      "primaryDocumentation": [
+        "UNSERIALIZE"
+      ],
+      "recommendation": "Replace the universal promise with tested contracts and deployment-specific add-on checks.",
+      "limit": ""
+    },
+    {
+      "id": "M05",
+      "group": "Release scope",
+      "claim": "PHP application compatibility establishes engine security",
+      "verdict": "unverified",
+      "claimType": "review boundary",
+      "changelog": {
+        "path": "original-changelog.txt",
+        "lineStart": 5,
+        "lineEnd": 8
+      },
+      "assessment": "Application tests do not establish security backports to PHP itself or to OpenSSL, cURL and libxml. PHP 7.3 and 7.4 have ended upstream support. The archive contains application changes, not an audited PHP engine build.",
+      "archiveCode": [],
+      "evidence": [
+        "lab-environment.json"
+      ],
+      "primaryDocumentation": [
+        "EOL"
+      ],
+      "recommendation": "Record the host vendor, supported engine build and backport provenance independently.",
+      "limit": "This is a boundary inferred from the PHP-support wording, not a new claim that this ZIP contains a PHP binary."
+    },
+    {
+      "id": "D01",
+      "group": "Templates and database",
+      "claim": "No public, admin or email templates or phrases change",
+      "verdict": "verified",
+      "claimType": "explicit changelog claim",
+      "changelog": {
+        "path": "original-changelog.txt",
+        "lineStart": 24,
+        "lineEnd": 27
+      },
+      "assessment": "All four master XML payloads are byte-identical to stock24. Public templates total 523. The phrase XML has 5,745 entries; a rebuilt database contains 5,787 master phrases including 42 additional trophy, user-field and warning-definition names.",
+      "archiveCode": [
+        "install/data/templates.xml",
+        "install/data/phrases.xml",
+        "install/data/admin_templates.xml",
+        "install/data/email_templates.xml"
+      ],
+      "evidence": [
+        "archive-checks.json",
+        "custom-xf_patch-upgrade.json",
+        "phrase-count-reconciliation.json"
+      ],
+      "primaryDocumentation": [],
+      "recommendation": "",
+      "limit": ""
+    },
+    {
+      "id": "D02",
+      "group": "Templates and database",
+      "claim": "All 217 hook points are unchanged",
+      "verdict": "qualified",
+      "claimType": "explicit changelog claim",
+      "changelog": {
+        "path": "original-changelog.txt",
+        "lineStart": 27,
+        "lineEnd": 30
+      },
+      "assessment": "Preservation is proven by byte identity. The numerical claim depends on an unstated counting rule. Counting opening xen:hook tags yields 133 public and 36 admin hooks, 169 total. Public hooks include 85 paired closing tags and 48 self-closing tags.",
+      "archiveCode": [
+        "install/data/templates.xml",
+        "install/data/admin_templates.xml"
+      ],
+      "evidence": [
+        "archive-checks.json"
+      ],
+      "primaryDocumentation": [],
+      "recommendation": "Publish the counting rule or omit 217. Do not interpret closing tags as additional extension points.",
+      "limit": ""
+    },
+    {
+      "id": "D03",
+      "group": "Templates and database",
+      "claim": "Flash-related template and option contracts stay present",
+      "verdict": "verified",
+      "claimType": "explicit changelog claim",
+      "changelog": {
+        "path": "original-changelog.txt",
+        "lineStart": 28,
+        "lineEnd": 31
+      },
+      "assessment": "The public master payload retains SWFUploadPlaceHolder, swfupload and enable_flash_uploader. Unchanged schema and native option import preserve the fixture definitions. Keeping these names does not restore Flash functionality.",
+      "archiveCode": [
+        "install/data/templates.xml",
+        "install/data/options.xml"
+      ],
+      "evidence": [
+        "archive-checks.json",
+        "custom-xf_patch-upgrade.json"
+      ],
+      "primaryDocumentation": [],
+      "recommendation": "",
+      "limit": ""
+    },
+    {
+      "id": "D04",
+      "group": "Templates and database",
+      "claim": "The native upgrade makes no schema changes",
+      "verdict": "verified",
+      "claimType": "explicit changelog claim",
+      "changelog": {
+        "path": "original-changelog.txt",
+        "lineStart": 35,
+        "lineEnd": 38
+      },
+      "assessment": "Before and after the three native steps and master rebuild, the synthetic forum has 174 tables and the same normalized schema SHA-256, bc275e854345acc76d3a4746372ec7ab449e811055549fbe0790adce7e82111a. The upgrade class contains value UPDATE statements, no DDL.",
+      "archiveCode": [
+        "library/XenForo/Install/Upgrade/1055070-1550.php"
+      ],
+      "evidence": [
+        "custom-xf_patch-seed.json",
+        "custom-xf_patch-upgrade.json"
+      ],
+      "primaryDocumentation": [],
+      "recommendation": "",
+      "limit": ""
+    },
+    {
+      "id": "D05",
+      "group": "Templates and database",
+      "claim": "Three option-value migrations are implemented",
+      "verdict": "verified",
+      "claimType": "explicit changelog claim",
+      "changelog": {
+        "path": "original-changelog.txt",
+        "lineStart": 35,
+        "lineEnd": 38
+      },
+      "assessment": "The class blanks four Facebook/Google credentials, changes microsoft to local and changes uncompressedJs 2 to 0. The native fixture and earlier overlay run reproduce all three. Option definitions and existing external-auth associations remain. Clearing credentials is destructive configuration policy.",
+      "archiveCode": [
+        "library/XenForo/Install/Upgrade/1055070-1550.php"
+      ],
+      "evidence": [
+        "source-comparison.txt",
+        "custom-xf_patch-upgrade.json",
+        "reused:1.5.51-validation/stage-1-summary.json",
+        "reused:initial-review/upgrade-option-check.log"
+      ],
+      "primaryDocumentation": [],
+      "recommendation": "Make provider retirement explicit and preserve recoverable settings before upgrading.",
+      "limit": ""
+    },
+    {
+      "id": "D06",
+      "group": "Templates and database",
+      "claim": "Google gapi.auth2 was shut down in 2023, justifying unconditional retirement",
+      "verdict": "contradicted",
+      "claimType": "explicit changelog claim",
+      "changelog": {
+        "path": "original-changelog.txt",
+        "lineStart": 244,
+        "lineEnd": 247
+      },
+      "assessment": "Google documents a March 31, 2023 deprecation and leaves the sunset date unspecified. This contradicts the claimed universal 2023 shutdown. XF1 does load gapi.auth2, but no live client-ID login was exercised. The separate Facebook v2.10 retirement premise remains unverified because primary Meta documentation could not be fetched. Treat those as separate rationales.",
+      "archiveCode": [
+        "js/xenforo/full/xenforo.js",
+        "library/XenForo/ControllerPublic/Register.php",
+        "library/XenForo/Install/Upgrade/1055070-1550.php"
+      ],
+      "evidence": [
+        "source-comparison.txt",
+        "custom-xf_patch-upgrade.json"
+      ],
+      "primaryDocumentation": [
+        "GOOGLE"
+      ],
+      "recommendation": "Keep retirement opt-in and back up credentials and account recovery paths.",
+      "limit": "Meta lifecycle documentation could not be retrieved from its primary site. No live Facebook or Google login, app review or account recovery was tested."
+    },
+    {
+      "id": "D07",
+      "group": "Templates and database",
+      "claim": "Microsoft CDN was decommissioned in 2022 and serves no jQuery",
+      "verdict": "contradicted",
+      "claimType": "explicit changelog claim",
+      "changelog": {
+        "path": "original-changelog.txt",
+        "lineStart": 41,
+        "lineEnd": 44
+      },
+      "assessment": "Microsoft currently says the CDN is no longer updated and will be decommissioned in the future. The exact stock ajax.microsoft.com/jquery-1.11.0 URL returned HTTP 200 during this review. A local default remains reasonable, but the stated outage history is unsupported.",
+      "archiveCode": [
+        "library/XenForo/Install/Upgrade/1055070-1550.php",
+        "install/data/options.xml"
+      ],
+      "evidence": [
+        "primary-downloads.json"
+      ],
+      "primaryDocumentation": [
+        "MSCDN"
+      ],
+      "recommendation": "Correct the rationale and treat local delivery as reducing an external dependency.",
+      "limit": ""
+    },
+    {
+      "id": "D08",
+      "group": "Templates and database",
+      "claim": "uncompressedJs 2 selects a missing min directory",
+      "verdict": "verified",
+      "claimType": "explicit changelog claim",
+      "changelog": {
+        "path": "original-changelog.txt",
+        "lineStart": 42,
+        "lineEnd": 45
+      },
+      "assessment": "Neither supplied archive contains js/xenforo/min/. Stock Template/Abstract.php maps value 2 to that path. Original50 corrects the value during upgrade and removes the unsupported branch; prior HTTP evidence records the stock outage and working local bundles after upgrade.",
+      "archiveCode": [
+        "library/XenForo/Template/Abstract.php",
+        "library/XenForo/Install/Upgrade/1055070-1550.php"
+      ],
+      "evidence": [
+        "archive-checks.json",
+        "source-comparison.txt",
+        "reused:initial-review/http-upgrade.json"
+      ],
+      "primaryDocumentation": [],
+      "recommendation": "",
+      "limit": "The claim that no XenForo distribution ever contained this directory extends beyond the two reviewed ZIPs."
+    },
+    {
+      "id": "D09",
+      "group": "Templates and database",
+      "claim": "Only the Microsoft jQuerySource choice is removed from options XML",
+      "verdict": "verified",
+      "claimType": "explicit changelog claim",
+      "changelog": {
+        "path": "original-changelog.txt",
+        "lineStart": 239,
+        "lineEnd": 242
+      },
+      "assessment": "The readable XML diff removes that choice only. Reimport preserves custom option values except those deliberately changed by the three migration steps.",
+      "archiveCode": [
+        "install/data/options.xml"
+      ],
+      "evidence": [
+        "source-comparison.txt",
+        "custom-xf_patch-upgrade.json"
+      ],
+      "primaryDocumentation": [],
+      "recommendation": "",
+      "limit": ""
+    },
+    {
+      "id": "S01",
+      "group": "Security changes",
+      "claim": "C1 adds configurable SameSite to the central cookie helper",
+      "verdict": "qualified",
+      "claimType": "explicit changelog claim",
+      "changelog": {
+        "path": "original-changelog.txt",
+        "lineStart": 50,
+        "lineEnd": 53
+      },
+      "assessment": "All raw core cookie writes found are centralized in Helper/Cookie.php. Original50 uses the options signature on PHP 7.3+, defaults to Lax, supports Strict, None and omission, and includes the attribute on deletion. The 75-case HTTP matrix verifies the branch, including the absence of SameSite on PHP 7.2. None does not automatically force Secure.",
+      "archiveCode": [
+        "library/XenForo/Helper/Cookie.php"
+      ],
+      "evidence": [
+        "http-checks.json",
+        "archive-checks.json"
+      ],
+      "primaryDocumentation": [
+        "COOKIE"
+      ],
+      "recommendation": "Enforce the supported runtime and document None plus Secure together.",
+      "limit": "No third-party cookie writers, browser cross-site embedding or production reverse-proxy behavior was certified."
+    },
+    {
+      "id": "S02",
+      "group": "Security changes",
+      "claim": "C2 allows a Secure override behind TLS termination",
+      "verdict": "verified",
+      "claimType": "explicit changelog claim",
+      "changelog": {
+        "path": "original-changelog.txt",
+        "lineStart": 51,
+        "lineEnd": 54
+      },
+      "assessment": "On plain loopback HTTP, original50 honors true and false overrides when native HTTPS detection is false. Stock ignores the new setting. Default detection remains unchanged. This is a configuration control, not trust in forwarded headers.",
+      "archiveCode": [
+        "library/XenForo/Application.php"
+      ],
+      "evidence": [
+        "http-checks.json"
+      ],
+      "primaryDocumentation": [
+        "COOKIE"
+      ],
+      "recommendation": "Set the override deliberately on TLS-offloaded HTTPS sites and test through the real proxy.",
+      "limit": ""
+    },
+    {
+      "id": "S03",
+      "group": "Security changes",
+      "claim": "C9 pins HTTP requests to validated DNS addresses",
+      "verdict": "qualified",
+      "claimType": "explicit changelog claim",
+      "changelog": {
+        "path": "original-changelog.txt",
+        "lineStart": 52,
+        "lineEnd": 55
+      },
+      "assessment": "The helper now passes validated addresses to CURLOPT_RESOLVE. However, it emits duplicate host:port entries, so later addresses replace earlier ones. Fresh native reflection produces three duplicate rules; prior same-address network controls reproduce failure when the last IPv6 address is unreachable. If cURL detection fails, the helper returns no pin options and continues through the socket path.",
+      "archiveCode": [
+        "library/XenForo/Helper/Http.php"
+      ],
+      "evidence": [
+        "transport-wmtech-7.4.json",
+        "transport-wmtech-7.4-nocurl.json",
+        "reused:initial-review/address-pinning.json",
+        "reused:upgrade-path-comparison/regressions-1.5.50.json"
+      ],
+      "primaryDocumentation": [
+        "RESOLVE"
+      ],
+      "recommendation": "Use one multi-address rule on supported libcurl, or restricted retries on older libcurl. Fail closed when required pinning cannot be enforced.",
+      "limit": "The missing-curl_version control tests this branch, not physical extension removal. No live attacker DNS-rebinding campaign was performed."
+    },
+    {
+      "id": "S04",
+      "group": "Security changes",
+      "claim": "C3 newly routes callers through an existing helper with allowed_classes=false",
+      "verdict": "verified",
+      "claimType": "explicit changelog claim",
+      "changelog": {
+        "path": "original-changelog.txt",
+        "lineStart": 53,
+        "lineEnd": 56
+      },
+      "assessment": "Helper/Php.php is byte-identical in stock24 and original50. Both already pass allowed_classes=false on PHP 7 after a raw regex precheck. The patch changes callers, not this helper. Our earlier statement that the flag was absent was wrong and is corrected here.",
+      "archiveCode": [
+        "library/XenForo/Helper/Php.php",
+        "library/XenForo/Session.php"
+      ],
+      "evidence": [
+        "archive-checks.json",
+        "source-comparison.txt",
+        "runtime-base-7.4.json",
+        "runtime-wmtech-7.4.json"
+      ],
+      "primaryDocumentation": [
+        "UNSERIALIZE"
+      ],
+      "recommendation": "Describe the improvement as expanding the helper to additional consumers.",
+      "limit": ""
+    },
+    {
+      "id": "S05",
+      "group": "Security changes",
+      "claim": "C3 blocks application object construction from stored sessions",
+      "verdict": "verified",
+      "claimType": "explicit changelog claim",
+      "changelog": {
+        "path": "original-changelog.txt",
+        "lineStart": 53,
+        "lineEnd": 56
+      },
+      "assessment": "A synthetic object with an inert wakeup counter is stored in a native session row. Stock returns an array and runs its object hook once. Original50 returns false and runs no hook. Ordinary arrays still decode. This requires writable session storage to supply the object payload.",
+      "archiveCode": [
+        "library/XenForo/Session.php"
+      ],
+      "evidence": [
+        "runtime-base-7.4.json",
+        "runtime-wmtech-7.4.json"
+      ],
+      "primaryDocumentation": [
+        "UNSERIALIZE"
+      ],
+      "recommendation": "",
+      "limit": "No attacker ability to write the session store was demonstrated."
+    },
+    {
+      "id": "S06",
+      "group": "Security changes",
+      "claim": "C3 changes report, spam-log and user-field consumers",
+      "verdict": "qualified",
+      "claimType": "explicit changelog claim",
+      "changelog": {
+        "path": "original-changelog.txt",
+        "lineStart": 53,
+        "lineEnd": 56
+      },
+      "assessment": "The source diff verifies replacement of raw unserialize at all named report handlers, spam-cleaner log and user custom/external-field paths. Ordinary report content passed earlier native checks. The fresh object hook test covers the session consumer; every report type and third-party object-valued field was not dynamically exercised. Post-panel native report and user-field writers reject the object-looking text on both versions, so a newly saved first-party record is not a demonstrated trigger. Direct synthetic legacy-read controls show stock prepareUser returning an array and original50 false; the report reader adds a boolean-offset notice on original50.",
+      "archiveCode": [
+        "library/XenForo/ReportHandler/Abstract.php",
+        "library/XenForo/ReportHandler/ConversationMessage.php",
+        "library/XenForo/ReportHandler/Post.php",
+        "library/XenForo/ReportHandler/ProfilePost.php",
+        "library/XenForo/ReportHandler/ProfilePostComment.php",
+        "library/XenForo/ReportHandler/User.php",
+        "library/XenForo/Model/SpamCleaner.php",
+        "library/XenForo/Model/User.php"
+      ],
+      "evidence": [
+        "source-comparison.txt",
+        "reused:initial-review/validation.log",
+        "panel-followup-base.json",
+        "panel-followup-wmtech.json",
+        "chair-source-followup.txt"
+      ],
+      "primaryDocumentation": [
+        "UNSERIALIZE"
+      ],
+      "recommendation": "Specify the accepted data contract and reject invalid decoded shapes at each consumer.",
+      "limit": ""
+    },
+    {
+      "id": "S07",
+      "group": "Security changes",
+      "claim": "C3 safely decodes deferred execute_data",
+      "verdict": "qualified",
+      "claimType": "explicit changelog claim",
+      "changelog": {
+        "path": "original-changelog.txt",
+        "lineStart": 53,
+        "lineEnd": 56
+      },
+      "assessment": "The caller replacement is real, but valid user text containing an object-looking serialization example is rejected before native decoding. Earlier native UserEmail execution completed on stock and raised TypeError on original50 after its queue row was deleted. Recovery repeats the invalid decode. The regex and Exception-only recovery predate the patch; the new caller introduces this valid-text trigger.",
+      "archiveCode": [
+        "library/XenForo/Model/Deferred.php",
+        "library/XenForo/Helper/Php.php"
+      ],
+      "evidence": [
+        "runtime-base-7.4.json",
+        "runtime-wmtech-7.4.json",
+        "reused:upgrade-path-comparison/regressions-1.5.24.json",
+        "reused:upgrade-path-comparison/regressions-1.5.50.json"
+      ],
+      "primaryDocumentation": [
+        "UNSERIALIZE"
+      ],
+      "recommendation": "Use native object-disabled decoding on PHP 7, validate array shape before dispatch, and preserve job data through failure recovery.",
+      "limit": ""
+    },
+    {
+      "id": "S08",
+      "group": "Security changes",
+      "claim": "C4 uses hashEquals for passwords, CSRF, proxy and VERP checks",
+      "verdict": "verified",
+      "claimType": "explicit changelog claim",
+      "changelog": {
+        "path": "original-changelog.txt",
+        "lineStart": 54,
+        "lineEnd": 57
+      },
+      "assessment": "All four changed sites call the existing helper with known value first. Native correct, incorrect and missing-input controls preserve acceptance behavior; the PHP7 helper delegates to hash_equals. The functional checks do not measure timing leakage.",
+      "archiveCode": [
+        "library/XenForo/PasswordHash.php",
+        "library/XenForo/Controller.php",
+        "library/XenForo/ProxyOutput.php",
+        "library/XenForo/BounceParser.php",
+        "library/XenForo/Application.php"
+      ],
+      "evidence": [
+        "runtime-wmtech-7.4.json",
+        "runtime-wmtech-7.3.json",
+        "source-comparison.txt"
+      ],
+      "primaryDocumentation": [
+        "HASH"
+      ],
+      "recommendation": "",
+      "limit": ""
+    },
+    {
+      "id": "S09",
+      "group": "Security changes",
+      "claim": "C5 replaces time-derived registration, attachment, captcha and modifier values",
+      "verdict": "verified",
+      "claimType": "explicit changelog claim",
+      "changelog": {
+        "path": "original-changelog.txt",
+        "lineStart": 55,
+        "lineEnd": 58
+      },
+      "assessment": "Source replacements use generateRandomString. Native tests observe random_bytes, registration-flow source changes, 32-character distinct forum/conversation hashes, a stored 40-character captcha hash and a 28-character user_change_ modifier. UserConfirmation already generated random 16-character verification keys in stock.",
+      "archiveCode": [
+        "library/XenForo/ControllerPublic/Register.php",
+        "library/XenForo/Model/Forum.php",
+        "library/XenForo/Model/Conversation.php",
+        "library/XenForo/Model/CaptchaQuestion.php",
+        "library/XenForo/Model/UserChangeTemp.php"
+      ],
+      "evidence": [
+        "runtime-wmtech-7.4.json",
+        "source-comparison.txt"
+      ],
+      "primaryDocumentation": [
+        "RANDOM",
+        "UNIQID"
+      ],
+      "recommendation": "",
+      "limit": "Length and uniqueness samples support the call contract; they do not estimate RNG entropy empirically."
+    },
+    {
+      "id": "S10",
+      "group": "Security changes",
+      "claim": "C6 verifies the certificate in PayPal IPN transport",
+      "verdict": "qualified",
+      "claimType": "explicit changelog claim",
+      "changelog": {
+        "path": "original-changelog.txt",
+        "lineStart": 56,
+        "lineEnd": 59
+      },
+      "assessment": "The changed policy is in the cURL fallback. A separate-process control selects the actual native fallback: stock accepts an untrusted matching-name certificate; original50 rejects it, accepts the local trusted CA and rejects a wrong name. The normal socket branch already verifies certificates in both versions. The escape hatch disables both cURL trust and hostname checks.",
+      "archiveCode": [
+        "library/XenForo/UserUpgradeProcessor/PayPal.php"
+      ],
+      "evidence": [
+        "transport-base-7.4.json",
+        "transport-wmtech-7.4.json",
+        "transport-base-7.4-curl-control.json",
+        "transport-wmtech-7.4-curl-control.json"
+      ],
+      "primaryDocumentation": [
+        "PEER",
+        "HOST",
+        "STREAMTLS",
+        "PAYPAL"
+      ],
+      "recommendation": "Keep verification enabled and fix the CA bundle instead of weakening checks.",
+      "limit": "No live PayPal IPN message, merchant identity, receiver validation or paid-upgrade grant was exercised. The fallback-selection warnings are intentional test controls."
+    },
+    {
+      "id": "S11",
+      "group": "Security changes",
+      "claim": "C7 verifies general untrusted-client TLS certificates",
+      "verdict": "qualified",
+      "claimType": "explicit changelog claim",
+      "changelog": {
+        "path": "original-changelog.txt",
+        "lineStart": 57,
+        "lineEnd": 60
+      },
+      "assessment": "The changed general-client policy is a cURL fallback branch, selected when HTTPS streams are unavailable. The native control rejects the untrusted certificate after patching; a trusted matching name succeeds and a wrong name fails. Stock already checked hostname in cURL, and its normal socket policy already verifies certificate trust. The pinned untrusted-fetch path separately selects cURL.",
+      "archiveCode": [
+        "library/XenForo/Helper/Http.php"
+      ],
+      "evidence": [
+        "transport-base-7.4.json",
+        "transport-wmtech-7.4.json"
+      ],
+      "primaryDocumentation": [
+        "PEER",
+        "HOST"
+      ],
+      "recommendation": "Retain trust and hostname verification while correcting address pinning.",
+      "limit": "The harness deliberately unregisters the HTTPS wrapper to select the real fallback. This is not a claim that normal socket requests gained new verification or that every adapter/CA deployment was certified."
+    },
+    {
+      "id": "S12",
+      "group": "Security changes",
+      "claim": "C8 increases emailed reset passwords from 8 to 16 characters and doubles entropy",
+      "verdict": "qualified",
+      "claimType": "explicit changelog claim",
+      "changelog": {
+        "path": "original-changelog.txt",
+        "lineStart": 58,
+        "lineEnd": 61
+      },
+      "assessment": "Both generator call sites change 8 to 16. A native reset delivers one private local mail file, authenticates with the new password and restores the original auth bytes. However, both versions trim edge punctuation and remap several characters. A controlled four-underscore prefix yields final lengths 4 on stock and 12 on original50. Exact 16-character output and a fixed 96-bit claim are therefore too strong.",
+      "archiveCode": [
+        "library/XenForo/Model/User.php",
+        "library/XenForo/Model/UserConfirmation.php"
+      ],
+      "evidence": [
+        "password-reset-base.json",
+        "password-reset-wmtech.json"
+      ],
+      "primaryDocumentation": [
+        "RANDOM"
+      ],
+      "recommendation": "Describe a nominal 16-character draw. For a fixed-length password contract, use a deliberate alphabet without trim and calculate its actual distribution.",
+      "limit": "The forced private RNG buffer is a deterministic boundary control, not evidence of predictable production random_bytes or an entropy measurement."
+    },
+    {
+      "id": "S13",
+      "group": "Security changes",
+      "claim": "C11 changes the XFCP eval guard to an identifier allowlist",
+      "verdict": "verified",
+      "claimType": "explicit changelog claim",
+      "changelog": {
+        "path": "original-changelog.txt",
+        "lineStart": 59,
+        "lineEnd": 62
+      },
+      "assessment": "The source replaces a punctuation denylist with a class-label and namespace allowlist. A valid extension resolves in both versions; a crafted class string with braces and spaces reaches a stock ParseError and is skipped by original50. This is defense in depth at the extension-loading boundary.",
+      "archiveCode": [
+        "library/XenForo/Application.php"
+      ],
+      "evidence": [
+        "runtime-base-7.4.json",
+        "runtime-wmtech-7.4.json",
+        "source-comparison.txt"
+      ],
+      "primaryDocumentation": [
+        "CLASS"
+      ],
+      "recommendation": "",
+      "limit": "This proves the tested invalid delimiter case and normal contract, not arbitrary ACP-to-RCE reachability or every reserved-name case."
+    },
+    {
+      "id": "S14",
+      "group": "Security changes",
+      "claim": "Solve Media callback and executable script URLs become HTTPS",
+      "verdict": "qualified",
+      "claimType": "explicit changelog claim",
+      "changelog": {
+        "path": "original-changelog.txt",
+        "lineStart": 60,
+        "lineEnd": 63
+      },
+      "assessment": "Both literal HTTP endpoints change to HTTPS in readable PHP and JavaScript, with corresponding minified output. This removes the plaintext URL choice. It does not establish the service is functional or that the same API host supports every customer.",
+      "archiveCode": [
+        "library/XenForo/Captcha/SolveMedia.php",
+        "js/xenforo/full/xenforo.js"
+      ],
+      "evidence": [
+        "source-comparison.txt"
+      ],
+      "primaryDocumentation": [],
+      "recommendation": "Require an end-to-end registration test or select a supported captcha.",
+      "limit": "No external captcha challenge or verification request was sent. The public homepage redirected to a parked-domain sale page; that is not an API lifecycle notice."
+    },
+    {
+      "id": "A01",
+      "group": "Claims about unchanged protections",
+      "claim": "Existing generateRandomString already prefers a CSPRNG",
+      "verdict": "verified",
+      "claimType": "explicit changelog claim",
+      "changelog": {
+        "path": "original-changelog.txt",
+        "lineStart": 65,
+        "lineEnd": 68
+      },
+      "assessment": "The unchanged generator tests random_bytes first, and all three lab runtimes report it as their source. Legacy fallback branches are present but not selected in this lab.",
+      "archiveCode": [
+        "library/XenForo/Application.php"
+      ],
+      "evidence": [
+        "source-comparison.txt",
+        "runtime-wmtech-7.4.json",
+        "runtime-base-7.2.json"
+      ],
+      "primaryDocumentation": [
+        "RANDOM"
+      ],
+      "recommendation": "",
+      "limit": ""
+    },
+    {
+      "id": "A02",
+      "group": "Claims about unchanged protections",
+      "claim": "The session ID construction has 128 bits and MD5 is just hex encoding",
+      "verdict": "qualified",
+      "claimType": "explicit changelog claim",
+      "changelog": {
+        "path": "original-changelog.txt",
+        "lineStart": 66,
+        "lineEnd": 69
+      },
+      "assessment": "The unchanged construction hashes 16 raw random bytes to a 32-character hexadecimal MD5 digest. Under a secure random source the input provides 128 bits. MD5 is a hash, not literal hex encoding, and a functional sample does not prove the distribution or absence of all collision effects.",
+      "archiveCode": [
+        "library/XenForo/Session.php"
+      ],
+      "evidence": [
+        "source-comparison.txt"
+      ],
+      "primaryDocumentation": [
+        "RANDOM"
+      ],
+      "recommendation": "Say that MD5 formats a digest of 16 CSPRNG bytes, and avoid describing it as an encoding.",
+      "limit": ""
+    },
+    {
+      "id": "A03",
+      "group": "Claims about unchanged protections",
+      "claim": "getDynamicRedirect requires the same host and rejects CR/LF",
+      "verdict": "qualified",
+      "claimType": "explicit changelog claim",
+      "changelog": {
+        "path": "original-changelog.txt",
+        "lineStart": 67,
+        "lineEnd": 70
+      },
+      "assessment": "Native controls accept a relative same-host path and fall back for external, scheme-relative, lookalike, userinfo and CR/LF examples in both versions. The tested method is unchanged except the separate CSRF diff.",
+      "archiveCode": [
+        "library/XenForo/Controller.php"
+      ],
+      "evidence": [
+        "runtime-base-7.4.json",
+        "runtime-wmtech-7.4.json",
+        "source-comparison.txt"
+      ],
+      "primaryDocumentation": [],
+      "recommendation": "",
+      "limit": "This bounded matrix is not an audit of every redirect controller, browser URL parser or proxy-supplied host."
+    },
+    {
+      "id": "A04",
+      "group": "Claims about unchanged protections",
+      "claim": "Queries are parameterized throughout and ORDER BY is whitelisted",
+      "verdict": "qualified",
+      "claimType": "explicit changelog claim",
+      "changelog": {
+        "path": "original-changelog.txt",
+        "lineStart": 68,
+        "lineEnd": 71
+      },
+      "assessment": "The unchanged getOrderByClause maps a known key and restricts direction. Native valid and injected-order/direction controls pass. This supports this helper contract only. No complete source-to-sink review establishes parameterization throughout the entire legacy application or its add-ons.",
+      "archiveCode": [
+        "library/XenForo/Model.php"
+      ],
+      "evidence": [
+        "runtime-base-7.4.json",
+        "runtime-wmtech-7.4.json",
+        "source-comparison.txt"
+      ],
+      "primaryDocumentation": [],
+      "recommendation": "Keep the specific ORDER BY assertion and remove the blanket SQL-injection guarantee.",
+      "limit": ""
+    },
+    {
+      "id": "A05",
+      "group": "Claims about unchanged protections",
+      "claim": "getimagesize is authoritative and upload handling is already correct",
+      "verdict": "qualified",
+      "claimType": "explicit changelog claim",
+      "changelog": {
+        "path": "original-changelog.txt",
+        "lineStart": 69,
+        "lineEnd": 72
+      },
+      "assessment": "PHP explicitly warns against treating getimagesize alone as image validation. XenForo has additional guards. Both native versions accept a valid PNG, correct its mismatched extension, reject plain text and reject a PNG with an appended PHP marker. These cases support existing controls, not universal upload safety.",
+      "archiveCode": [
+        "library/XenForo/Upload.php"
+      ],
+      "evidence": [
+        "runtime-base-7.4.json",
+        "runtime-wmtech-7.4.json",
+        "source-comparison.txt"
+      ],
+      "primaryDocumentation": [
+        "UPLOAD"
+      ],
+      "recommendation": "Document the combined validation and response controls. Avoid calling getimagesize authoritative.",
+      "limit": "No full polyglot corpus, web-server execution mapping, image decoder exploit or exhaustive attachment response test was run."
+    },
+    {
+      "id": "A06",
+      "group": "Claims about unchanged protections",
+      "claim": "Shipped XML scanning blocks the tested XXE payloads on PHP 7.3 and 7.4",
+      "verdict": "qualified",
+      "claimType": "explicit changelog claim",
+      "changelog": {
+        "path": "original-changelog.txt",
+        "lineStart": 70,
+        "lineEnd": 73
+      },
+      "assessment": "The unchanged scanner rejects internal entities, file/network external entities and UTF-16 controls. The external loader counter remains zero. No shipped PHP file contains LIBXML_NOENT. libxml 2.9 defaults help, but parser flags and entry points still matter.",
+      "archiveCode": [
+        "library/Zend/Xml/Security.php"
+      ],
+      "evidence": [
+        "archive-checks.json",
+        "runtime-base-7.3.json",
+        "runtime-wmtech-7.3.json",
+        "runtime-base-7.4.json",
+        "runtime-wmtech-7.4.json"
+      ],
+      "primaryDocumentation": [
+        "XML"
+      ],
+      "recommendation": "",
+      "limit": "These four inputs and runtimes do not prove every XML entry point or parser configuration safe."
+    },
+    {
+      "id": "A07",
+      "group": "Claims about unchanged protections",
+      "claim": "The final upstream Zend XML changes are all dead code above PHP 5.6.6",
+      "verdict": "contradicted",
+      "claimType": "explicit changelog claim",
+      "changelog": {
+        "path": "original-changelog.txt",
+        "lineStart": 70,
+        "lineEnd": 73
+      },
+      "assessment": "The old-PHP FPM heuristic is version-gated, but final upstream Zend Framework 1.12.20 passes LIBXML_NONET to loadXml unconditionally and adds warning handling. The blanket explanation for dropping the backport is false. Our tested payloads still fail in the shipped scanner; this comparison alone proves no bypass.",
+      "archiveCode": [
+        "library/Zend/Xml/Security.php"
+      ],
+      "evidence": [
+        "source-comparison.txt",
+        "runtime-wmtech-7.4.json"
+      ],
+      "primaryDocumentation": [
+        "ZEND",
+        "XML"
+      ],
+      "recommendation": "Review the unconditional upstream safeguards separately instead of rejecting the entire backport as unreachable.",
+      "limit": ""
+    },
+    {
+      "id": "A08",
+      "group": "Claims about unchanged protections",
+      "claim": "Client-IP handling uses REMOTE_ADDR rather than trusting X-Forwarded-For",
+      "verdict": "verified",
+      "claimType": "explicit changelog claim",
+      "changelog": {
+        "path": "original-changelog.txt",
+        "lineStart": 71,
+        "lineEnd": 74
+      },
+      "assessment": "The native IP helper returns the synthetic REMOTE_ADDR despite a different X-Forwarded-For value in both versions. Upstream web-server real-IP rewriting remains outside PHP and can change REMOTE_ADDR before this helper runs.",
+      "archiveCode": [
+        "library/XenForo/Helper/Ip.php"
+      ],
+      "evidence": [
+        "runtime-base-7.4.json",
+        "runtime-wmtech-7.4.json",
+        "source-comparison.txt"
+      ],
+      "primaryDocumentation": [],
+      "recommendation": "",
+      "limit": ""
+    },
+    {
+      "id": "A09",
+      "group": "Claims about unchanged protections",
+      "claim": "Member autocomplete expects server-escaped usernames",
+      "verdict": "qualified",
+      "claimType": "explicit changelog claim",
+      "changelog": {
+        "path": "original-changelog.txt",
+        "lineStart": 72,
+        "lineEnd": 75
+      },
+      "assessment": "ViewPublic/Member/Find applies htmlspecialchars before JSON response construction; the client comments and inserts this documented escaped value. This confirms that specific producer-consumer contract. Other custom endpoints must follow it independently.",
+      "archiveCode": [
+        "library/XenForo/ViewPublic/Member/Find.php",
+        "js/xenforo/full/xenforo.js"
+      ],
+      "evidence": [
+        "source-comparison.txt"
+      ],
+      "primaryDocumentation": [
+        "ESCAPE"
+      ],
+      "recommendation": "",
+      "limit": "No browser exploit corpus or third-party autocomplete endpoint was reviewed."
+    },
+    {
+      "id": "A10",
+      "group": "Claims about unchanged protections",
+      "claim": "Client omission of apostrophe escaping matches PHP 7 ENT_COMPAT",
+      "verdict": "qualified",
+      "claimType": "explicit changelog claim",
+      "changelog": {
+        "path": "original-changelog.txt",
+        "lineStart": 73,
+        "lineEnd": 76
+      },
+      "assessment": "The unchanged JavaScript helper escapes ampersands, angle brackets and double quotes. PHP 7 default ENT_COMPAT leaves apostrophes unchanged. PHP 8.1 changed the default, so current manual defaults cannot be applied retroactively. Matching these functions does not make their output safe in every HTML context.",
+      "archiveCode": [
+        "js/xenforo/full/xenforo.js"
+      ],
+      "evidence": [
+        "source-comparison.txt"
+      ],
+      "primaryDocumentation": [
+        "ESCAPE"
+      ],
+      "recommendation": "",
+      "limit": ""
+    },
+    {
+      "id": "A11",
+      "group": "Claims about unchanged protections",
+      "claim": "The external QR helper has zero core callers and TOTP renders locally",
+      "verdict": "verified",
+      "claimType": "explicit changelog claim",
+      "changelog": {
+        "path": "original-changelog.txt",
+        "lineStart": 74,
+        "lineEnd": 77
+      },
+      "assessment": "An archive-wide source scan finds getQRCodeGoogleUrl only in its definition. The unchanged two_step_totp template uses jquery.qrcode. This supports retaining the unused helper without inventing a live core request.",
+      "archiveCode": [
+        "library/XenForo/Tfa/PHPGangsta/GoogleAuthenticator.php",
+        "install/data/templates.xml"
+      ],
+      "evidence": [
+        "archive-checks.json"
+      ],
+      "primaryDocumentation": [],
+      "recommendation": "",
+      "limit": ""
+    },
+    {
+      "id": "P01",
+      "group": "PHP compatibility",
+      "claim": "Stock PHP 7.3 lint has one Azure fatal among 2,336 files",
+      "verdict": "verified",
+      "claimType": "explicit changelog claim",
+      "changelog": {
+        "path": "original-changelog.txt",
+        "lineStart": 80,
+        "lineEnd": 83
+      },
+      "assessment": "The full shipped-tree lint reproduces exactly one unset-this fatal in WindowsAzure/Storage/Batch.php. Original50 has 2,293 PHP files and no lint errors. The omitted 43 Azure files explain the count difference.",
+      "archiveCode": [
+        "library/Zend/Service/WindowsAzure/Storage/Batch.php"
+      ],
+      "evidence": [
+        "lint-base-7.3.json",
+        "lint-wmtech-7.3.json",
+        "archive-checks.json"
+      ],
+      "primaryDocumentation": [
+        "PHP74"
+      ],
+      "recommendation": "",
+      "limit": "Absence of core references does not prove a third-party add-on never loads this vendor component."
+    },
+    {
+      "id": "P02",
+      "group": "PHP compatibility",
+      "claim": "The corrected error-mask precedence removes E_DEPRECATED",
+      "verdict": "verified",
+      "claimType": "explicit changelog claim",
+      "changelog": {
+        "path": "original-changelog.txt",
+        "lineStart": 86,
+        "lineEnd": 89
+      },
+      "assessment": "PHP expression controls and the archive source diff prove the stock expression leaves E_DEPRECATED enabled. The replacement masks the combined flags correctly. It suppresses deprecation reporting; it does not itself repair deprecated code.",
+      "archiveCode": [
+        "library/XenForo/Application.php"
+      ],
+      "evidence": [
+        "runtime-base-7.4.json",
+        "runtime-wmtech-7.4.json",
+        "source-comparison.txt"
+      ],
+      "primaryDocumentation": [
+        "PRECEDENCE",
+        "PHP74"
+      ],
+      "recommendation": "",
+      "limit": "The expression probe evaluates the two documented expressions in PHP; it does not call the original initialization branch. Debug-mode first-request behavior was not separately replayed in this follow-up."
+    },
+    {
+      "id": "P03",
+      "group": "PHP compatibility",
+      "claim": "PHP 7.4 request initialization no longer calls deprecated magic-quotes functions",
+      "verdict": "verified",
+      "claimType": "explicit changelog claim",
+      "changelog": {
+        "path": "original-changelog.txt",
+        "lineStart": 87,
+        "lineEnd": 90
+      },
+      "assessment": "The source deletes both magic-quotes runtime checks but retains undoMagicQuotes and its config contract. PHP documents the functions as deprecated in 7.4; native original50 request rendering succeeds.",
+      "archiveCode": [
+        "library/XenForo/Application.php"
+      ],
+      "evidence": [
+        "source-comparison.txt",
+        "http-checks.json"
+      ],
+      "primaryDocumentation": [
+        "PHP74"
+      ],
+      "recommendation": "",
+      "limit": ""
+    },
+    {
+      "id": "P04",
+      "group": "PHP compatibility",
+      "claim": "Four reachable files use square-bracket string offsets",
+      "verdict": "verified",
+      "claimType": "explicit changelog claim",
+      "changelog": {
+        "path": "original-changelog.txt",
+        "lineStart": 88,
+        "lineEnd": 91
+      },
+      "assessment": "The readable diff shows the intended replacements in Lgpl/utf8.php, Helper/Hash.php, Importer/IPBoard.php and Zend/Loader/PluginLoader.php. The full lint on 7.4 no longer lists those files.",
+      "archiveCode": [
+        "library/Lgpl/utf8.php",
+        "library/XenForo/Helper/Hash.php",
+        "library/XenForo/Importer/IPBoard.php",
+        "library/Zend/Loader/PluginLoader.php"
+      ],
+      "evidence": [
+        "lint-base-7.4.json",
+        "lint-wmtech-7.4.json",
+        "source-comparison.txt"
+      ],
+      "primaryDocumentation": [
+        "PHP74"
+      ],
+      "recommendation": "",
+      "limit": "Importer runtime and every plugin-loader/import format path were not exercised."
+    },
+    {
+      "id": "P05",
+      "group": "PHP compatibility",
+      "claim": "Registry uses ArrayObject offsetExists without breaking present-null checks",
+      "verdict": "verified",
+      "claimType": "explicit changelog claim",
+      "changelog": {
+        "path": "original-changelog.txt",
+        "lineStart": 89,
+        "lineEnd": 92
+      },
+      "assessment": "Native present, null and absent-key cases return true, true and false in both versions. Stock74 reports three array_key_exists-on-object deprecations; original50 reports none. The change preserves this key-presence contract.",
+      "archiveCode": [
+        "library/Zend/Registry.php"
+      ],
+      "evidence": [
+        "runtime-base-7.4.json",
+        "runtime-wmtech-7.4.json"
+      ],
+      "primaryDocumentation": [
+        "PHP74"
+      ],
+      "recommendation": "",
+      "limit": ""
+    },
+    {
+      "id": "P06",
+      "group": "PHP compatibility",
+      "claim": "The implode fix affects every template render",
+      "verdict": "qualified",
+      "claimType": "explicit changelog claim",
+      "changelog": {
+        "path": "original-changelog.txt",
+        "lineStart": 90,
+        "lineEnd": 93
+      },
+      "assessment": "The reversed-argument fix is real and removes the native 7.4 deprecation. It occurs inside toggleClass class removal; there are no core PHP callers of toggleClass. Calling it a per-render hot path is unsupported by the supplied source.",
+      "archiveCode": [
+        "library/XenForo/Template/Helper/Core.php"
+      ],
+      "evidence": [
+        "archive-checks.json",
+        "runtime-base-7.4.json",
+        "runtime-wmtech-7.4.json"
+      ],
+      "primaryDocumentation": [
+        "PHP74"
+      ],
+      "recommendation": "Retain the fix but correct the claimed execution frequency.",
+      "limit": ""
+    },
+    {
+      "id": "P07",
+      "group": "PHP compatibility",
+      "claim": "The Azure component is omitted as unused dead code",
+      "verdict": "qualified",
+      "claimType": "explicit changelog claim",
+      "changelog": {
+        "path": "original-changelog.txt",
+        "lineStart": 91,
+        "lineEnd": 94
+      },
+      "assessment": "All 43 vendor files are absent from original50. A source search found no XenForo core references and the one syntax fatal disappears from the shipped-tree lint. An overlay does not delete already installed Azure files.",
+      "archiveCode": [
+        "library/Zend/Service/WindowsAzure/"
+      ],
+      "evidence": [
+        "archive-checks.json",
+        "lint-base-7.3.json",
+        "lint-wmtech-7.3.json"
+      ],
+      "primaryDocumentation": [],
+      "recommendation": "Treat removal from an existing forum as an explicit cleanup after checking add-on use.",
+      "limit": ""
+    },
+    {
+      "id": "P08",
+      "group": "PHP compatibility",
+      "claim": "Exactly five shipped Zend files still emit PHP 7.4 deprecations",
+      "verdict": "verified",
+      "claimType": "explicit changelog claim",
+      "changelog": {
+        "path": "original-changelog.txt",
+        "lineStart": 93,
+        "lineEnd": 96
+      },
+      "assessment": "The complete original50 7.4 lint reproduces those five files and no parse errors: Zip, Json Encoder/Decoder, Isbn and FirePhp. 7.3 lint reports none. This validates the disclosed residual list, not the universal claim that an add-on can never reach them.",
+      "archiveCode": [
+        "library/Zend/Filter/Compress/Zip.php",
+        "library/Zend/Json/Encoder.php",
+        "library/Zend/Json/Decoder.php",
+        "library/Zend/Validate/Isbn.php",
+        "library/Zend/Wildfire/Plugin/FirePhp.php"
+      ],
+      "evidence": [
+        "lint-wmtech-7.3.json",
+        "lint-wmtech-7.4.json"
+      ],
+      "primaryDocumentation": [
+        "PHP74"
+      ],
+      "recommendation": "Keep the residual list visible to add-on operators.",
+      "limit": ""
+    },
+    {
+      "id": "P09",
+      "group": "PHP compatibility",
+      "claim": "The installer enforces the runtime needed for SameSite",
+      "verdict": "qualified",
+      "claimType": "review boundary",
+      "changelog": {
+        "path": "original-changelog.txt",
+        "lineStart": 50,
+        "lineEnd": 53
+      },
+      "assessment": "The requirement checker is unchanged and still tests a PHP 5.2.11 minimum. It reports no requirement error on native PHP 7.2.34; all 1,238 native health entries match there. The cookie branch on that accepted runtime omits SameSite, so file health alone does not establish this protection.",
+      "archiveCode": [
+        "library/XenForo/Install/Model/Install.php",
+        "library/XenForo/Helper/Cookie.php"
+      ],
+      "evidence": [
+        "requirements-50-php72.json",
+        "http-checks.json",
+        "source-comparison.txt"
+      ],
+      "primaryDocumentation": [
+        "COOKIE"
+      ],
+      "recommendation": "Align installer requirements and preflight with the supported security behavior.",
+      "limit": "The changelog does not expressly promise a new installer gate. This is a deployment-precondition gap in the headline C1 protection."
+    },
+    {
+      "id": "C01",
+      "group": "Configuration and database compatibility",
+      "claim": "A configurable fetcher User-Agent replaces a local core edit",
+      "verdict": "verified",
+      "claimType": "explicit changelog claim",
+      "changelog": {
+        "path": "original-changelog.txt",
+        "lineStart": 108,
+        "lineEnd": 111
+      },
+      "assessment": "Original50 reads httpUserAgent and falls back to the stock format. Native getClient honors the override; stock ignores it. No remote production site needs to be contacted to establish the outgoing config value.",
+      "archiveCode": [
+        "library/XenForo/Helper/Http.php"
+      ],
+      "evidence": [
+        "runtime-base-7.4.json",
+        "runtime-wmtech-7.4.json",
+        "source-comparison.txt"
+      ],
+      "primaryDocumentation": [],
+      "recommendation": "",
+      "limit": ""
+    },
+    {
+      "id": "C02",
+      "group": "Configuration and database compatibility",
+      "claim": "Session CIDR binding defaults stay 24/64 and can be overridden per type",
+      "verdict": "verified",
+      "claimType": "explicit changelog claim",
+      "changelog": {
+        "path": "original-changelog.txt",
+        "lineStart": 115,
+        "lineEnd": 118
+      },
+      "assessment": "Native constructors preserve 24/64 for both types when unset, accept admin IPv4 0 without changing public defaults, and accept public IPv4 16 without changing admin defaults. Disabling binding deliberately removes an existing replay signal. Post-panel native sessionMatchesIp tests confirm the effect for IPv4 and IPv6: disabled admin binding accepts an unrelated IP, widened public binding accepts the wider prefix, and default bindings reject those changes.",
+      "archiveCode": [
+        "library/XenForo/Session.php"
+      ],
+      "evidence": [
+        "runtime-base-7.4.json",
+        "runtime-wmtech-7.4.json",
+        "source-comparison.txt",
+        "panel-followup-base.json",
+        "panel-followup-wmtech.json"
+      ],
+      "primaryDocumentation": [],
+      "recommendation": "Retain existing defaults and document the tradeoff of an admin override.",
+      "limit": "These are native binary-IP validation controls, not a browser replay, production proxy or networking certification."
+    },
+    {
+      "id": "C03",
+      "group": "Configuration and database compatibility",
+      "claim": "REGEXP BINARY is a MySQL 8 compatibility fix",
+      "verdict": "contradicted",
+      "claimType": "explicit changelog claim",
+      "changelog": {
+        "path": "original-changelog.txt",
+        "lineStart": 132,
+        "lineEnd": 135
+      },
+      "assessment": "Both changed native tag methods fail on MySQL 8.4.10 with error 3995; stock returns cafe-3 for the lowercase fixtures and CAFE-3 for the uppercase direct-method control. MySQL documents rejection of binary regex arguments beginning in 8.0.22. MariaDB passing the change does not establish MySQL compatibility. Lowercasing does not solve this argument-type error.",
+      "archiveCode": [
+        "library/XenForo/Model/Tag.php",
+        "library/XenForo/DataWriter/Tag.php"
+      ],
+      "evidence": [
+        "reused:upgrade-path-comparison/regressions-1.5.24.json",
+        "reused:upgrade-path-comparison/regressions-1.5.50.json",
+        "reused:initial-review/tags-upgrade.log"
+      ],
+      "primaryDocumentation": [
+        "MYSQL"
+      ],
+      "recommendation": "Remove BINARY from both regex expressions. Use an explicitly compatible text collation only if required and tested.",
+      "limit": ""
+    },
+    {
+      "id": "C04",
+      "group": "Configuration and database compatibility",
+      "claim": "The SDK literal becomes v21.0 with xfbml true and oauth false",
+      "verdict": "qualified",
+      "claimType": "explicit changelog claim",
+      "changelog": {
+        "path": "original-changelog.txt",
+        "lineStart": 145,
+        "lineEnd": 148
+      },
+      "assessment": "The readable JavaScript diff contains all three literal changes. This establishes shipped configuration only. A live Like button, SDK option semantics, current Meta version availability and authenticated OAuth behavior were not independently certified.",
+      "archiveCode": [
+        "js/xenforo/full/xenforo.js"
+      ],
+      "evidence": [
+        "source-comparison.txt"
+      ],
+      "primaryDocumentation": [],
+      "recommendation": "Document the exact configuration and verify the deployment against primary Meta docs and a real app before asserting preserved plugin operation.",
+      "limit": "The official Meta documentation returned a rate-limit/fetch error. No substitute secondary source was used for the lifecycle claim."
+    },
+    {
+      "id": "C05",
+      "group": "Configuration and database compatibility",
+      "claim": "copyrightHtml supports fallback, removal and replacement without a core edit",
+      "verdict": "verified",
+      "claimType": "explicit changelog claim",
+      "changelog": {
+        "path": "original-changelog.txt",
+        "lineStart": 155,
+        "lineEnd": 158
+      },
+      "assessment": "Native controls confirm the normal default remains nonempty, an empty override suppresses output and a string replaces it in original50. Stock ignores the setting. This is raw administrator-supplied HTML, not output safe for arbitrary user input.",
+      "archiveCode": [
+        "library/XenForo/Application.php"
+      ],
+      "evidence": [
+        "runtime-base-7.4.json",
+        "runtime-wmtech-7.4.json",
+        "source-comparison.txt"
+      ],
+      "primaryDocumentation": [],
+      "recommendation": "Use only trusted administrator configuration and respect the forum license.",
+      "limit": ""
+    },
+    {
+      "id": "C06",
+      "group": "Configuration and database compatibility",
+      "claim": "Per-language phrase edits and child customizations survive master rebuild",
+      "verdict": "qualified",
+      "claimType": "explicit changelog claim",
+      "changelog": {
+        "path": "original-changelog.txt",
+        "lineStart": 169,
+        "lineEnd": 172
+      },
+      "assessment": "The fixture translated forums phrase and child template remain byte-identical after the native rebuild and render. The archive ships stock master phrases, so edits made directly to the distributed master XML can be overwritten. The two branding-specific phrase names were not separately changed in the fixture.",
+      "archiveCode": [
+        "install/data/phrases.xml",
+        "install/data/templates.xml"
+      ],
+      "evidence": [
+        "custom-xf_patch-upgrade.json",
+        "http-checks.json"
+      ],
+      "primaryDocumentation": [],
+      "recommendation": "",
+      "limit": ""
+    },
+    {
+      "id": "C07",
+      "group": "Configuration and database compatibility",
+      "claim": "A particular production board had eight local core edits",
+      "verdict": "unverified",
+      "claimType": "explicit changelog claim",
+      "changelog": {
+        "path": "original-changelog.txt",
+        "lineStart": 104,
+        "lineEnd": 107
+      },
+      "assessment": "The archive does not include the original board, its historical diff or build/core-audit.php. We can verify the delivered configuration features but cannot certify the author's production-audit history.",
+      "archiveCode": [],
+      "evidence": [
+        "archive-checks.json"
+      ],
+      "primaryDocumentation": [],
+      "recommendation": "",
+      "limit": "No production machine or production data was accessed."
+    },
+    {
+      "id": "J01",
+      "group": "JavaScript compatibility",
+      "claim": "The default library changes from 1.11.0 to 1.12.4",
+      "verdict": "verified",
+      "claimType": "explicit changelog claim",
+      "changelog": {
+        "path": "original-changelog.txt",
+        "lineStart": 175,
+        "lineEnd": 178
+      },
+      "assessment": "The version constant, shipped file and browser frame agree. Both readable-core and minified-bundle combinations initialize with the expected jQuery version. The older file is byte-identical to stock.",
+      "archiveCode": [
+        "library/XenForo/Application.php",
+        "js/jquery/jquery-1.12.4.min.js"
+      ],
+      "evidence": [
+        "archive-checks.json",
+        "browser-controls.json"
+      ],
+      "primaryDocumentation": [
+        "JQ124"
+      ],
+      "recommendation": "",
+      "limit": ""
+    },
+    {
+      "id": "J02",
+      "group": "JavaScript compatibility",
+      "claim": "The bump is API-identical and guarantees add-on JavaScript compatibility",
+      "verdict": "qualified",
+      "claimType": "explicit changelog claim",
+      "changelog": {
+        "path": "original-changelog.txt",
+        "lineStart": 176,
+        "lineEnd": 179
+      },
+      "assessment": "The official 1.12.0 announcement describes added APIs and anticipates no breaking changes; the 1.12.4 point-release note is narrower. Our XF function/plugin checks retain the native names, but do not prove identical semantics or every add-on working. The point-release note recommends Migrate 1.4.1 while the supplied rollup retains 1.2.1.",
+      "archiveCode": [
+        "js/jquery/jquery-1.12.4.min.js",
+        "js/jquery/jquery.xenforo.rollup.js"
+      ],
+      "evidence": [
+        "browser-controls.json"
+      ],
+      "primaryDocumentation": [
+        "JQ124",
+        "JQ1120"
+      ],
+      "recommendation": "Keep a compatibility matrix for installed add-ons and make the retained old Migrate version explicit.",
+      "limit": ""
+    },
+    {
+      "id": "J03",
+      "group": "JavaScript compatibility",
+      "claim": "The new jQuery file matches the published upstream bytes",
+      "verdict": "verified",
+      "claimType": "explicit changelog claim",
+      "changelog": {
+        "path": "original-changelog.txt",
+        "lineStart": 180,
+        "lineEnd": 183
+      },
+      "assessment": "The archive computes sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=. A fresh HTTPS download from code.jquery.com returned 200 and the same SHA-256. The vendored library carries no patch marker.",
+      "archiveCode": [
+        "js/jquery/jquery-1.12.4.min.js"
+      ],
+      "evidence": [
+        "archive-checks.json",
+        "primary-downloads.json"
+      ],
+      "primaryDocumentation": [],
+      "recommendation": "",
+      "limit": ""
+    },
+    {
+      "id": "J04",
+      "group": "JavaScript compatibility",
+      "claim": "A config override and retained file permit rollback to 1.11.0",
+      "verdict": "verified",
+      "claimType": "explicit changelog claim",
+      "changelog": {
+        "path": "original-changelog.txt",
+        "lineStart": 183,
+        "lineEnd": 186
+      },
+      "assessment": "The new override copies the configured version to the application constant, and the 1.11.0 file remains byte-identical. The browser controls initialize both versions. This establishes the mechanism; an arbitrary external CDN source may ignore the local-version selection.",
+      "archiveCode": [
+        "library/XenForo/Application.php",
+        "js/jquery/jquery-1.11.0.min.js"
+      ],
+      "evidence": [
+        "archive-checks.json",
+        "source-comparison.txt",
+        "browser-controls.json"
+      ],
+      "primaryDocumentation": [],
+      "recommendation": "",
+      "limit": ""
+    },
+    {
+      "id": "J05",
+      "group": "JavaScript compatibility",
+      "claim": "Migrate restores live and browser shims for both jQuery versions",
+      "verdict": "verified",
+      "claimType": "explicit changelog claim",
+      "changelog": {
+        "path": "original-changelog.txt",
+        "lineStart": 184,
+        "lineEnd": 187
+      },
+      "assessment": "Both native rollup/full and minified combinations expose live and the browser shim. The change therefore does not newly remove those tested functions. Holding jQuery ready keeps this check separate from forum AJAX and external widgets.",
+      "archiveCode": [
+        "js/jquery/jquery.xenforo.rollup.js"
+      ],
+      "evidence": [
+        "browser-controls.json"
+      ],
+      "primaryDocumentation": [
+        "JQ124"
+      ],
+      "recommendation": "",
+      "limit": "Function presence is not a test of all plugin behavior or every historical .live call."
+    },
+    {
+      "id": "J06",
+      "group": "JavaScript compatibility",
+      "claim": "The bump leaves known jQuery prototype and HTML-parser weaknesses",
+      "verdict": "qualified",
+      "claimType": "explicit changelog claim",
+      "changelog": {
+        "path": "original-changelog.txt",
+        "lineStart": 187,
+        "lineEnd": 190
+      },
+      "assessment": "Official 3.4.0 and 3.5.0 notes document the later fixes absent from 1.12.4. A same-realm deep-merge control reproduces prototype pollution in both bundled 1.11.0 and 1.12.4. No reachable XenForo exploit was demonstrated, and this review does not prove that every individual earlier CVE is unchanged.",
+      "archiveCode": [
+        "js/jquery/jquery-1.11.0.min.js",
+        "js/jquery/jquery-1.12.4.min.js"
+      ],
+      "evidence": [
+        "browser-controls.json"
+      ],
+      "primaryDocumentation": [
+        "JQ340",
+        "JQ350"
+      ],
+      "recommendation": "Describe these known remaining library weaknesses without asserting a complete CVE inventory.",
+      "limit": "No forum XSS, account compromise or RCE was demonstrated by the library-level control."
+    },
+    {
+      "id": "J07",
+      "group": "JavaScript compatibility",
+      "claim": "Full and minified bundles preserve the claimed public names and counts",
+      "verdict": "qualified",
+      "claimType": "explicit changelog claim",
+      "changelog": {
+        "path": "original-changelog.txt",
+        "lineStart": 406,
+        "lineEnd": 409
+      },
+      "assessment": "Both sources retain equal full/min function and plugin name sets under the stated browser rule. Enumerable own-property counting gives 138 XenForo symbols, 106 functions, 188 jQuery fn keys, 24 newly introduced core plugins and 8 jQuery Tools keys excluding version metadata. The author's 137/23/9 figures require a different unstated rule.",
+      "archiveCode": [
+        "js/xenforo/full/xenforo.js",
+        "js/xenforo/xenforo.js"
+      ],
+      "evidence": [
+        "browser-controls.json"
+      ],
+      "primaryDocumentation": [],
+      "recommendation": "Publish measured sets and counting rules; do not treat equal names as proof of semantic equivalence.",
+      "limit": ""
+    },
+    {
+      "id": "J08",
+      "group": "JavaScript compatibility",
+      "claim": "The readable core has 16 literal phrase keys",
+      "verdict": "verified",
+      "claimType": "explicit changelog claim",
+      "changelog": {
+        "path": "original-changelog.txt",
+        "lineStart": 407,
+        "lineEnd": 410
+      },
+      "assessment": "A reproducible source scan counts 16 distinct literal dot or quoted-bracket keys. The dynamic day-plus-index lookup is excluded. Runtime page phrases include additional day keys and therefore use a different scope. This agrees with 16 under the explicit literal-key rule.",
+      "archiveCode": [
+        "js/xenforo/full/xenforo.js"
+      ],
+      "evidence": [
+        "archive-checks.json"
+      ],
+      "primaryDocumentation": [],
+      "recommendation": "",
+      "limit": "The original build's exact counting algorithm is absent."
+    },
+    {
+      "id": "J09",
+      "group": "JavaScript compatibility",
+      "claim": "Exactly 34 browser-shim call sites justify retaining Migrate",
+      "verdict": "qualified",
+      "claimType": "explicit changelog claim",
+      "changelog": {
+        "path": "original-changelog.txt",
+        "lineStart": 177,
+        "lineEnd": 180
+      },
+      "assessment": "Scanning readable js/xenforo/full modules finds 33 literal $.browser call sites under our rule. The dependency itself is real, and browser controls confirm the supplied shim. The numerical difference does not establish a functional regression.",
+      "archiveCode": [
+        "js/xenforo/full/"
+      ],
+      "evidence": [
+        "archive-checks.json",
+        "browser-controls.json"
+      ],
+      "primaryDocumentation": [],
+      "recommendation": "State the scope of the count and test installed add-on use before a major jQuery change.",
+      "limit": ""
+    },
+    {
+      "id": "B01",
+      "group": "Bug fixes",
+      "claim": "toggleClass removes a class by name rather than returning indices",
+      "verdict": "verified",
+      "claimType": "explicit changelog claim",
+      "changelog": {
+        "path": "original-changelog.txt",
+        "lineStart": 195,
+        "lineEnd": 198
+      },
+      "assessment": "The native example changes stock output 0 1 2 to one three after removing two. No core PHP callers were found, so the fix does not establish a broad template rendering performance change.",
+      "archiveCode": [
+        "library/XenForo/Template/Helper/Core.php"
+      ],
+      "evidence": [
+        "archive-checks.json",
+        "runtime-base-7.4.json",
+        "runtime-wmtech-7.4.json"
+      ],
+      "primaryDocumentation": [],
+      "recommendation": "",
+      "limit": ""
+    },
+    {
+      "id": "B02",
+      "group": "Bug fixes",
+      "claim": "rgba.php replaces an expired 2020 Expires header",
+      "verdict": "qualified",
+      "claimType": "explicit changelog claim",
+      "changelog": {
+        "path": "original-changelog.txt",
+        "lineStart": 198,
+        "lineEnd": 201
+      },
+      "assessment": "Both endpoints return PNG data. Stock sends the past fixed date; original50 sends an expiry about one year ahead. This verifies the header correction, not a browser/network measurement of one refetch per color per page.",
+      "archiveCode": [
+        "rgba.php"
+      ],
+      "evidence": [
+        "http-checks.json"
+      ],
+      "primaryDocumentation": [],
+      "recommendation": "Retain the header fix and avoid claiming a measured cache-rate improvement.",
+      "limit": ""
+    },
+    {
+      "id": "B03",
+      "group": "Bug fixes",
+      "claim": "The filter-list hash allowlist no longer treats #-dot as a range",
+      "verdict": "verified",
+      "claimType": "explicit changelog claim",
+      "changelog": {
+        "path": "original-changelog.txt",
+        "lineStart": 200,
+        "lineEnd": 203
+      },
+      "assessment": "Both readable and minified filter_list files change the class so the hyphen is literal. The old character-class range admits extra punctuation; the corrected range excludes it. No complete selector-injection exploit is claimed.",
+      "archiveCode": [
+        "js/xenforo/full/filter_list.js",
+        "js/xenforo/filter_list.js"
+      ],
+      "evidence": [
+        "source-comparison.txt",
+        "browser-controls.json"
+      ],
+      "primaryDocumentation": [],
+      "recommendation": "",
+      "limit": ""
+    },
+    {
+      "id": "B04",
+      "group": "Bug fixes",
+      "claim": "Missing/private birthdays no longer trigger boolean-offset notices",
+      "verdict": "qualified",
+      "claimType": "explicit changelog claim",
+      "changelog": {
+        "path": "original-changelog.txt",
+        "lineStart": 202,
+        "lineEnd": 205
+      },
+      "assessment": "The changed controller checks the birthday result before reading age. The helper can return false for missing/private values, so the old access raises the described PHP7.4 notice on those paths. Prior native profile browsing passed after the fix. The statement that every profile view logs an error is broader than the conditional trigger.",
+      "archiveCode": [
+        "library/XenForo/ControllerPublic/Member.php"
+      ],
+      "evidence": [
+        "source-comparison.txt",
+        "reused:initial-review/http-upgrade.json"
+      ],
+      "primaryDocumentation": [
+        "PHP74"
+      ],
+      "recommendation": "Describe the missing/private-birthday trigger instead of every profile.",
+      "limit": "No new exhaustive date/privacy matrix was run in this follow-up."
+    },
+    {
+      "id": "R01",
+      "group": "Archive removals",
+      "claim": "The archive omits Azure, Flash assets and fb_channel.php",
+      "verdict": "verified",
+      "claimType": "explicit changelog claim",
+      "changelog": {
+        "path": "original-changelog.txt",
+        "lineStart": 214,
+        "lineEnd": 217
+      },
+      "assessment": "The exact omission list contains those paths, including 43 Azure files. There are 53 omitted files in total because the full stock archive also contains deployment protection/stub files not shipped by this upgrade ZIP. Omission alone is not deletion from an installed forum.",
+      "archiveCode": [
+        "library/Zend/Service/WindowsAzure/",
+        "js/swfupload/",
+        "js/videojs/video-js.swf",
+        "fb_channel.php"
+      ],
+      "evidence": [
+        "archive-checks.json"
+      ],
+      "primaryDocumentation": [],
+      "recommendation": "",
+      "limit": "Historical fb_channel.php SDK-v2 semantics were not independently certified; this verdict verifies the delivered omissions."
+    },
+    {
+      "id": "R02",
+      "group": "Archive removals",
+      "claim": "Administrators must remove obsolete files explicitly after an overlay",
+      "verdict": "verified",
+      "claimType": "explicit changelog claim",
+      "changelog": {
+        "path": "original-changelog.txt",
+        "lineStart": 260,
+        "lineEnd": 263
+      },
+      "assessment": "The changelog correctly warns that overlay extraction leaves omitted files in place. The native manifest has no obligation to hash unknown leftover paths. Do not delete protection files such as .htaccess merely because they are omitted from an upgrade archive.",
+      "archiveCode": [],
+      "evidence": [
+        "archive-checks.json"
+      ],
+      "primaryDocumentation": [],
+      "recommendation": "Use an exact cleanup list and check third-party dependencies before deleting vendor files.",
+      "limit": ""
+    },
+    {
+      "id": "R03",
+      "group": "Archive removals",
+      "claim": "Keeping Solve Media prevents a missing-class failure, but its live operation is unverified",
+      "verdict": "qualified",
+      "claimType": "explicit changelog claim",
+      "changelog": {
+        "path": "original-changelog.txt",
+        "lineStart": 221,
+        "lineEnd": 224
+      },
+      "assessment": "The class is retained and its URLs change to HTTPS. The service homepage redirected to a parked sale page during research, which supports caution but does not certify every API endpoint or date of retirement. A configured board still needs a tested replacement captcha.",
+      "archiveCode": [
+        "library/XenForo/Captcha/SolveMedia.php"
+      ],
+      "evidence": [
+        "archive-checks.json",
+        "source-comparison.txt"
+      ],
+      "primaryDocumentation": [],
+      "recommendation": "Switch only after verifying a working replacement and registration flow.",
+      "limit": "No provider credentials or remote captcha calls were used."
+    },
+    {
+      "id": "R04",
+      "group": "Archive removals",
+      "claim": "The gplus image remains to satisfy an unchanged template CSS reference",
+      "verdict": "verified",
+      "claimType": "explicit changelog claim",
+      "changelog": {
+        "path": "original-changelog.txt",
+        "lineStart": 225,
+        "lineEnd": 228
+      },
+      "assessment": "The image is retained byte-for-byte and the master template payload retains its reference. Removing only the image would create a missing-resource request if that rule is used.",
+      "archiveCode": [
+        "styles/default/xenforo/gplus.png",
+        "install/data/templates.xml"
+      ],
+      "evidence": [
+        "archive-checks.json"
+      ],
+      "primaryDocumentation": [],
+      "recommendation": "",
+      "limit": ""
+    },
+    {
+      "id": "R05",
+      "group": "Archive removals",
+      "claim": "The Flash uploader branch remains guarded and normally falls back",
+      "verdict": "qualified",
+      "claimType": "explicit changelog claim",
+      "changelog": {
+        "path": "original-changelog.txt",
+        "lineStart": 228,
+        "lineEnd": 231
+      },
+      "assessment": "The unchanged readable module checks typeof SWFUpload before using the branch. Stock Flash payloads are empty and original50 omits them. The guard is not mathematically permanently false because an add-on could define that global; no modern Flash execution was tested.",
+      "archiveCode": [
+        "js/xenforo/full/attachment_editor.js"
+      ],
+      "evidence": [
+        "archive-checks.json"
+      ],
+      "primaryDocumentation": [],
+      "recommendation": "Describe the normal shipped state and retained fallback, avoiding an unconditional permanent-false claim.",
+      "limit": ""
+    },
+    {
+      "id": "T01",
+      "group": "Upgrade validation",
+      "claim": "The native 1.5.24 to 1.5.50 overlay upgrade completes",
+      "verdict": "verified",
+      "claimType": "explicit changelog claim",
+      "changelog": {
+        "path": "original-changelog.txt",
+        "lineStart": 283,
+        "lineEnd": 286
+      },
+      "assessment": "Earlier exact-archive overlay and upgrade logs establish full native sequencing. This follow-up independently runs the three native steps and master deferred rebuild on the restored synthetic database. The final database version is 1055070.",
+      "archiveCode": [
+        "library/XenForo/Install/Upgrade/1055070-1550.php"
+      ],
+      "evidence": [
+        "custom-xf_patch-upgrade.json",
+        "reused:initial-review/upgrade.log",
+        "reused:1.5.51-validation/stage-1-summary.json"
+      ],
+      "primaryDocumentation": [],
+      "recommendation": "",
+      "limit": "The follow-up customization harness invokes native methods directly rather than replaying the installer UI."
+    },
+    {
+      "id": "T02",
+      "group": "Upgrade validation",
+      "claim": "The native file-health manifest has 1,238 matching entries",
+      "verdict": "verified",
+      "claimType": "explicit changelog claim",
+      "changelog": {
+        "path": "original-changelog.txt",
+        "lineStart": 286,
+        "lineEnd": 289
+      },
+      "assessment": "The manifest count and native health run agree. It verifies supplied file bytes, not runtime support, leftover files or correctness of the changed algorithms. Native PHP7.2 accepts the same healthy files while lacking SameSite output.",
+      "archiveCode": [
+        "library/XenForo/Install/Data/FileSums.php"
+      ],
+      "evidence": [
+        "requirements-50-php72.json",
+        "reused:initial-review/validation.log"
+      ],
+      "primaryDocumentation": [],
+      "recommendation": "",
+      "limit": ""
+    },
+    {
+      "id": "T03",
+      "group": "Upgrade validation",
+      "claim": "Master counts and version stamps stay unchanged",
+      "verdict": "verified",
+      "claimType": "explicit changelog claim",
+      "changelog": {
+        "path": "original-changelog.txt",
+        "lineStart": 287,
+        "lineEnd": 290
+      },
+      "assessment": "The fresh seeded and rebuilt databases both contain 523 master templates and 5,787 master phrases, with zero master rows stamped 1055070. Source XML preservation independently supports the result.",
+      "archiveCode": [
+        "install/data/templates.xml",
+        "install/data/phrases.xml"
+      ],
+      "evidence": [
+        "custom-xf_patch-seed.json",
+        "custom-xf_patch-upgrade.json",
+        "archive-checks.json"
+      ],
+      "primaryDocumentation": [],
+      "recommendation": "",
+      "limit": ""
+    },
+    {
+      "id": "T04",
+      "group": "Upgrade validation",
+      "claim": "Custom templates, template modifications and translations survive",
+      "verdict": "verified",
+      "claimType": "explicit changelog claim",
+      "changelog": {
+        "path": "original-changelog.txt",
+        "lineStart": 289,
+        "lineEnd": 292
+      },
+      "assessment": "The native fixture preserves the child PAGE_CONTAINER and translated phrase bytes, logs two successful modification applications with apply_count 1, and renders all three markers in stock72, original50/73 and original50/74 responses.",
+      "archiveCode": [],
+      "evidence": [
+        "custom-xf_patch-upgrade.json",
+        "http-checks.json"
+      ],
+      "primaryDocumentation": [],
+      "recommendation": "",
+      "limit": "A single representative fixture does not certify all production customizations."
+    },
+    {
+      "id": "T05",
+      "group": "Upgrade validation",
+      "claim": "Outdated template and phrase counts remain unchanged",
+      "verdict": "verified",
+      "claimType": "explicit changelog claim",
+      "changelog": {
+        "path": "original-changelog.txt",
+        "lineStart": 292,
+        "lineEnd": 295
+      },
+      "assessment": "Both snapshots report one already-outdated template and zero outdated phrases. The test deliberately avoids interpreting a preexisting outdated template as newly introduced by original50.",
+      "archiveCode": [],
+      "evidence": [
+        "custom-xf_patch-seed.json",
+        "custom-xf_patch-upgrade.json"
+      ],
+      "primaryDocumentation": [],
+      "recommendation": "",
+      "limit": ""
+    },
+    {
+      "id": "T06",
+      "group": "Upgrade validation",
+      "claim": "The upgrade and browsing produce no application errors",
+      "verdict": "qualified",
+      "claimType": "explicit changelog claim",
+      "changelog": {
+        "path": "original-changelog.txt",
+        "lineStart": 293,
+        "lineEnd": 296
+      },
+      "assessment": "The controlled native master rebuild finishes with zero xf_error_log rows after three known baseline setup-error rows were removed before fixture seeding. Instrumented E_ALL probes separately expose stock warnings and the five residual vendor parse deprecations. No blanket zero-error claim follows for every feature.",
+      "archiveCode": [],
+      "evidence": [
+        "custom-xf_patch-upgrade.json",
+        "lint-wmtech-7.4.json",
+        "runtime-wmtech-7.4.json"
+      ],
+      "primaryDocumentation": [],
+      "recommendation": "",
+      "limit": "The original author's private PHP-FPM error log and complete posting/crawl history are unavailable."
+    },
+    {
+      "id": "T07",
+      "group": "Upgrade validation",
+      "claim": "Login, posting, BB code and CSRF continue to work",
+      "verdict": "qualified",
+      "claimType": "explicit changelog claim",
+      "changelog": {
+        "path": "original-changelog.txt",
+        "lineStart": 307,
+        "lineEnd": 310
+      },
+      "assessment": "Prior exact-original50 HTTP tests cover front-end/admin login, thread creation, reply rejection without a token and successful valid reply. Fresh native CSRF controls accept valid and reject wrong/missing tokens. These results support the named lab flows only.",
+      "archiveCode": [
+        "library/XenForo/Controller.php"
+      ],
+      "evidence": [
+        "runtime-wmtech-7.4.json",
+        "reused:initial-review/http-workflows.json"
+      ],
+      "primaryDocumentation": [],
+      "recommendation": "",
+      "limit": "No load, every add-on flow, live mail delivery or production account migration was tested in this follow-up."
+    },
+    {
+      "id": "T08",
+      "group": "Upgrade validation",
+      "claim": "The author previously crawled 57 PHP-FPM pages and reproduced every change",
+      "verdict": "unverified",
+      "claimType": "explicit changelog claim",
+      "changelog": {
+        "path": "original-changelog.txt",
+        "lineStart": 312,
+        "lineEnd": 315
+      },
+      "assessment": "No author crawl manifest, runtime logs or build scripts are in the supplied archive. Our independent tests reproduce specific source and runtime behaviors; they cannot authenticate historical author activity.",
+      "archiveCode": [],
+      "evidence": [
+        "archive-checks.json"
+      ],
+      "primaryDocumentation": [],
+      "recommendation": "",
+      "limit": "The new lab uses Apache module HTTP plus PHP CLI, not a new PHP-FPM deployment."
+    },
+    {
+      "id": "U01",
+      "group": "Upgrade notes",
+      "claim": "Cookie defaults are the only continuity consideration",
+      "verdict": "qualified",
+      "claimType": "review boundary",
+      "changelog": {
+        "path": "original-changelog.txt",
+        "lineStart": 258,
+        "lineEnd": 261
+      },
+      "assessment": "An undocumented factory globalSalt change also affects boards without an explicit override. Fresh native consumers accept old remember/proxy signatures under the stock salt and reject them after switching to the target default; EmailStop keys change. The actual stored email-verification nonce still validates, and current active sessions are not shown invalidated. The native config generator does not insert globalSalt automatically. Configurations with an explicit override remain a separate case; board prevalence is not measured.",
+      "archiveCode": [
+        "library/XenForo/Application.php",
+        "library/XenForo/Model/User.php",
+        "library/XenForo/ProxyOutput.php"
+      ],
+      "evidence": [
+        "salt-continuity.json",
+        "archive-checks.json",
+        "panel-followup-wmtech.json",
+        "chair-source-followup.txt"
+      ],
+      "primaryDocumentation": [],
+      "recommendation": "Preserve the effective signing salt or plan an explicit rotation and continuity strategy.",
+      "limit": "The changelog statement concerns existing sessions; this finding concerns persistent authentication and signed links after session expiry, not automatic invalidation of every current session."
+    },
+    {
+      "id": "V01",
+      "group": "Build and provenance",
+      "claim": "Exactly 44 native files carry XF1550-PATCH markers",
+      "verdict": "verified",
+      "claimType": "explicit changelog claim",
+      "changelog": {
+        "path": "original-changelog.txt",
+        "lineStart": 331,
+        "lineEnd": 334
+      },
+      "assessment": "The archive scan finds 44 marked upload files matching the declared list. Master template/phrase XML and unmodified vendored jQuery remain unmarked. A marker indicates claimed provenance, not independent authorship or correctness.",
+      "archiveCode": [],
+      "evidence": [
+        "archive-checks.json"
+      ],
+      "primaryDocumentation": [],
+      "recommendation": "",
+      "limit": ""
+    },
+    {
+      "id": "V02",
+      "group": "Build and provenance",
+      "claim": "The described build and verification scripts are available",
+      "verdict": "unverified",
+      "claimType": "explicit changelog claim",
+      "changelog": {
+        "path": "original-changelog.txt",
+        "lineStart": 384,
+        "lineEnd": 387
+      },
+      "assessment": "No build/ files exist in the supplied ZIP. The current repository's 1.5.51 build machinery is separate and cannot authenticate how original50 was built. We can validate delivered bytes and selected bundle contracts, not rerun the author's original pipeline.",
+      "archiveCode": [],
+      "evidence": [
+        "archive-checks.json"
+      ],
+      "primaryDocumentation": [],
+      "recommendation": "Supply versioned original build sources and tool versions if reproducibility is a release requirement.",
+      "limit": ""
+    },
+    {
+      "id": "V03",
+      "group": "Build and provenance",
+      "claim": "The core minified bundle includes the rollup and omits the uncompressed sentinel",
+      "verdict": "verified",
+      "claimType": "explicit changelog claim",
+      "changelog": {
+        "path": "original-changelog.txt",
+        "lineStart": 397,
+        "lineEnd": 400
+      },
+      "assessment": "Browser controls initialize minified bundles with rollup-provided functions and retain native function/plugin names. Static scanning finds no _XF_JS_UNCOMPRESSED_TEST_ sentinel in the original50 minified bundle. This confirms the delivered structural contract, not the exact terser invocation or semantic identity of every function.",
+      "archiveCode": [
+        "js/jquery/jquery.xenforo.rollup.js",
+        "js/xenforo/full/xenforo.js",
+        "js/xenforo/xenforo.js"
+      ],
+      "evidence": [
+        "archive-checks.json",
+        "browser-controls.json"
+      ],
+      "primaryDocumentation": [],
+      "recommendation": "",
+      "limit": ""
+    },
+    {
+      "id": "V04",
+      "group": "Build and provenance",
+      "claim": "FileSums changes membership by two removals and two additions",
+      "verdict": "verified",
+      "claimType": "explicit changelog claim",
+      "changelog": {
+        "path": "original-changelog.txt",
+        "lineStart": 410,
+        "lineEnd": 413
+      },
+      "assessment": "The manifest remains at 1,238 entries. Comparing parsed keys confirms fb_channel.php and the minified SWFUpload stub are removed, and jquery-1.12.4.min.js and the upgrade class are added. Hash values necessarily change for modified files as well; four describes membership, not four total altered hashes.",
+      "archiveCode": [
+        "library/XenForo/Install/Data/FileSums.php"
+      ],
+      "evidence": [
+        "archive-checks.json"
+      ],
+      "primaryDocumentation": [],
+      "recommendation": "State that the four-entry delta is manifest membership.",
+      "limit": "Native hash matching was run; the key-set assertion is independently calculated below."
+    }
+  ],
+  "counts": {
+    "verified": 43,
+    "contradicted": 5,
+    "qualified": 34,
+    "unverified": 4
+  },
+  "postPanelRefinements": [
+    "S11 qualified for fallback-specific TLS policy.",
+    "D06 narrowed to the contradicted Google rationale; Facebook status stays unverified.",
+    "C02 actual native validation gap closed with IPv4/IPv6 controls.",
+    "S06 distinguishes blocked first-party writes from synthetic legacy reads.",
+    "P02 expression control distinguished from native initialization.",
+    "J02 checked against the 1.12.0 feature release as well as 1.12.4.",
+    "U01 active sessions kept distinct from signatures; native generated config does not add the salt."
+  ]
+}

@@ -1,0 +1,796 @@
+{
+  "cookieCases": [
+    {
+      "source": "base",
+      "port": 8872,
+      "policy": null,
+      "delete": false,
+      "configuredSecure": null,
+      "sameSiteHeader": null,
+      "secureHeader": false,
+      "httpOnlyHeader": true
+    },
+    {
+      "source": "base",
+      "port": 8872,
+      "policy": "Strict",
+      "delete": false,
+      "configuredSecure": null,
+      "sameSiteHeader": null,
+      "secureHeader": false,
+      "httpOnlyHeader": true
+    },
+    {
+      "source": "base",
+      "port": 8872,
+      "policy": "None",
+      "delete": false,
+      "configuredSecure": null,
+      "sameSiteHeader": null,
+      "secureHeader": false,
+      "httpOnlyHeader": true
+    },
+    {
+      "source": "base",
+      "port": 8872,
+      "policy": "",
+      "delete": false,
+      "configuredSecure": null,
+      "sameSiteHeader": null,
+      "secureHeader": false,
+      "httpOnlyHeader": true
+    },
+    {
+      "source": "base",
+      "port": 8872,
+      "policy": "Lax",
+      "delete": true,
+      "configuredSecure": null,
+      "sameSiteHeader": null,
+      "secureHeader": false,
+      "httpOnlyHeader": true
+    },
+    {
+      "source": "base",
+      "port": 8873,
+      "policy": null,
+      "delete": false,
+      "configuredSecure": null,
+      "sameSiteHeader": null,
+      "secureHeader": false,
+      "httpOnlyHeader": true
+    },
+    {
+      "source": "base",
+      "port": 8873,
+      "policy": "Strict",
+      "delete": false,
+      "configuredSecure": null,
+      "sameSiteHeader": null,
+      "secureHeader": false,
+      "httpOnlyHeader": true
+    },
+    {
+      "source": "base",
+      "port": 8873,
+      "policy": "None",
+      "delete": false,
+      "configuredSecure": null,
+      "sameSiteHeader": null,
+      "secureHeader": false,
+      "httpOnlyHeader": true
+    },
+    {
+      "source": "base",
+      "port": 8873,
+      "policy": "",
+      "delete": false,
+      "configuredSecure": null,
+      "sameSiteHeader": null,
+      "secureHeader": false,
+      "httpOnlyHeader": true
+    },
+    {
+      "source": "base",
+      "port": 8873,
+      "policy": "Lax",
+      "delete": true,
+      "configuredSecure": null,
+      "sameSiteHeader": null,
+      "secureHeader": false,
+      "httpOnlyHeader": true
+    },
+    {
+      "source": "base",
+      "port": 8872,
+      "policy": null,
+      "delete": false,
+      "configuredSecure": true,
+      "sameSiteHeader": null,
+      "secureHeader": false,
+      "httpOnlyHeader": true
+    },
+    {
+      "source": "base",
+      "port": 8872,
+      "policy": "Strict",
+      "delete": false,
+      "configuredSecure": true,
+      "sameSiteHeader": null,
+      "secureHeader": false,
+      "httpOnlyHeader": true
+    },
+    {
+      "source": "base",
+      "port": 8872,
+      "policy": "None",
+      "delete": false,
+      "configuredSecure": true,
+      "sameSiteHeader": null,
+      "secureHeader": false,
+      "httpOnlyHeader": true
+    },
+    {
+      "source": "base",
+      "port": 8872,
+      "policy": "",
+      "delete": false,
+      "configuredSecure": true,
+      "sameSiteHeader": null,
+      "secureHeader": false,
+      "httpOnlyHeader": true
+    },
+    {
+      "source": "base",
+      "port": 8872,
+      "policy": "Lax",
+      "delete": true,
+      "configuredSecure": true,
+      "sameSiteHeader": null,
+      "secureHeader": false,
+      "httpOnlyHeader": true
+    },
+    {
+      "source": "base",
+      "port": 8873,
+      "policy": null,
+      "delete": false,
+      "configuredSecure": true,
+      "sameSiteHeader": null,
+      "secureHeader": false,
+      "httpOnlyHeader": true
+    },
+    {
+      "source": "base",
+      "port": 8873,
+      "policy": "Strict",
+      "delete": false,
+      "configuredSecure": true,
+      "sameSiteHeader": null,
+      "secureHeader": false,
+      "httpOnlyHeader": true
+    },
+    {
+      "source": "base",
+      "port": 8873,
+      "policy": "None",
+      "delete": false,
+      "configuredSecure": true,
+      "sameSiteHeader": null,
+      "secureHeader": false,
+      "httpOnlyHeader": true
+    },
+    {
+      "source": "base",
+      "port": 8873,
+      "policy": "",
+      "delete": false,
+      "configuredSecure": true,
+      "sameSiteHeader": null,
+      "secureHeader": false,
+      "httpOnlyHeader": true
+    },
+    {
+      "source": "base",
+      "port": 8873,
+      "policy": "Lax",
+      "delete": true,
+      "configuredSecure": true,
+      "sameSiteHeader": null,
+      "secureHeader": false,
+      "httpOnlyHeader": true
+    },
+    {
+      "source": "base",
+      "port": 8872,
+      "policy": null,
+      "delete": false,
+      "configuredSecure": false,
+      "sameSiteHeader": null,
+      "secureHeader": false,
+      "httpOnlyHeader": true
+    },
+    {
+      "source": "base",
+      "port": 8872,
+      "policy": "Strict",
+      "delete": false,
+      "configuredSecure": false,
+      "sameSiteHeader": null,
+      "secureHeader": false,
+      "httpOnlyHeader": true
+    },
+    {
+      "source": "base",
+      "port": 8872,
+      "policy": "None",
+      "delete": false,
+      "configuredSecure": false,
+      "sameSiteHeader": null,
+      "secureHeader": false,
+      "httpOnlyHeader": true
+    },
+    {
+      "source": "base",
+      "port": 8872,
+      "policy": "",
+      "delete": false,
+      "configuredSecure": false,
+      "sameSiteHeader": null,
+      "secureHeader": false,
+      "httpOnlyHeader": true
+    },
+    {
+      "source": "base",
+      "port": 8872,
+      "policy": "Lax",
+      "delete": true,
+      "configuredSecure": false,
+      "sameSiteHeader": null,
+      "secureHeader": false,
+      "httpOnlyHeader": true
+    },
+    {
+      "source": "base",
+      "port": 8873,
+      "policy": null,
+      "delete": false,
+      "configuredSecure": false,
+      "sameSiteHeader": null,
+      "secureHeader": false,
+      "httpOnlyHeader": true
+    },
+    {
+      "source": "base",
+      "port": 8873,
+      "policy": "Strict",
+      "delete": false,
+      "configuredSecure": false,
+      "sameSiteHeader": null,
+      "secureHeader": false,
+      "httpOnlyHeader": true
+    },
+    {
+      "source": "base",
+      "port": 8873,
+      "policy": "None",
+      "delete": false,
+      "configuredSecure": false,
+      "sameSiteHeader": null,
+      "secureHeader": false,
+      "httpOnlyHeader": true
+    },
+    {
+      "source": "base",
+      "port": 8873,
+      "policy": "",
+      "delete": false,
+      "configuredSecure": false,
+      "sameSiteHeader": null,
+      "secureHeader": false,
+      "httpOnlyHeader": true
+    },
+    {
+      "source": "base",
+      "port": 8873,
+      "policy": "Lax",
+      "delete": true,
+      "configuredSecure": false,
+      "sameSiteHeader": null,
+      "secureHeader": false,
+      "httpOnlyHeader": true
+    },
+    {
+      "source": "wmtech",
+      "port": 8872,
+      "policy": null,
+      "delete": false,
+      "configuredSecure": null,
+      "sameSiteHeader": null,
+      "secureHeader": false,
+      "httpOnlyHeader": true
+    },
+    {
+      "source": "wmtech",
+      "port": 8872,
+      "policy": "Strict",
+      "delete": false,
+      "configuredSecure": null,
+      "sameSiteHeader": null,
+      "secureHeader": false,
+      "httpOnlyHeader": true
+    },
+    {
+      "source": "wmtech",
+      "port": 8872,
+      "policy": "None",
+      "delete": false,
+      "configuredSecure": null,
+      "sameSiteHeader": null,
+      "secureHeader": false,
+      "httpOnlyHeader": true
+    },
+    {
+      "source": "wmtech",
+      "port": 8872,
+      "policy": "",
+      "delete": false,
+      "configuredSecure": null,
+      "sameSiteHeader": null,
+      "secureHeader": false,
+      "httpOnlyHeader": true
+    },
+    {
+      "source": "wmtech",
+      "port": 8872,
+      "policy": "Lax",
+      "delete": true,
+      "configuredSecure": null,
+      "sameSiteHeader": null,
+      "secureHeader": false,
+      "httpOnlyHeader": true
+    },
+    {
+      "source": "wmtech",
+      "port": 8873,
+      "policy": null,
+      "delete": false,
+      "configuredSecure": null,
+      "sameSiteHeader": "Lax",
+      "secureHeader": false,
+      "httpOnlyHeader": true
+    },
+    {
+      "source": "wmtech",
+      "port": 8873,
+      "policy": "Strict",
+      "delete": false,
+      "configuredSecure": null,
+      "sameSiteHeader": "Strict",
+      "secureHeader": false,
+      "httpOnlyHeader": true
+    },
+    {
+      "source": "wmtech",
+      "port": 8873,
+      "policy": "None",
+      "delete": false,
+      "configuredSecure": null,
+      "sameSiteHeader": "None",
+      "secureHeader": false,
+      "httpOnlyHeader": true
+    },
+    {
+      "source": "wmtech",
+      "port": 8873,
+      "policy": "",
+      "delete": false,
+      "configuredSecure": null,
+      "sameSiteHeader": null,
+      "secureHeader": false,
+      "httpOnlyHeader": true
+    },
+    {
+      "source": "wmtech",
+      "port": 8873,
+      "policy": "Lax",
+      "delete": true,
+      "configuredSecure": null,
+      "sameSiteHeader": "Lax",
+      "secureHeader": false,
+      "httpOnlyHeader": true
+    },
+    {
+      "source": "wmtech",
+      "port": 8874,
+      "policy": null,
+      "delete": false,
+      "configuredSecure": null,
+      "sameSiteHeader": "Lax",
+      "secureHeader": false,
+      "httpOnlyHeader": true
+    },
+    {
+      "source": "wmtech",
+      "port": 8874,
+      "policy": "Strict",
+      "delete": false,
+      "configuredSecure": null,
+      "sameSiteHeader": "Strict",
+      "secureHeader": false,
+      "httpOnlyHeader": true
+    },
+    {
+      "source": "wmtech",
+      "port": 8874,
+      "policy": "None",
+      "delete": false,
+      "configuredSecure": null,
+      "sameSiteHeader": "None",
+      "secureHeader": false,
+      "httpOnlyHeader": true
+    },
+    {
+      "source": "wmtech",
+      "port": 8874,
+      "policy": "",
+      "delete": false,
+      "configuredSecure": null,
+      "sameSiteHeader": null,
+      "secureHeader": false,
+      "httpOnlyHeader": true
+    },
+    {
+      "source": "wmtech",
+      "port": 8874,
+      "policy": "Lax",
+      "delete": true,
+      "configuredSecure": null,
+      "sameSiteHeader": "Lax",
+      "secureHeader": false,
+      "httpOnlyHeader": true
+    },
+    {
+      "source": "wmtech",
+      "port": 8872,
+      "policy": null,
+      "delete": false,
+      "configuredSecure": true,
+      "sameSiteHeader": null,
+      "secureHeader": true,
+      "httpOnlyHeader": true
+    },
+    {
+      "source": "wmtech",
+      "port": 8872,
+      "policy": "Strict",
+      "delete": false,
+      "configuredSecure": true,
+      "sameSiteHeader": null,
+      "secureHeader": true,
+      "httpOnlyHeader": true
+    },
+    {
+      "source": "wmtech",
+      "port": 8872,
+      "policy": "None",
+      "delete": false,
+      "configuredSecure": true,
+      "sameSiteHeader": null,
+      "secureHeader": true,
+      "httpOnlyHeader": true
+    },
+    {
+      "source": "wmtech",
+      "port": 8872,
+      "policy": "",
+      "delete": false,
+      "configuredSecure": true,
+      "sameSiteHeader": null,
+      "secureHeader": true,
+      "httpOnlyHeader": true
+    },
+    {
+      "source": "wmtech",
+      "port": 8872,
+      "policy": "Lax",
+      "delete": true,
+      "configuredSecure": true,
+      "sameSiteHeader": null,
+      "secureHeader": true,
+      "httpOnlyHeader": true
+    },
+    {
+      "source": "wmtech",
+      "port": 8873,
+      "policy": null,
+      "delete": false,
+      "configuredSecure": true,
+      "sameSiteHeader": "Lax",
+      "secureHeader": true,
+      "httpOnlyHeader": true
+    },
+    {
+      "source": "wmtech",
+      "port": 8873,
+      "policy": "Strict",
+      "delete": false,
+      "configuredSecure": true,
+      "sameSiteHeader": "Strict",
+      "secureHeader": true,
+      "httpOnlyHeader": true
+    },
+    {
+      "source": "wmtech",
+      "port": 8873,
+      "policy": "None",
+      "delete": false,
+      "configuredSecure": true,
+      "sameSiteHeader": "None",
+      "secureHeader": true,
+      "httpOnlyHeader": true
+    },
+    {
+      "source": "wmtech",
+      "port": 8873,
+      "policy": "",
+      "delete": false,
+      "configuredSecure": true,
+      "sameSiteHeader": null,
+      "secureHeader": true,
+      "httpOnlyHeader": true
+    },
+    {
+      "source": "wmtech",
+      "port": 8873,
+      "policy": "Lax",
+      "delete": true,
+      "configuredSecure": true,
+      "sameSiteHeader": "Lax",
+      "secureHeader": true,
+      "httpOnlyHeader": true
+    },
+    {
+      "source": "wmtech",
+      "port": 8874,
+      "policy": null,
+      "delete": false,
+      "configuredSecure": true,
+      "sameSiteHeader": "Lax",
+      "secureHeader": true,
+      "httpOnlyHeader": true
+    },
+    {
+      "source": "wmtech",
+      "port": 8874,
+      "policy": "Strict",
+      "delete": false,
+      "configuredSecure": true,
+      "sameSiteHeader": "Strict",
+      "secureHeader": true,
+      "httpOnlyHeader": true
+    },
+    {
+      "source": "wmtech",
+      "port": 8874,
+      "policy": "None",
+      "delete": false,
+      "configuredSecure": true,
+      "sameSiteHeader": "None",
+      "secureHeader": true,
+      "httpOnlyHeader": true
+    },
+    {
+      "source": "wmtech",
+      "port": 8874,
+      "policy": "",
+      "delete": false,
+      "configuredSecure": true,
+      "sameSiteHeader": null,
+      "secureHeader": true,
+      "httpOnlyHeader": true
+    },
+    {
+      "source": "wmtech",
+      "port": 8874,
+      "policy": "Lax",
+      "delete": true,
+      "configuredSecure": true,
+      "sameSiteHeader": "Lax",
+      "secureHeader": true,
+      "httpOnlyHeader": true
+    },
+    {
+      "source": "wmtech",
+      "port": 8872,
+      "policy": null,
+      "delete": false,
+      "configuredSecure": false,
+      "sameSiteHeader": null,
+      "secureHeader": false,
+      "httpOnlyHeader": true
+    },
+    {
+      "source": "wmtech",
+      "port": 8872,
+      "policy": "Strict",
+      "delete": false,
+      "configuredSecure": false,
+      "sameSiteHeader": null,
+      "secureHeader": false,
+      "httpOnlyHeader": true
+    },
+    {
+      "source": "wmtech",
+      "port": 8872,
+      "policy": "None",
+      "delete": false,
+      "configuredSecure": false,
+      "sameSiteHeader": null,
+      "secureHeader": false,
+      "httpOnlyHeader": true
+    },
+    {
+      "source": "wmtech",
+      "port": 8872,
+      "policy": "",
+      "delete": false,
+      "configuredSecure": false,
+      "sameSiteHeader": null,
+      "secureHeader": false,
+      "httpOnlyHeader": true
+    },
+    {
+      "source": "wmtech",
+      "port": 8872,
+      "policy": "Lax",
+      "delete": true,
+      "configuredSecure": false,
+      "sameSiteHeader": null,
+      "secureHeader": false,
+      "httpOnlyHeader": true
+    },
+    {
+      "source": "wmtech",
+      "port": 8873,
+      "policy": null,
+      "delete": false,
+      "configuredSecure": false,
+      "sameSiteHeader": "Lax",
+      "secureHeader": false,
+      "httpOnlyHeader": true
+    },
+    {
+      "source": "wmtech",
+      "port": 8873,
+      "policy": "Strict",
+      "delete": false,
+      "configuredSecure": false,
+      "sameSiteHeader": "Strict",
+      "secureHeader": false,
+      "httpOnlyHeader": true
+    },
+    {
+      "source": "wmtech",
+      "port": 8873,
+      "policy": "None",
+      "delete": false,
+      "configuredSecure": false,
+      "sameSiteHeader": "None",
+      "secureHeader": false,
+      "httpOnlyHeader": true
+    },
+    {
+      "source": "wmtech",
+      "port": 8873,
+      "policy": "",
+      "delete": false,
+      "configuredSecure": false,
+      "sameSiteHeader": null,
+      "secureHeader": false,
+      "httpOnlyHeader": true
+    },
+    {
+      "source": "wmtech",
+      "port": 8873,
+      "policy": "Lax",
+      "delete": true,
+      "configuredSecure": false,
+      "sameSiteHeader": "Lax",
+      "secureHeader": false,
+      "httpOnlyHeader": true
+    },
+    {
+      "source": "wmtech",
+      "port": 8874,
+      "policy": null,
+      "delete": false,
+      "configuredSecure": false,
+      "sameSiteHeader": "Lax",
+      "secureHeader": false,
+      "httpOnlyHeader": true
+    },
+    {
+      "source": "wmtech",
+      "port": 8874,
+      "policy": "Strict",
+      "delete": false,
+      "configuredSecure": false,
+      "sameSiteHeader": "Strict",
+      "secureHeader": false,
+      "httpOnlyHeader": true
+    },
+    {
+      "source": "wmtech",
+      "port": 8874,
+      "policy": "None",
+      "delete": false,
+      "configuredSecure": false,
+      "sameSiteHeader": "None",
+      "secureHeader": false,
+      "httpOnlyHeader": true
+    },
+    {
+      "source": "wmtech",
+      "port": 8874,
+      "policy": "",
+      "delete": false,
+      "configuredSecure": false,
+      "sameSiteHeader": null,
+      "secureHeader": false,
+      "httpOnlyHeader": true
+    },
+    {
+      "source": "wmtech",
+      "port": 8874,
+      "policy": "Lax",
+      "delete": true,
+      "configuredSecure": false,
+      "sameSiteHeader": "Lax",
+      "secureHeader": false,
+      "httpOnlyHeader": true
+    }
+  ],
+  "cookieCaseCount": 75,
+  "renderedCustomizationPages": [
+    {
+      "source": "base",
+      "port": 8872,
+      "status": 200,
+      "childTemplateRendered": true,
+      "addonModificationRendered": true,
+      "translatedPhraseRendered": true
+    },
+    {
+      "source": "wmtech",
+      "port": 8873,
+      "status": 200,
+      "childTemplateRendered": true,
+      "addonModificationRendered": true,
+      "translatedPhraseRendered": true
+    },
+    {
+      "source": "wmtech",
+      "port": 8874,
+      "status": 200,
+      "childTemplateRendered": true,
+      "addonModificationRendered": true,
+      "translatedPhraseRendered": true
+    }
+  ],
+  "rgba": [
+    {
+      "source": "base",
+      "pngSignature": true,
+      "expiresInFuture": false,
+      "expiresHeader": "Wed, 01 Jan 2020 00:00:00 GMT"
+    },
+    {
+      "source": "wmtech",
+      "pngSignature": true,
+      "expiresInFuture": true,
+      "expiresHeader": "Wed, 27 Oct 2027 21:53:20 GMT"
+    }
+  ],
+  "scope": "Loopback HTTP headers and native rendered pages. Secure override is tested with HTTPS server detection false, as at a TLS-offloading proxy. No cross-site browser-cookie or production proxy certification."
+}

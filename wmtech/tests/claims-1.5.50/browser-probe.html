@@ -1,0 +1,29 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><title>Original XenForo bundle controls</title><body><p id="status">Running local JavaScript controls.</p><script>
+window.claimsProbe = async function () {
+  const runs = {};
+  for (const [label, port, version] of [['base',8872,'1.11.0'],['wmtech',8874,'1.12.4']]) {
+    for (const mode of ['full','min']) {
+      const frame = document.createElement('iframe');
+      const origin = 'http://localhost:'+port;
+      const scripts = mode==='full' ? [origin+'/js/jquery/jquery.xenforo.rollup.js',origin+'/js/xenforo/full/xenforo.js'] : [origin+'/js/xenforo/xenforo.js'];
+      const markup = '<!doctype html><html><body><script>var XenForo={_baseUrl:"http://localhost:8874/",visitor:{user_id:0},phrases:{}};<\/script><script src="'+origin+'/js/jquery/jquery-'+version+'.min.js"><\/script><script>jQuery.holdReady(true);window.claimsInitialPlugins=Object.keys(jQuery.fn);<\/script>'+
+        scripts.map((url,i)=>'<script src="'+url+'"><\/script>'+(mode==='full'&&i===0?'<script>window.claimsAfterRollup=Object.keys(jQuery.fn);<\/script>':'')).join('')+
+        '<script>window.claimsLoaded=true;<\/script></body></html>';
+      const ready = new Promise(resolve=>{frame.onload=resolve;});frame.srcdoc=markup;document.body.appendChild(frame);await ready;
+      const w=frame.contentWindow;if(!w.claimsLoaded || !w.jQuery || typeof w.XenForo.init!=='function'){throw Error('Bundle failed: '+label+' '+mode);}
+      const fn=Object.keys(w.XenForo).filter(k=>typeof w.XenForo[k]==='function').sort();
+      const plugins=Object.keys(w.jQuery.fn).sort();
+      let polluted;try{w.jQuery.extend(true,new w.Object(),w.JSON.parse('{"__proto__":{"claimsPollutionProbe":true}}'));polluted=w.Object.prototype.claimsPollutionProbe===true;}finally{delete w.Object.prototype.claimsPollutionProbe;delete Object.prototype.claimsPollutionProbe;}
+      runs[label+'-'+mode]={jqueryVersion:w.jQuery.fn.jquery,symbols:Object.keys(w.XenForo).sort(),functions:fn,plugins,tools:Object.keys(w.jQuery.tools||{}).filter(k=>k!=='version').sort(),customCorePlugins:w.claimsAfterRollup?plugins.filter(k=>!w.claimsAfterRollup.includes(k)):null,browserShim:typeof w.jQuery.browser==='object',liveRestored:typeof w.jQuery.fn.live==='function',prototypePollutionReproduced:polluted,escapedSample:w.XenForo.htmlspecialchars('&<>"\'')};
+      frame.remove();
+    }
+  }
+  const equal=(a,b)=>JSON.stringify(a)===JSON.stringify(b);
+  const checks={fullMinFunctionsBase:equal(runs['base-full'].functions,runs['base-min'].functions),fullMinFunctionsWmtech:equal(runs['wmtech-full'].functions,runs['wmtech-min'].functions),sourceFunctionNamesRetained:equal(runs['base-full'].functions,runs['wmtech-full'].functions),fullMinPluginsBase:equal(runs['base-full'].plugins,runs['base-min'].plugins),fullMinPluginsWmtech:equal(runs['wmtech-full'].plugins,runs['wmtech-min'].plugins)};
+  const sample='#a$%&\'()*+,-._Z';
+  const hashFilters={stock:sample.replace(/[^\w_#-.]/g,''),patched:sample.replace(/[^\w#.-]/g,''),scope:'Exact source regex literals evaluated by the browser, no selector-exploit assertion.'};
+  if(hashFilters.stock===hashFilters.patched || hashFilters.patched!== '#a-._Z'){throw Error('Hash-filter control failed');}
+  window.claimsResults={engine:navigator.userAgent,mode:'Isolated local iframes with jQuery ready held, no forum AJAX or social widgets initialized.',runs,checks,hashFilters,countingRule:'Enumerable own XenForo properties and function names before jQuery ready; jQuery fn keys after rollup and after full core; tools excludes version metadata.'};
+  document.getElementById('status').textContent='Completed '+Object.keys(runs).length+' local bundle controls.';return window.claimsResults;
+};
+</script></body></html>

@@ -1,0 +1,14 @@
+{
+  "php": "7.4.33",
+  "archive": "wmtech",
+  "phpFiles": 2293,
+  "syntaxErrors": [],
+  "deprecatedFiles": [
+    "library/Zend/Filter/Compress/Zip.php",
+    "library/Zend/Json/Decoder.php",
+    "library/Zend/Json/Encoder.php",
+    "library/Zend/Validate/Isbn.php",
+    "library/Zend/Wildfire/Plugin/FirePhp.php"
+  ],
+  "scope": "All shipped upload-tree PHP files, including dead code; no application error-reporting mask."
+}

@@ -1,0 +1,71 @@
+{
+    "php": "7.4.33",
+    "version": 1055070,
+    "binding": {
+        "default": {
+            "public": {
+                "sameV4Subnet": true,
+                "differentV4Subnet": false,
+                "unrelatedV4": false,
+                "sameV6Subnet": true,
+                "differentV6Subnet": false
+            },
+            "admin": {
+                "sameV4Subnet": true,
+                "differentV4Subnet": false,
+                "unrelatedV4": false,
+                "sameV6Subnet": true,
+                "differentV6Subnet": false
+            }
+        },
+        "adminDisabled": {
+            "public": {
+                "sameV4Subnet": true,
+                "differentV4Subnet": false,
+                "unrelatedV4": false,
+                "sameV6Subnet": true,
+                "differentV6Subnet": false
+            },
+            "admin": {
+                "sameV4Subnet": true,
+                "differentV4Subnet": true,
+                "unrelatedV4": true,
+                "sameV6Subnet": true,
+                "differentV6Subnet": true
+            }
+        },
+        "publicWidened": {
+            "public": {
+                "sameV4Subnet": true,
+                "differentV4Subnet": true,
+                "unrelatedV4": false,
+                "sameV6Subnet": true,
+                "differentV6Subnet": true
+            },
+            "admin": {
+                "sameV4Subnet": true,
+                "differentV4Subnet": false,
+                "unrelatedV4": false,
+                "sameV6Subnet": true,
+                "differentV6Subnet": false
+            }
+        }
+    },
+    "writers": {
+        "report": "rejectedByExistingRegex",
+        "userCustomFields": "rejectedByExistingRegex"
+    },
+    "legacyReadControls": {
+        "nativePreparedCustomFieldsIsArray": false,
+        "payloadPersisted": false,
+        "nativeReportReadWarningCounts": {
+            "8": 1
+        }
+    },
+    "configGeneration": {
+        "dbConfigGenerated": true,
+        "saltAutomaticallyInserted": false,
+        "valuesExported": false
+    },
+    "scope": "Post-panel chair checks. Native sessionMatchesIp with binary test IPs; not a proxy or browser replay. Native report/user writers reject object-looking text on both versions. Direct synthetic legacy-read controls do not establish new member-writable persistence. Generated configuration is inspected in memory only."
+}

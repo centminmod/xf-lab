@@ -1,0 +1,415 @@
+# XenForo 1.5.50 — community security & compatibility release
+
+**Base:** XenForo 1.5.24 (`versionId` 1052470, Oct 2019, the last public XF1 build)
+**This release:** 1.5.50 (`versionId` 1055070)
+**PHP:** source stays 7.3-compatible; runs clean on **7.3 and 7.4**
+
+XenForo 1 development ended years ago, so nobody upstream will patch this code again.
+This is a self-maintained release that closes real security gaps and removes integrations
+that are already dead in production, while keeping every add-on, style and template
+customisation working.
+
+---
+
+## Design rule that governs the whole release
+
+> **Neutralise at the option/PHP layer. Do not edit hot templates.**
+
+`xf_template_modification` rows match **literal `find` strings**, so changing one line of a
+public template silently disables every add-on modification that targets it. Every social
+button in XenForo is already gated on `{$xenOptions.facebookAppId}` /
+`twitterAppKey` / `googleClientId`, so **blanking the option values** retires those features
+with *zero* template edits.
+
+**Result: no templates changed, no phrases changed, no phrase titles renamed.**
+The changed-ID table below is intentionally empty.
+
+Also unchanged: all 217 `<xen:hook>` points, the `#SWFUploadPlaceHolder` element, the
+`.swfupload` CSS class, and the `enable_flash_uploader` option and column — add-ons and
+styles target these.
+
+---
+
+## Database changes
+
+No schema changes. The upgrade performs three option-**value** updates only
+(`library/XenForo/Install/Upgrade/1055070-1550.php`):
+
+| Step | Change | Why |
+|---|---|---|
+| 1 | Blank `facebookAppId`, `facebookAppSecret`, `googleClientId`, `googleClientSecret` | Retires the dead social logins. Option *definitions* are kept so `$xenOptions.*` and add-on reads still resolve. |
+| 2 | `jQuerySource` `microsoft` → `local` | The Microsoft Ajax CDN was decommissioned in 2022; a board pointed at it serves no jQuery at all. |
+| 3 | `uncompressedJs` `2` → `0` | `2` pointed at `js/xenforo/min/`, a directory that has never existed in any XenForo distribution, so it 404'd every script. |
+
+---
+
+## Security
+
+| ID | Change | File |
+|---|---|---|
+| C1 | **SameSite on all cookies**, via the PHP 7.3 `setcookie()` options array. `$config['cookie']['sameSite']`, default `Lax`. Verified over HTTP on 7.3 and 7.4. | `Helper/Cookie.php` |
+| C2 | **`$config['cookie']['secure']`** override. Auto-detection reads `$_SERVER['HTTPS']`, which is false behind a TLS-terminating proxy — so an HTTPS board could ship its session cookie without `Secure`. | `Application.php` |
+| C9 | **SSRF DNS-rebinding fix.** The guard resolved the host and rejected private addresses, then handed the *hostname* to the HTTP client, which resolved it again — so a short-TTL record could pass validation and then land on an internal address. Requests are now pinned to the validated IPs with `CURLOPT_RESOLVE`. Verified end-to-end. | `Helper/Http.php` |
+| C3 | **`safeUnserialize`** (`allowed_classes => false`) for session payloads, deferred `execute_data`, report `content_info`, spam logs, and user custom/external fields. | `Session.php`, `Model/Deferred.php`, `ReportHandler/*`, `Model/User.php`, `Model/SpamCleaner.php` |
+| C4 | **Constant-time comparison** via the existing `hashEquals()` for password hashes, CSRF tokens, proxy HMACs and VERP HMACs. | `PasswordHash.php`, `Controller.php`, `ProxyOutput.php`, `BounceParser.php` |
+| C5 | **CSPRNG instead of `md5(uniqid())`** for registration keys, attachment temp hashes, captcha hashes and user-change modifiers. `uniqid()` is a microsecond timestamp; `md5()` over it adds no entropy. | `ControllerPublic/Register.php`, `Model/Forum.php`, `Model/Conversation.php`, `Model/UserChangeTemp.php`, `Model/CaptchaQuestion.php` |
+| C6 | **TLS peer verification on the PayPal IPN callback** — the only thing between a man in the middle and forged paid-upgrade grants. Escape hatch: `$config['paypalSslVerifyPeer'] = false`. | `UserUpgradeProcessor/PayPal.php` |
+| C7 | TLS peer verification on the general untrusted HTTP client. | `Helper/Http.php` |
+| C8 | Emailed reset passwords raised from 8 to 16 characters (~48 → ~96 bits). | `Model/UserConfirmation.php`, `Model/User.php` |
+| C11 | XFCP class-name filter changed from a deny-list to a positive allow-list; the old one let `{`, `}` and whitespace through into `eval()`. Requires ACP access to reach, so defence in depth. | `Application.php` |
+| — | Solve Media verification callback moved from plaintext HTTP to HTTPS. | `Captcha/SolveMedia.php` |
+| — | Solve Media captcha challenge no longer loads executable script over plaintext HTTP. | `js/xenforo/full/xenforo.js` |
+
+### Audited and found already correct — deliberately not changed
+
+- **CSPRNG** — `generateRandomString()` already prefers `random_bytes()`.
+- **Session IDs** — `md5(generateRandomString(16, true))`: 128 bits of entropy, `md5` used only as hex encoding.
+- **Open redirect** — `getDynamicRedirect()` correctly requires a same-host match and rejects CR/LF.
+- **SQL injection** — parameterised throughout; `ORDER BY` is whitelisted via `getOrderByClause()`.
+- **Upload handling** — `getimagesize()` is authoritative, the extension is forced to match, and `X-Content-Type-Options: nosniff` is set.
+- **XXE** — tested on 7.3 and 7.4: the shipped `Zend_Xml_Security` already blocks the payload, libxml has defaulted to no external entities since 2.9, and nothing in the tree passes `LIBXML_NOENT`. *Backporting the final upstream version was dropped: its additions only activate below PHP 5.6.6 and would have been dead code.*
+- **`X-Forwarded-For`** — not trusted; client IP comes from `REMOTE_ADDR`.
+- **AutoComplete** injecting `result['username']` raw is a **documented contract, not a hole** — `ViewPublic/Member/Find.php` escapes it server-side. Escaping again would double-escape every username containing `& < > "`.
+- **`XenForo.htmlspecialchars`** omitting `'` matches PHP's `ENT_COMPAT` default; diverging would desync client and server escaping.
+- **2FA QR codes** need no fix: `getQRCodeGoogleUrl()` (which uses the shut-down Google Charts API) has **zero callers** — `two_step_totp` already renders the QR locally with `jquery.qrcode`.
+
+---
+
+## PHP 7.3 / 7.4 compatibility
+
+1.5.24 was already clean on 7.3 — 2336 files linted, one failure, in unreachable dead code.
+The work here is about **also** running clean on 7.4. Every item was reproduced against
+7.4.33, not inferred.
+
+| Change | Why it mattered |
+|---|---|
+| `error_reporting(E_ALL \| E_STRICT & ~8192)` → `(E_ALL \| E_STRICT) & ~E_DEPRECATED` | `&` binds tighter than `\|`, so `~E_DEPRECATED` was masked off `E_STRICT` instead of off the whole set. Deprecations stayed enabled — and `handlePhpError()` turns them into `ErrorException` in debug mode, so a debug-mode board on 7.4 died on its first request. **Fixed first; it is what makes everything below visible.** |
+| Removed the magic-quotes handling | Dead since PHP 5.4, but the `function_exists()` guard is still true on 7.4, so `get_magic_quotes_gpc()` — itself deprecated there — was called on **every request**. `undoMagicQuotes()` and its config key are kept for add-ons. |
+| Curly-brace string offsets → `[]` | Deprecated on 7.4, fatal on 8.0. Fixed only where XenForo reaches them: `Lgpl/utf8.php` (required on every request), `Helper/Hash.php`, `Importer/IPBoard.php`, `Zend/Loader/PluginLoader.php`. |
+| `array_key_exists($index, $this)` → `parent::offsetExists()` | Runs on **every request** via `XenForo_Application::isRegistered()` (73 call sites). |
+| `implode($array, $glue)` → `implode($glue, $array)` | Fires per template render. |
+| Deleted `library/Zend/Service/WindowsAzure/` | 43 files; the only PHP 7.3 **fatal** in the tree (`unset($this)`), referenced nowhere by XenForo. |
+
+The full 7.4 sweep now reports **exactly** the five Zend files XenForo never loads, and
+nothing else:
+`Zend/Validate/Isbn.php`, `Zend/Json/{Encoder,Decoder}.php`,
+`Zend/Wildfire/Plugin/FirePhp.php`, `Zend/Filter/Compress/Zip.php`.
+Per project policy, Zend is patched **only where XenForo actually reaches it** — add-ons
+look after their own Zend usage.
+
+---
+
+## Absorbed from a production board's core edits
+
+A pre-upgrade audit of a live board (`build/core-audit.php`) found eight hand-edited core files.
+Three of those edits were general rather than site-specific, so 1.5.50 absorbs them — the board
+can then drop the edits, and every future upgrade stops reverting them.
+
+### `$config['httpUserAgent']`
+
+`XenForo_Helper_Http::getUserAgent()` is new and returns this config value when set, falling back
+to the stock `XenForo/1.5 (boardUrl)` string. Boards that want to identify their own fetcher to
+remote sites previously had to edit `Helper/Http.php` — the file our SSRF patch rewrites most, so
+it was the worst possible place to carry a local change.
+
+### Configurable session IP binding
+
+`Session.php` hard-coded `ipv4CidrMatch = 24` / `ipv6CidrMatch = 64` for **both** session types.
+Admins on dynamic or mobile addresses are thrown out of the ACP whenever their IP changes, which
+boards work around by editing this file. Now overridable per session type:
+
+```php
+$config['session']['ipv4CidrMatch']      = 24;  // public sessions
+$config['session']['adminIpv4CidrMatch'] = 0;   // admin sessions; 0 = no IP binding
+```
+
+Defaults are unchanged (24/64 for both). Verified in three configurations: unset, admin binding
+disabled, and public binding widened.
+
+> Disabling admin IP binding is a deliberate trade: it removes one signal that an admin session
+> cookie is being replayed from elsewhere. It is off by default for that reason.
+
+### MySQL 8: `REGEXP BINARY` for tag URL matching
+
+`Model/Tag.php` and `DataWriter/Tag.php` match `tag_url` with `REGEXP`. On MySQL 8 — which
+replaced the regex engine and moved `utf8` to `utf8mb3` — this misbehaves;
+[the XenForo community thread](https://xenforo.com/community/threads/mysql-8-0-22-xf_phrase-rlike-compatibility.186800/#post-1475961)
+documents it. `REGEXP BINARY` is the accepted fix.
+
+> Stated plainly: **this was not reproduced here.** No MySQL 8 server and no tag data were
+> available, so the change rests on the reporting board's evidence. What *was* verified is that
+> it is safe elsewhere: `BINARY` also forces case-sensitivity, but `Model/Tag.php:15` lowercases
+> tags with `utf8_strtolower()` before building the URL, so `tag_url` is lowercase by
+> construction and the case-sensitivity is a no-op for well-formed data.
+
+### Facebook SDK defaults
+
+The same board had independently set `version: 'v17.0'`, `xfbml: true`, `oauth: false`. 1.5.50 now
+ships `xfbml: true, oauth: false` — social plugins such as the Like button keep rendering, and
+OAuth is off because this release retires Facebook login. The version ships as **v21.0** rather
+than v17.0: Meta expires Graph versions after roughly two years, so v17.0 (May 2023) is likely
+already past end of life.
+
+---
+
+## Branding: `$config['copyrightHtml']`
+
+`XenForo_Application::getCopyrightHtml()` now returns `$config['copyrightHtml']` when that key is
+set, falling back to the stock link otherwise. `null` (the default) changes nothing; `''`
+suppresses the branding; any string replaces it.
+
+This exists because boards entitled to remove the branding have historically done it by editing
+`Application.php` directly — which means **every file-based upgrade silently restores the link**,
+with nothing to warn the admin. The dev board used for Stage 2 was in exactly that state. Moving
+the decision into `config.php` makes it survive upgrades.
+
+> Note for boards doing this: the `xenforo_copyright` and `xenforo_logo` **phrases** are a separate
+> vector. If they were blanked by editing `install/data/phrases.xml`, the upgrade ships the stock
+> file over it and the master-data rebuild re-imports the stock text. Re-apply those two phrase
+> edits before running the rebuild, or blank them per-language where the rebuild cannot reach.
+
+---
+
+## JavaScript library
+
+**jQuery 1.11.0 → 1.12.4**, the last release of the 1.x line. This is a conservative,
+API-identical bump within the same major version, chosen so that add-on JavaScript keeps
+working: the 34 `$.browser` call sites across XenForo's own scripts still depend on jQuery
+Migrate 1.2.1, which a jump to 3.x would break.
+
+- The file was verified against jQuery's published SRI hash before shipping:
+  `sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=` — **match**.
+- **Both** `jquery-1.11.0.min.js` and `jquery-1.12.4.min.js` ship, and
+  **`$config['jQueryVersion'] = '1.11.0';`** rolls the bump back without touching core files.
+- `.live()` is absent from 1.12.4, but that is not a regression: 1.11.0 does not have it
+  either, jQuery Migrate restores it, and XenForo never calls it.
+
+> Note: this bump fixes no CVE — every jQuery 1.x is below the 3.4/3.5 fixes for prototype
+> pollution and `.html()` XSS. Closing those needs jQuery 3.x plus a `$.browser` shim and a
+> full rebuild, which is a much larger change than this release is scoped for.
+
+---
+
+## Bug fixes
+
+- **`XenForo_Template_Helper_Core::toggleClass()`** used `array_keys()` where `array_flip()`
+  was meant, so removing a class returned `"0 1"` (the array indices) instead of the
+  remaining class names. No core callers, so nothing depended on the broken output.
+- **`rgba.php`** sent a hardcoded `Expires: Wed, 01 Jan 2020`, in the past since 2020, which
+  made the shim uncacheable — one PNG re-fetched per `rgba()` colour, per page.
+- **`filter_list.js`** filtered `location.hash` with `[^\w_#-.]`, where `#-.` is a character
+  **range** (U+0023–U+002E), silently allowing `$ % & ' ( ) * + , -` into a jQuery selector.
+- **`ControllerPublic/Member.php`** indexed `getUserBirthdayDetails()` unconditionally, but that
+  returns `false` for any member with no date of birth or a private one — which is most members.
+  Silently `null` on 7.3; on 7.4 it raises *Trying to access array offset on value of type bool*,
+  and XenForo logs notices, so **every profile view wrote a row to `xf_error_log`**. Found by
+  running the upgraded board on 7.4, not by static analysis — see Testing below.
+
+---
+
+## Removed
+
+| Path | Reason |
+|---|---|
+| `library/Zend/Service/WindowsAzure/` (43 files) | Unreferenced; the only 7.3 fatal in the tree. |
+| `js/swfupload/` | Flash. Upstream had already emptied the stubs to 0 bytes; nothing `<xen:require>`s them. |
+| `js/videojs/video-js.swf` | Flash, 0 bytes. |
+| `fb_channel.php` | Facebook SDK v1 `channelUrl` support; ignored since SDK v2. |
+
+### Kept on purpose
+
+- **`Captcha/SolveMedia.php`** — the service is defunct, but a board with it selected would
+  fatal on every registration page if the class vanished, and auto-migrating the option could
+  leave a board with **no working captcha**. Its plaintext URL is fixed instead.
+  **Action for admins: switch captcha provider if you are still on Solve Media.**
+- **`styles/default/xenforo/gplus.png`** — its only reference is a CSS rule in a template, and
+  removing that rule would mean editing a template. Deleting the image alone would turn a
+  harmless unused rule into a 404.
+- **`js/xenforo/full/attachment_editor.js`** — its Flash branch is guarded by
+  `typeof SWFUpload == 'function'`, permanently false, so it already degrades to the plain
+  upload path.
+
+---
+
+## Changed template and phrase IDs
+
+**None.** No template or phrase was added, changed, renamed or removed.
+
+`install/data/options.xml` changed in one place: the retired **Microsoft CDN** choice was
+removed from `jQuerySource`. Option definitions carry no `version_id`, and re-import
+preserves admin-set values.
+
+---
+
+## Upgrade notes for administrators
+
+1. **Social logins are switched off.** Facebook Graph v2.10 was removed by Meta and Google
+   shut down `gapi.auth2` in 2023, so both were already failing. Accounts that registered
+   *only* via Facebook or Google should use **Forgot password** against their stored email.
+   The Facebook **Like** button is unaffected.
+2. **If you use Solve Media, change captcha provider.** The service is defunct.
+3. **Behind a reverse proxy?** Set `$config['cookie']['secure'] = true;` so the session cookie
+   keeps its `Secure` flag.
+4. **Cross-site embedding?** The default `SameSite=Lax` is right for almost every board. If the
+   forum is framed from another origin, set `$config['cookie']['sameSite'] = 'None';`
+   (which also requires `Secure`), or `''` to restore pre-1.5.50 behaviour.
+5. **PayPal upgrades:** if your host has no usable CA bundle and IPN verification starts
+   failing, set `$config['paypalSslVerifyPeer'] = false;` — but fix the CA bundle instead.
+6. Everyone is logged out on upgrade only if you change cookie settings; the defaults do not
+   invalidate existing sessions.
+7. **Delete these leftovers after upgrading.** A zip upload can add and overwrite files but never
+   remove them, so 1.5.24 files that 1.5.50 drops stay behind as orphans. They are inert — the
+   File Health Check ignores paths that are not in the manifest — but they are dead code:
+
+   ```
+   rm -f  fb_channel.php
+   rm -rf js/swfupload
+   rm -f  js/videojs/video-js.swf
+   rm -rf library/Zend/Service/WindowsAzure
+   ```
+
+---
+
+## Testing
+
+Verified on a real server (Apache + PHP-FPM + MariaDB), not just in the build:
+
+**Stage 1 — clean install then upgrade.** XenForo 1.5.24 was installed from scratch, seeded with
+the customisations this release must not break, then upgraded with the 1.5.50 **upgrade zip**
+exactly as an admin would (extract `upload/` over the live tree).
+
+| Check | Result |
+|---|---|
+| Upgrader pre-flight file check | passed, no file errors |
+| Upgrade completed | `currentVersionId` 1052470 → **1055070**, logged in `xf_upgrade_log` |
+| Upgrade steps | credentials blanked; `jQuerySource` microsoft → local; `uncompressedJs` 2 → 0 |
+| **ACP File Health Check** | **"All 1,238 checked files are present and correct."** |
+| Master templates / phrases | **523 / 5787 — identical to before the upgrade** |
+| Templates or phrases stamped 1055070 | **0** (max master version still 1052370, from 1.5.24) |
+| Customised child-style template | preserved, and still renders under that style |
+| Add-on template modification | still applies (`status ok`, `apply_count 1`), marker still in output |
+| Translated phrase in a second language | preserved verbatim |
+| Outdated template/phrase counts | **unchanged** by the upgrade (verified against a restored pre-upgrade snapshot) |
+| `xf_error_log` / PHP error log | **0 entries / 0 new lines** across install, upgrade, browsing and posting |
+
+Live confirmation of the headline fixes:
+
+```
+before:  Set-Cookie: xf_session=...; path=/; secure; HttpOnly
+after:   Set-Cookie: xf_session=...; path=/; secure; HttpOnly; SameSite=Lax
+```
+
+`uncompressedJs = 2` was reproduced as a genuine outage on stock 1.5.24 — the board requested
+`js/xenforo/min/xenforo.js`, which returns **HTTP 404**, breaking every script. After the
+upgrade the option is corrected and `js/jquery/jquery-1.12.4.min.js` and `js/xenforo/xenforo.js`
+both return 200, with a new `_v=` cache buster from the version bump.
+
+Login (front-end and ACP), thread creation, replying and BB code rendering all work. The CSRF
+change was exercised on both paths: a valid token is accepted, and a POST without one is
+correctly rejected.
+
+**Stage 2 — PHP 7.4.** The upgraded board was then served under PHP 7.4 against the same
+database and 57 pages were crawled (front-end, logged-in account pages, and the ACP). This is
+what found the `Member.php` notice above — the one defect class that static analysis cannot
+reach. After fixing it: **zero notices, zero deprecations, zero warnings**, and the File Health
+Check reports all 1,238 files correct on 7.4 as well.
+
+---
+
+## Provenance
+
+Every modified file carries a marker immediately after its opening tag:
+
+```
+/* XF1550-PATCH: <reason>. XenForo 1.5.50 community release; see /CHANGELOG-1.5.50.md */
+```
+
+`grep -rl XF1550-PATCH` is checked against this changelog by `build/verify.sh`.
+Markers are **never** placed inside templates or phrases, because template bodies are matched
+literally by `xf_template_modification` and a marker would render into page output.
+
+**44 files marked:**
+
+```
+js/videojs/video.js
+js/xenforo/filter_list.js
+js/xenforo/full/filter_list.js
+js/xenforo/full/xenforo.js
+js/xenforo/xenforo.js
+library/Lgpl/utf8.php
+library/XenForo/Application.php
+library/XenForo/BounceParser.php
+library/XenForo/Captcha/SolveMedia.php
+library/XenForo/Controller.php
+library/XenForo/ControllerPublic/Member.php
+library/XenForo/ControllerPublic/Register.php
+library/XenForo/DataWriter/Tag.php
+library/XenForo/Dependencies/Public.php
+library/XenForo/Helper/Cookie.php
+library/XenForo/Helper/Hash.php
+library/XenForo/Helper/Http.php
+library/XenForo/Importer/IPBoard.php
+library/XenForo/Install/Data/FileSums.php
+library/XenForo/Install/Upgrade/1055070-1550.php
+library/XenForo/Model/CaptchaQuestion.php
+library/XenForo/Model/Conversation.php
+library/XenForo/Model/Deferred.php
+library/XenForo/Model/Forum.php
+library/XenForo/Model/SpamCleaner.php
+library/XenForo/Model/Tag.php
+library/XenForo/Model/User.php
+library/XenForo/Model/UserChangeTemp.php
+library/XenForo/Model/UserConfirmation.php
+library/XenForo/PasswordHash.php
+library/XenForo/ProxyOutput.php
+library/XenForo/ReportHandler/Abstract.php
+library/XenForo/ReportHandler/ConversationMessage.php
+library/XenForo/ReportHandler/Post.php
+library/XenForo/ReportHandler/ProfilePost.php
+library/XenForo/ReportHandler/ProfilePostComment.php
+library/XenForo/ReportHandler/User.php
+library/XenForo/Session.php
+library/XenForo/Template/Abstract.php
+library/XenForo/Template/Helper/Core.php
+library/XenForo/UserUpgradeProcessor/PayPal.php
+library/Zend/Loader/PluginLoader.php
+library/Zend/Registry.php
+rgba.php
+```
+
+---
+
+## Build
+
+The distribution never shipped a release tool — XenForo's was internal. `build/` reproduces it:
+
+| Script | Purpose |
+|---|---|
+| `build/mark.php` | Applies the `XF1550-PATCH` provenance marker. |
+| `build/patch.py` | Line-ending-preserving source patcher (the tree mixes LF and CRLF). |
+| `build/minify.sh` | terser 5.51.2. Rebuilds a module's minified twin. |
+| `build/filesums.php` | Regenerates `Install/Data/FileSums.php`. **Must run last.** |
+| `build/verify.sh` | 7.3 + 7.4 lint and marker verification. |
+| `build/package.sh` | Builds the full and upgrade archives. |
+
+Two things the build must get right, both learned the hard way:
+
+- **`js/xenforo/xenforo.js` is not a minification of `full/xenforo.js`.** It is
+  `jquery.xenforo.rollup.js` **+** `full/xenforo.js`, concatenated *then* minified.
+- **The `_XF_JS_UNCOMPRESSED_TEST_` sentinel must NOT survive into the minified output.**
+  Its meaning is inverted from its name: `Install_Controller_Install` reads `xenforo.js` and,
+  on finding it, concludes the file is the *uncompressed* variant and forces
+  `uncompressedJs = 3`. Preserving it would make every fresh install serve unminified
+  JavaScript in production.
+
+Bundle equivalence after rebuilding was verified by diffing the public surface of the old and
+new bundles: **137 `XenForo.*` symbols, 23 jQuery plugins, 9 jQuery Tools modules and 16
+phrase keys — all identical.**
+
+`FileSums.php`: **1238 entries**, all verifying against disk. The delta against stock 1.5.24 is
+exactly four entries — `fb_channel.php` and `js/swfupload/swfupload.min.js` removed;
+`js/jquery/jquery-1.12.4.min.js` and the 1.5.50 upgrade class added.
+
+Vendored third-party files that we ship unmodified (such as `jquery-1.12.4.min.js`) carry **no**
+`XF1550-PATCH` marker, so they stay byte-identical to upstream and remain verifiable against
+their published hashes.

@@ -6,6 +6,7 @@
 <h1>Preparing wmtech 1.5.50 for XenForo 2.3.13</h1>
 <p class="muted">Evolution analysis, adversarial review and verified migration plan. Prepared by Codex, with a read-only consult-panel review before this report was written.</p>
 </header>
+<p class="source">Follow-up: <a href="2026-10-28-wmtech-1.5.50-changelog-verification.html">original 1.5.50 changelog verification</a> compares 86 checks with stock24, primary documentation and native lab controls, with Claude/Z.AI review and local follow-up. It clarifies that both versions already pass allowed_classes=false on PHP 7; the new deferred caller exposes a pre-existing regex false positive. This does not clear the separate candidate51/XF2 source-panel checkpoints.</p>
 <div class="notice"><strong>Recommendation.</strong> Keep 1.5.50 a small compatibility release that preserves XF1 data and extension contracts. Correct the four verified regressions, retain migration-relevant provider settings, and add migration preflight checks. Let XenForo's native upgrader perform the framework and schema conversion.</div>
 <div class="meta" aria-label="Key results">
 <div><strong>57</strong>Native upgrade versions completed directly</div>

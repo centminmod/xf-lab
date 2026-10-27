@@ -1,0 +1,29 @@
+{
+  "jquery124": {
+    "url": "https://code.jquery.com/jquery-1.12.4.min.js",
+    "finalUrl": "https://code.jquery.com/jquery-1.12.4.min.js",
+    "status": 200,
+    "bytes": 97163,
+    "sha256": "668b046d12db350ccba6728890476b3efee53b2f42dbb84743e5e9f1ae0cc404",
+    "retrievedAtUtc": "2026-10-27T21:42:13.625414+00:00",
+    "sri": "sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
+  },
+  "microsoftStockUrl": {
+    "url": "https://ajax.microsoft.com/ajax/jquery/jquery-1.11.0.min.js",
+    "finalUrl": "https://ajax.microsoft.com/ajax/jquery/jquery-1.11.0.min.js",
+    "status": 200,
+    "bytes": 96381,
+    "sha256": "b294e973896f8f874e90a8eb1a8908ac790980d034c4c4bdf0fc3d37b8abf682",
+    "retrievedAtUtc": "2026-10-27T21:42:13.828829+00:00"
+  },
+  "upstreamZendXml": {
+    "url": "https://raw.githubusercontent.com/zendframework/zf1/release-1.12.20/library/Zend/Xml/Security.php",
+    "finalUrl": "https://raw.githubusercontent.com/zendframework/zf1/release-1.12.20/library/Zend/Xml/Security.php",
+    "status": 200,
+    "bytes": 14664,
+    "sha256": "3e5cf1d0d2b8a824ec63b20258801455c1dc8223b6ceb96f3708502e775a21b0",
+    "retrievedAtUtc": "2026-10-27T21:42:14.166928+00:00",
+    "nonetUsed": true,
+    "php566VersionGatePresent": true
+  }
+}

@@ -1,0 +1,309 @@
+Post-panel chair source checks. Not included in the approved initial external payload. Original archives remain unchanged. Line endings are normalized to LF in this export.
+
+--- stock24/INSTALL-UPGRADE.txt
++++ original50/INSTALL-UPGRADE.txt
+@@ -1,24 +1,103 @@
+-Thank you for purchasing XenForo.
+-
+-INSTALLING XENFORO
+-------------------
+-
+-For details on how to install XenForo, please visit our manual:
+-
+-http://xenforo.com/help/installation/
+-
+-UPGRADING XENFORO
+------------------
+-
+-For details on how to upgrade an existing XenForo installation,
+-please visit our manual:
+-
+-http://xenforo.com/help/upgrades/
+-
+-QUESTIONS?
+-----------
+-
+-If you have any questions, please see our help section. This lists
+-several ways to contact us and get answers.
+-
+-http://xenforo.com/help/
++XenForo 1.5.50 - community security & compatibility release
++===========================================================
++
++This is a self-maintained release built on XenForo 1.5.24, the last public
++XenForo 1 build. It is not an official XenForo Ltd release.
++
++It closes security gaps, removes integrations that no longer exist, and runs
++cleanly on PHP 7.3 and 7.4 - while leaving every template and phrase untouched
++so existing add-ons, styles and customisations keep working.
++
++Read CHANGELOG-1.5.50.md for the full list of changes, the files that were
++modified, and the notes for administrators.
++
++
++INSTALLING
++----------
++
++Upload the contents of the upload/ directory to your server, then visit
++/install/ in your browser.
++
++
++UPGRADING FROM 1.5.24
++---------------------
++
++1. Back up your database and your files. Do not skip this.
++2. Upload the contents of the upload/ directory over your existing
++   installation, overwriting when asked.
++3. Visit /install/ in your browser and follow the upgrade.
++
++The upgrade package deliberately does not contain .htaccess, data/ or
++internal_data/, so it cannot overwrite your attachments, caches or server
++configuration.
++
++
++AFTER UPGRADING - REMOVE OBSOLETE FILES
++---------------------------------------
++
++Uploading files can add and overwrite, but it can never delete. Four paths that
++1.5.50 removed are therefore still on your server after the upgrade, left over
++from the previous version. Two of them matter:
++
++  library/Zend/Service/WindowsAzure/
++      Contains "unset($this)", which is a FATAL ERROR on PHP 7.3 and later.
++      Nothing in XenForo loads it, but it stays autoloadable - any add-on that
++      references Zend_Service_WindowsAzure_* will take the board down.
++
++  fb_channel.php
++      A publicly reachable script that emits a Facebook SDK <script> tag.
++      Facebook login is retired in 1.5.50, so this is dead code on a public URL.
++
++  js/swfupload/  and  js/videojs/video-js.swf
++      Flash. Recent XenForo versions shipped these as empty files, but boards
++      upgraded from older releases may still carry the real binaries.
++
++Remove them from your installation directory:
++
++    rm -f  fb_channel.php
++    rm -rf js/swfupload
++    rm -f  js/videojs/video-js.swf
++    rm -rf library/Zend/Service/WindowsAzure
++
++Then regenerate the file manifest, so the ACP File Health Check stays clean:
++
++    php build/filesums.php /path/to/your/board
++
++If you have the release repository to hand, this does all of the above for you
++and refuses to touch anything not on the list:
++
++    php build/remove-obsolete-files.php /path/to/your/board          (report)
++    php build/remove-obsolete-files.php /path/to/your/board --apply  (delete)
++
++
++BEFORE YOU UPGRADE - PLEASE READ
++--------------------------------
++
++* Facebook and Google social logins are switched off. Both providers had
++  already removed the APIs XenForo 1 uses, so they were failing already.
++  Members who registered ONLY through Facebook or Google should use
++  "Forgot password" against their stored email address. The Facebook Like
++  button is unaffected.
++
++* If you use the Solve Media captcha, change captcha provider. The service
++  is defunct.
++
++* If your board runs behind a reverse proxy that terminates TLS, add this to
++  library/config.php so the session cookie keeps its Secure flag:
++
++      $config['cookie']['secure'] = true;
++
++* Cookies now default to SameSite=Lax. This is correct for almost every
++  board. If your forum is embedded in a frame on another domain, set:
++
++      $config['cookie']['sameSite'] = 'None';
++
++  (which also requires Secure), or '' to restore the previous behaviour.
++
++
++ORIGINAL XENFORO DOCUMENTATION
++------------------------------
++
++XenForo 1 is no longer supported by XenForo Ltd. The installation manual that
++shipped with 1.5.24 pointed to https://xenforo.com/help/ - much of it still
++applies to the installer itself.
+
+=== original50/upload/library/XenForo/DataWriter.php:791-817 ===
+			case self::TYPE_SERIALIZED:
+				if (!is_string($value))
+				{
+					$value = serialize($value);
+					$verifyValidSerialization = false;
+				}
+				else
+				{
+					// already serialized, so we need to check whether this is valid
+					$verifyValidSerialization = true;
+				}
+
+				if (empty($fieldData['unsafe']) && XenForo_Helper_Php::serializedContainsObject($value))
+				{
+					throw new XenForo_Exception("Serialized value contains an object and this is not allowed");
+				}
+
+				if ($verifyValidSerialization)
+				{
+					if (@unserialize($value) === false && $value != serialize(false))
+					{
+						throw new XenForo_Exception('Value is not unserializable');
+					}
+				}
+
+				return $value;
+
+
+=== original50/upload/library/XenForo/ReportHandler/Post.php:16-60 ===
+	public function getReportDetailsFromContent(array $content)
+	{
+		/* @var $postModel XenForo_Model_Post */
+		$postModel = XenForo_Model::create('XenForo_Model_Post');
+
+		$post = $postModel->getPostById($content['post_id'], array(
+			'join' => XenForo_Model_Post::FETCH_THREAD | XenForo_Model_Post::FETCH_FORUM
+		));
+		if (!$post)
+		{
+			return array(false, false, false);
+		}
+
+		if (!empty($post['prefix_id']))
+		{
+			/* @var $prefixModel XenForo_Model_ThreadPrefix */
+			$prefixModel = XenForo_Model::create('XenForo_Model_ThreadPrefix');
+
+			$prefixTitle = new XenForo_Phrase($prefixModel->getPrefixTitlePhraseName($post['prefix_id']));
+			$prefixTitle = $prefixTitle->render();
+
+			$threadTitle = $prefixTitle . ' - ' . $post['title'];
+		}
+		else
+		{
+			$threadTitle = $post['title'];
+		}
+
+		return array(
+			$content['post_id'],
+			$content['user_id'],
+			array(
+				'thread_id' => $post['thread_id'],
+				'thread_title' => $threadTitle,
+
+				'node_id' => $post['node_id'],
+				'node_title' => $post['node_title'],
+				'node_name' => $post['node_name'],
+
+				'username' => $post['username'],
+
+				'message' => $post['message']
+			)
+		);
+	}
+
+=== original50/upload/library/XenForo/Session.php:500-516 ===
+	protected function _setup($sessionId = '', $ipAddress = false, array $defaultSession = null)
+	{
+		$sessionId = strval($sessionId);
+
+		if ($sessionId)
+		{
+			$session = $this->getSessionFromSource($sessionId);
+			if ($session && !$this->sessionMatchesIp($session, $ipAddress))
+			{
+				$session = false;
+			}
+		}
+		else
+		{
+			$session = false;
+		}
+
+
+=== original50/upload/library/XenForo/Session.php:752-790 ===
+
+	/**
+	 * Determines if the existing session matches the given IP address. Looks
+	 * for the session's IP in the ip key. If not found, check passes.
+	 *
+	 * @param array $session
+	 * @param string|false $ipAddress IP address as binary or false to prevent IP check
+	 *
+	 * @return boolean
+	 */
+	public function sessionMatchesIp(array $session, $ipAddress)
+	{
+		if (!isset($session['ip']) || empty($session['ip']) || empty($ipAddress))
+		{
+			return true; // no IP to check against
+		}
+
+		if (strlen($ipAddress) == 4)
+		{
+			$cidr = intval($this->_config['ipv4CidrMatch']);
+		}
+		else
+		{
+			$cidr = intval($this->_config['ipv6CidrMatch']);
+		}
+
+		if ($cidr <= 0)
+		{
+			return true; // IP check disabled
+		}
+
+		return XenForo_Helper_Ip::ipMatchesCidrRange($ipAddress, $session['ip'], $cidr);
+	}
+
+	/**
+	 * Gets the specified session data from the source.
+	 *
+	 * @param string $sessionId
+	 *
+
+=== original50/upload/library/XenForo/Install/Model/Install.php:382-415 ===
+	public function generateConfig(array $config)
+	{
+		$esc = "'\\";
+
+		$lines = array();
+		foreach ($config AS $key => $value)
+		{
+			if (is_array($value))
+			{
+				if (empty($value))
+				{
+					continue;
+				}
+				foreach ($value AS $subKey => $subValue)
+				{
+					$lines[] = '$config[\'' . addcslashes($key, $esc) . '\'][\'' . addcslashes($subKey, $esc) . '\'] = \'' . addcslashes($subValue, $esc) . '\';';
+				}
+				$lines[] = '';
+			}
+			else
+			{
+				$lines[] = '$config[\'' . addcslashes($key, $esc) . '\'] = ' . var_export($value, true) . ';';
+			}
+		}
+
+		// windows line breaks for notepad
+		return "<?php\r\n\r\n"
+			. implode("\r\n", $lines)
+			. "\r\n\r\n" . '$config[\'superAdmins\'] = \'1\';';
+	}
+
+	public function insertDeferredRebuild()
+	{
+		$rebuilds = array(
+
+Byte-identical stock24/original50: upload/library/XenForo/DataWriter.php
+Byte-identical stock24/original50: upload/library/XenForo/DataWriter/Report.php
+Byte-identical stock24/original50: upload/library/XenForo/DataWriter/User.php
+Byte-identical stock24/original50: upload/library/XenForo/Install/Model/Install.php
